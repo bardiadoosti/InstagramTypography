@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>استودیو تایپوگرافی اینستاگرام | Persian & English Text Studio</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Curated Open-Source Persian and English Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Anton&family=Aref+Ruqaa:wght@700&family=Caveat:wght@600&family=Cinzel:wght@600;800&family=Gulzar&family=Inter:wght@300;400;600;800&family=Katibeh&family=Lalezar&family=Lateef:wght@500;700&family=Lemonada:wght@600;800&family=Markazi+Text:wght@500;700&family=Mirza:wght@500;700&family=Montserrat:wght@400;700;900&family=Noto+Kufi+Arabic:wght@400;700;900&family=Noto+Naskh+Arabic:wght@400;700&family=Noto+Sans+Arabic:wght@300;500;700;900&family=Pacifico&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;700;800&family=Rakkas&family=Rubik:ital,wght@0,400;0,700;0,900;1,400&family=Vazirmatn:wght@200;400;600;800;900&family=Zain:wght@400;700;900&display=swap" rel="stylesheet">
+  
+  <!-- CDN Links for Open-Source Persian Fonts (Shabnam, Sahel, Tanha, Samim) -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.6.1/dist/font-face.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/sahel-font@v3.4.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/tanha-font@v0.9.2/dist/font-face.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/samim-font@v4.0.5/dist/font-face.css" rel="stylesheet" type="text/css" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fdf2f8',
+              500: '#ec4899',
+              600: '#db2777',
+              700: '#be185d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(150, 150, 150, 0.4);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(150, 150, 150, 0.6);
+    }
+
+    /* Checkerboard background for transparent canvas visual */
+    .checkerboard {
+      background-color: #1a1a24;
+      background-image: 
+        linear-gradient(45deg, #242433 25%, transparent 25%), 
+        linear-gradient(-45deg, #242433 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #242433 75%), 
+        linear-gradient(-45deg, transparent 75%, #242433 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    }
+
+    /* Range slider custom look */
+    input[type=range] {
+      accent-color: #ec4899;
+    }
+
+    /* Interactive text box highlight animation */
+    .story-text-box {
+      cursor: move;
+      user-select: none;
+      transition: outline 0.15s ease;
+      touch-action: none;
+    }
+    .story-text-box:hover, .story-text-box.active {
+      outline: 2px dashed rgba(236, 72, 153, 0.85);
+      outline-offset: 4px;
+    }
+
+    /* Instagram-style Pill Background */
+    .ig-highlight-solid {
+      background-color: var(--highlight-color, #ffffff);
+      color: var(--text-inverted-color, #000000) !important;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      padding: 0.18em 0.45em;
+      border-radius: 0.35em;
+    }
+    .ig-highlight-semi {
+      background-color: var(--highlight-color-semi, rgba(0, 0, 0, 0.6));
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      padding: 0.18em 0.45em;
+      border-radius: 0.35em;
+    }
+    .ig-highlight-outline {
+      text-shadow: -1.5px -1.5px 0 var(--stroke-color, #000), 
+                    1.5px -1.5px 0 var(--stroke-color, #000), 
+                   -1.5px  1.5px 0 var(--stroke-color, #000), 
+                    1.5px  1.5px 0 var(--stroke-color, #000);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-['Vazirmatn'] select-none overflow-x-hidden">
+
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-40 px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center shadow-lg shadow-rose-500/20">
+        <i data-lucide="type" class="w-5 h-5 text-white"></i>
+      </div>
+      <div>
+        <h1 class="font-black text-lg text-white leading-tight flex items-center gap-2">
+          استودیو فونت اینستاگرام
+          <span class="text-xs font-normal px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">فارسی & English</span>
+        </h1>
+        <p class="text-xs text-slate-400">طراحی متن‌های استوری با پس‌زمینه شفاف یا دلخواه</p>
+      </div>
+    </div>
+
+    <!-- Quick action buttons -->
+    <div class="flex items-center gap-2">
+      <button id="resetPositionBtn" title="مرکز چین کردن متن" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs rounded-lg transition flex items-center gap-1.5 text-slate-200">
+        <i data-lucide="crosshair" class="w-4 h-4"></i>
+        <span class="hidden sm:inline">وسط کادر</span>
+      </button>
+
+      <button id="exportBtn" class="px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-medium text-sm rounded-xl shadow-lg shadow-pink-500/25 active:scale-95 transition flex items-center gap-2">
+        <i data-lucide="download" class="w-4 h-4"></i>
+        <span>دانلود PNG شفاف</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-1 flex flex-col lg:flex-row overflow-hidden">
+    
+    <!-- LEFT / RIGHT (RTL aware): Control sidebar -->
+    <aside class="w-full lg:w-[460px] bg-slate-900 border-l lg:border-l-0 lg:border-r border-slate-800 flex flex-col h-[52vh] lg:h-[calc(100vh-65px)] overflow-y-auto order-2 lg:order-1">
+      
+      <!-- Tabs for Settings -->
+      <div class="p-4 space-y-6">
+
+        <!-- Text Input Section -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-center">
+            <label class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+              <i data-lucide="pen-tool" class="w-3.5 h-3.5 text-rose-400"></i>
+              متن مورد نظر (فارسی یا انگلیسی)
+            </label>
+            <div class="flex gap-1 text-[11px]">
+              <button id="dirRtlBtn" class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/40">راست‌چین RTL</button>
+              <button id="dirLtrBtn" class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 hover:text-white">LTR چپ‌چین</button>
+            </div>
+          </div>
+          <textarea id="textContentInput" rows="3" class="w-full bg-slate-950/70 border border-slate-700 rounded-xl p-3 text-white text-sm focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 transition resize-none leading-relaxed" placeholder="متن خود را اینجا بنویسید...">زیبایی در سادگی است ✨
+Beauty in Simplicity</textarea>
+        </div>
+
+        <!-- Font Selection Group -->
+        <div class="space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+              <i data-lucide="a-arrow-up" class="w-3.5 h-3.5 text-rose-400"></i>
+              انتخاب فونت (Font Family)
+            </label>
+            
+            <!-- Custom Font File Upload Button -->
+            <label for="fontFileInput" class="cursor-pointer px-2.5 py-1 rounded-lg bg-gradient-to-r from-rose-500/20 to-purple-500/20 hover:from-rose-500/30 hover:to-purple-500/30 border border-rose-500/40 text-[11px] font-bold text-rose-300 flex items-center gap-1.5 transition active:scale-95 shadow-sm">
+              <i data-lucide="upload-cloud" class="w-3.5 h-3.5"></i>
+              <span>آپلود فونت دلخواه</span>
+            </label>
+            <input type="file" id="fontFileInput" accept=".ttf,.otf,.woff,.woff2" class="hidden">
+          </div>
+
+          <!-- Quick Tip for downloaded fonts like Cinema from RayganDL -->
+          <div class="p-2.5 rounded-xl bg-slate-950/80 border border-rose-500/20 flex items-start gap-2 text-[11px] text-slate-400">
+            <i data-lucide="sparkles" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
+            <div>
+              <span class="text-slate-200 font-semibold">فایل فونت سینما، دانا یا تیتر را دارید؟</span>
+              روی دکمه «آپلود فونت دلخواه» بزنید و فایل <code class="text-rose-300 bg-rose-950/60 px-1 py-0.5 rounded">.ttf</code> یا <code class="text-rose-300 bg-rose-950/60 px-1 py-0.5 rounded">.otf</code> دانلود شده از رایگان‌دی‌ال را انتخاب کنید تا بلافاصله اعمال شود.
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800" id="fontCategoryTabs">
+            <button id="tabPersianFonts" class="py-1.5 text-xs font-bold rounded-lg bg-rose-600 text-white transition">فونت‌های فارسی</button>
+            <button id="tabCustomFonts" class="py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center gap-1">
+              <span>شخصی</span>
+              <span id="customFontCountBadge" class="bg-rose-500/30 text-rose-300 text-[10px] px-1.5 py-0.2 rounded-full hidden">0</span>
+            </button>
+            <button id="tabEnglishFonts" class="py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition">انگلیسی (Latin)</button>
+          </div>
+
+          <!-- Persian Fonts Dropdown List -->
+          <div id="persianFontContainer" class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+            <!-- Dynamically populated Persian fonts -->
+          </div>
+
+          <!-- User Uploaded Custom Fonts List (hidden by default) -->
+          <div id="customFontContainer" class="space-y-1.5 max-h-48 overflow-y-auto pr-1 hidden">
+            <!-- Dynamically populated user uploaded fonts -->
+          </div>
+
+          <!-- English Fonts Dropdown List (hidden by default) -->
+          <div id="englishFontContainer" class="space-y-1.5 max-h-48 overflow-y-auto pr-1 hidden">
+            <!-- Dynamically populated English fonts -->
+          </div>
+        </div>
+
+        <!-- Typography Controls (Sliders) -->
+        <div class="space-y-4 pt-2 border-t border-slate-800/80">
+          
+          <!-- Font Size & Line Height -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs text-slate-300">
+                <span>اندازه فونت (Size)</span>
+                <span id="fontSizeVal" class="text-rose-400 font-mono">48px</span>
+              </div>
+              <input type="range" id="fontSizeSlider" min="18" max="130" value="48" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs text-slate-300">
+                <span>فاصله سطرها (Line)</span>
+                <span id="lineHeightVal" class="text-rose-400 font-mono">1.4</span>
+              </div>
+              <input type="range" id="lineHeightSlider" min="0.9" max="2.6" step="0.05" value="1.4" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+            </div>
+          </div>
+
+          <!-- Paragraph Max Width & Letter Spacing -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs text-slate-300">
+                <span>عرض کادر (Width)</span>
+                <span id="paragraphWidthVal" class="text-rose-400 font-mono">82%</span>
+              </div>
+              <input type="range" id="paragraphWidthSlider" min="30" max="95" value="82" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs text-slate-300">
+                <span>فاصله حروف (Tracking)</span>
+                <span id="letterSpacingVal" class="text-rose-400 font-mono">0px</span>
+              </div>
+              <input type="range" id="letterSpacingSlider" min="-3" max="12" step="0.5" value="0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+            </div>
+          </div>
+
+          <!-- Alignment & Weight -->
+          <div class="grid grid-cols-2 gap-4 pt-1">
+            <div class="space-y-1.5">
+              <label class="text-xs text-slate-300">چینش متن (Alignment)</label>
+              <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 gap-1">
+                <button data-align="right" class="alignBtn flex-1 py-1 text-xs rounded-lg bg-rose-600 text-white flex justify-center">
+                  <i data-lucide="align-right" class="w-3.5 h-3.5"></i>
+                </button>
+                <button data-align="center" class="alignBtn flex-1 py-1 text-xs rounded-lg text-slate-400 hover:text-white flex justify-center">
+                  <i data-lucide="align-center" class="w-3.5 h-3.5"></i>
+                </button>
+                <button data-align="left" class="alignBtn flex-1 py-1 text-xs rounded-lg text-slate-400 hover:text-white flex justify-center">
+                  <i data-lucide="align-left" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="text-xs text-slate-300">ضخامت قلم (Weight)</label>
+              <select id="fontWeightSelect" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl text-xs py-2 px-2.5 focus:outline-none focus:border-rose-500">
+                <option value="300">نازک (Light 300)</option>
+                <option value="400">معمولی (Regular 400)</option>
+                <option value="600">نیمه ضخیم (SemiBold 600)</option>
+                <option value="700" selected>پررنگ (Bold 700)</option>
+                <option value="900">سیاه (Black 900)</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Instagram Special Highlight Styles -->
+        <div class="space-y-2.5 pt-2 border-t border-slate-800/80">
+          <label class="text-xs font-bold text-slate-300 flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-rose-400"></i>
+              سبک هایلایت اینستاگرام (IG Style)
+            </span>
+          </label>
+          <div class="grid grid-cols-4 gap-2">
+            <button data-ig-style="none" class="igStyleBtn p-2 text-center rounded-xl border border-rose-500 bg-rose-500/10 text-xs font-medium text-white transition">
+              عادی
+            </button>
+            <button data-ig-style="solid" class="igStyleBtn p-2 text-center rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-xs font-medium text-slate-300 transition">
+              <span class="bg-white text-black px-1.5 py-0.5 rounded text-[10px]">کادر دار</span>
+            </button>
+            <button data-ig-style="semi" class="igStyleBtn p-2 text-center rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-xs font-medium text-slate-300 transition">
+              <span class="bg-black/60 text-white px-1.5 py-0.5 rounded text-[10px]">نیمه‌شفاف</span>
+            </button>
+            <button data-ig-style="outline" class="igStyleBtn p-2 text-center rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-xs font-medium text-slate-300 transition">
+              خط دور
+            </button>
+          </div>
+        </div>
+
+        <!-- Color Pickers -->
+        <div class="space-y-3 pt-2 border-t border-slate-800/80">
+          <label class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="palette" class="w-3.5 h-3.5 text-rose-400"></i>
+            تنظیم رنگ متن و هایلایت
+          </label>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between">
+              <span class="text-xs text-slate-300">رنگ متن</span>
+              <div class="flex items-center gap-2">
+                <input type="color" id="textColorPicker" value="#ffffff" class="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0">
+              </div>
+            </div>
+
+            <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between">
+              <span class="text-xs text-slate-300">رنگ کادر / خط</span>
+              <div class="flex items-center gap-2">
+                <input type="color" id="highlightColorPicker" value="#ffffff" class="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0">
+              </div>
+            </div>
+          </div>
+
+          <!-- Color Presets -->
+          <div class="flex items-center justify-between gap-1 pt-1">
+            <button class="colorPresetBtn w-6 h-6 rounded-full bg-white border border-slate-600" data-color="#ffffff"></button>
+            <button class="colorPresetBtn w-6 h-6 rounded-full bg-black border border-slate-600" data-color="#000000"></button>
+            <button class="colorPresetBtn w-6 h-6 rounded-full bg-amber-400" data-color="#facc15"></button>
+            <button class="colorPresetBtn w-6 h-6 rounded-full bg-rose-500" data-color="#f43f5e"></button>
+            <button class="colorPresetBtn w-6 h-6 rounded-full bg-violet-500" data-color="#8b5cf6"></button>
+            <button class="colorPresetBtn w-6 h-6 rounded-full bg-emerald-400" data-color="#34d399"></button>
+            <button class="colorPresetBtn w-6 h-6 rounded-full bg-sky-400" data-color="#38bdf8"></button>
+            <button class="colorPresetBtn w-6 h-6 rounded-full bg-gradient-to-tr from-amber-400 to-rose-500 border border-slate-500" data-color="#f43f5e" title="اینستاگرام"></button>
+          </div>
+        </div>
+
+        <!-- Canvas Background Mode (For preview and export) -->
+        <div class="space-y-2 pt-2 border-t border-slate-800/80">
+          <label class="text-xs font-bold text-slate-300 flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <i data-lucide="layers" class="w-3.5 h-3.5 text-rose-400"></i>
+              نوع پس‌زمینه خروجی
+            </span>
+          </label>
+          <div class="grid grid-cols-3 gap-2">
+            <button id="bgTransparentBtn" class="bgOptBtn p-2 text-center rounded-xl border border-rose-500 bg-rose-500/10 text-xs font-medium text-white transition">
+              شفاف (خام)
+            </button>
+            <button id="bgDarkBtn" class="bgOptBtn p-2 text-center rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-xs font-medium text-slate-400 transition">
+              تیره (Dark)
+            </button>
+            <button id="bgCustomBtn" class="bgOptBtn p-2 text-center rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-xs font-medium text-slate-400 transition">
+              رنگ دلخواه
+            </button>
+          </div>
+          <div id="customBgColorWrapper" class="hidden pt-1">
+            <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between">
+              <span class="text-xs text-slate-300">رنگ پس‌زمینه دلخواه</span>
+              <input type="color" id="canvasBgColorPicker" value="#111827" class="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- CENTER: Instagram Vertical Screen Canvas (9:16) -->
+    <section class="flex-1 bg-slate-950 flex flex-col items-center justify-center p-4 lg:p-6 overflow-hidden order-1 lg:order-2 relative">
+      
+      <!-- Canvas Information bar -->
+      <div class="mb-2 text-xs text-slate-400 flex items-center gap-4">
+        <span class="flex items-center gap-1">
+          <i data-lucide="smartphone" class="w-3.5 h-3.5 text-rose-400"></i>
+          نسبت ۹:۱۶ عمودی (Instagram Story / Reels)
+        </span>
+        <span class="text-slate-600">|</span>
+        <span class="text-slate-400 flex items-center gap-1">
+          <i data-lucide="move" class="w-3.5 h-3.5"></i>
+          متن را در کادر بکشید و جابه‌جا کنید
+        </span>
+      </div>
+
+      <!-- The Preview Box Container with phone ratio (1080x1920 scale-down simulation) -->
+      <div id="storyViewport" class="relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[400px] aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-800/80 checkerboard flex items-center justify-center">
+        
+        <!-- Instagram Story UI Elements Overlay (Simulation) -->
+        <div class="absolute inset-x-0 top-0 p-4 z-20 pointer-events-none flex justify-between items-center opacity-40">
+          <div class="h-1 bg-white/40 rounded-full flex-1 mx-1"></div>
+          <div class="h-1 bg-white/20 rounded-full flex-1 mx-1"></div>
+        </div>
+        <div class="absolute top-6 left-4 z-20 pointer-events-none flex items-center gap-2 opacity-50">
+          <div class="w-6 h-6 rounded-full bg-white/30 border border-white/40"></div>
+          <span class="text-[11px] font-sans text-white drop-shadow">your_story</span>
+        </div>
+
+        <!-- Draggable Story Text Node -->
+        <div id="storyTextBox" class="storyTextNode active absolute" style="top: 45%; left: 50%; transform: translate(-50%, -50%); width: 82%;">
+          <div id="renderedTextDisplay" class="transition-all" style="font-family: 'Vazirmatn'; font-size: 28px; line-height: 1.4; color: #ffffff; text-align: right; direction: rtl; word-break: break-word; white-space: pre-wrap; font-weight: 700;">زیبایی در سادگی است ✨
+Beauty in Simplicity</div>
+        </div>
+
+      </div>
+
+      <!-- Notification Toast -->
+      <div id="statusToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900/95 border border-rose-500/50 text-rose-300 text-xs px-4 py-2.5 rounded-xl shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-2">
+        <i data-lucide="check-circle-2" class="w-4 h-4 text-rose-400"></i>
+        <span id="toastMessage">فایل PNG با موفقیت آماده دانلود شد.</span>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    /* -------------------------------------------------------------
+       1. Font Catalog Definitions (Open Source Persian & English)
+    ------------------------------------------------------------- */
+    const PERSIAN_FONTS = [
+      { name: "لاله‌زار (Lalezar - تیتر و سینمایی)", family: "'Lalezar', cursive", badge: "سینمایی / پوستر", sample: "هنر سینما و تئاتر" },
+      { name: "شبنم بولد (Shabnam Bold)", family: "'Shabnam', sans-serif", badge: "محبوب و پررنگ", sample: "تایپوگرافی ویژه استوری" },
+      { name: "ساحل سیاه (Sahel Black)", family: "'Sahel', sans-serif", badge: "خیلی ضخیم", sample: "جذاب و اثرگذار" },
+      { name: "رقاص (Rakkas - پرقدرت)", family: "'Rakkas', cursive", badge: "تیتر سینمایی", sample: "تیتر پوستر سینما" },
+      { name: "وزیرمتن (Vazirmatn)", family: "'Vazirmatn', sans-serif", badge: "مدرن و استاندارد", sample: "ساده و چشم‌نواز" },
+      { name: "نوتو کوفی (Noto Kufi)", family: "'Noto Kufi Arabic', sans-serif", badge: "هندسی مدرن", sample: "طراحی مینیمال" },
+      { name: "صمیم (Samim)", family: "'Samim', sans-serif", badge: "صمیمی و نرم", sample: "روان و تمیز" },
+      { name: "تنها (Tanha)", family: "'Tanha', sans-serif", badge: "ساده و خوانا", sample: "داستان‌های کوتاه" },
+      { name: "لمونادا (Lemonada - فانتزی)", family: "'Lemonada', cursive", badge: "فانتزی / ضخیم", sample: "شاد و دوستانه" },
+      { name: "عارف رقعة (Aref Ruqaa)", family: "'Aref Ruqaa', serif", badge: "خوشنویسی تیتر", sample: "کلاسیک و با وقار" },
+      { name: "نوتو نسخ (Noto Naskh)", family: "'Noto Naskh Arabic', serif", badge: "کلاسیک", sample: "ادبی و رسمی" },
+      { name: "نوتو سنس عربی", family: "'Noto Sans Arabic', sans-serif", badge: "خوانایی بالا", sample: "متن‌های طولانی" },
+      { name: "مرکزی تکست (Markazi)", family: "'Markazi Text', serif", badge: "مطبوعاتی", sample: "حس نوستالژیک فیلم" },
+      { name: "امیری (Amiri)", family: "'Amiri', serif", badge: "اصیل و شرقی", sample: "خط نسخ باوقار" },
+      { name: "کتیبه (Katibeh)", family: "'Katibeh', cursive", badge: "کتابت کهن", sample: "تاریخی و خاص" },
+      { name: "روبیک (Rubik Arabic)", family: "'Rubik', sans-serif", badge: "گرد و نرم", sample: "طراحی پویا" },
+      { name: "زین (Zain)", family: "'Zain', sans-serif", badge: "مدرن", sample: "متن استوری خلاق" },
+      { name: "لطیف (Lateef)", family: "'Lateef', cursive", badge: "روان و کشیده", sample: "خوشنویسی ملایم" },
+      { name: "میرزا (Mirza)", family: "'Mirza', cursive", badge: "فانتزی", sample: "خاص و شاعرانه" },
+      { name: "گلزار (Gulzar)", family: "'Gulzar', serif", badge: "نستعلیق گونه", sample: "هنر خطاطی ایرانی" },
+    ];
+
+    // User-uploaded fonts storage
+    const CUSTOM_FONTS = [];
+
+    const ENGLISH_FONTS = [
+      { name: "Anton (Cinema & Poster Impact)", family: "'Anton', sans-serif", badge: "Bold Headline", sample: "CINEMA MOVIE TITLES" },
+      { name: "Cinzel (Cinematic Serif)", family: "'Cinzel', serif", badge: "Film Noir / Epic", sample: "EPIC MOVIE STORY" },
+      { name: "Plus Jakarta Sans", family: "'Plus Jakarta Sans', sans-serif", badge: "Modern UI", sample: "Clean & Sharp" },
+      { name: "Playfair Display", family: "'Playfair Display', serif", badge: "Editorial Luxury", sample: "Vogue Aesthetic" },
+      { name: "Pacifico", family: "'Pacifico', cursive", badge: "Handwriting", sample: "Vibrant Summer" },
+      { name: "Montserrat", family: "'Montserrat', sans-serif", badge: "Geometric", sample: "Clean Modern" },
+      { name: "Caveat", family: "'Caveat', cursive", badge: "Casual Note", sample: "Authentic Story" },
+      { name: "Inter", family: "'Inter', sans-serif", badge: "Neutral Standard", sample: "Clear legibility" }
+    ];
+
+    /* -------------------------------------------------------------
+       2. Application State
+    ------------------------------------------------------------- */
+    const state = {
+      text: "زیبایی در سادگی است ✨\nBeauty in Simplicity",
+      fontFamily: "'Vazirmatn', sans-serif",
+      fontName: "Vazirmatn",
+      fontSize: 48,
+      lineHeight: 1.4,
+      fontWeight: '700',
+      textAlign: 'right',
+      direction: 'rtl',
+      paragraphWidthPercent: 82,
+      letterSpacing: 0,
+      textColor: '#ffffff',
+      highlightColor: '#ffffff',
+      igStyle: 'none', // 'none' | 'solid' | 'semi' | 'outline'
+      backgroundMode: 'transparent', // 'transparent' | 'dark' | 'custom'
+      customBgColor: '#111827',
+      // Text position on 9:16 Canvas (percentage 0 to 100)
+      positionX: 50,
+      positionY: 45
+    };
+
+    /* -------------------------------------------------------------
+       3. DOM Elements
+    ------------------------------------------------------------- */
+    const textContentInput = document.getElementById('textContentInput');
+    const renderedTextDisplay = document.getElementById('renderedTextDisplay');
+    const storyTextBox = document.getElementById('storyTextBox');
+    const storyViewport = document.getElementById('storyViewport');
+
+    const fontSizeSlider = document.getElementById('fontSizeSlider');
+    const fontSizeVal = document.getElementById('fontSizeVal');
+    const lineHeightSlider = document.getElementById('lineHeightSlider');
+    const lineHeightVal = document.getElementById('lineHeightVal');
+    const paragraphWidthSlider = document.getElementById('paragraphWidthSlider');
+    const paragraphWidthVal = document.getElementById('paragraphWidthVal');
+    const letterSpacingSlider = document.getElementById('letterSpacingSlider');
+    const letterSpacingVal = document.getElementById('letterSpacingVal');
+    const fontWeightSelect = document.getElementById('fontWeightSelect');
+
+    const textColorPicker = document.getElementById('textColorPicker');
+    const highlightColorPicker = document.getElementById('highlightColorPicker');
+    const canvasBgColorPicker = document.getElementById('canvasBgColorPicker');
+    const customBgColorWrapper = document.getElementById('customBgColorWrapper');
+
+    const dirRtlBtn = document.getElementById('dirRtlBtn');
+    const dirLtrBtn = document.getElementById('dirLtrBtn');
+    const alignButtons = document.querySelectorAll('.alignBtn');
+    const igStyleButtons = document.querySelectorAll('.igStyleBtn');
+    const colorPresetBtns = document.querySelectorAll('.colorPresetBtn');
+    const bgOptBtns = document.querySelectorAll('.bgOptBtn');
+    const resetPositionBtn = document.getElementById('resetPositionBtn');
+    const exportBtn = document.getElementById('exportBtn');
+    const statusToast = document.getElementById('statusToast');
+    const toastMessage = document.getElementById('toastMessage');
+
+    const persianFontContainer = document.getElementById('persianFontContainer');
+    const customFontContainer = document.getElementById('customFontContainer');
+    const englishFontContainer = document.getElementById('englishFontContainer');
+    const tabPersianFonts = document.getElementById('tabPersianFonts');
+    const tabCustomFonts = document.getElementById('tabCustomFonts');
+    const tabEnglishFonts = document.getElementById('tabEnglishFonts');
+    const fontFileInput = document.getElementById('fontFileInput');
+    const customFontCountBadge = document.getElementById('customFontCountBadge');
+
+    /* -------------------------------------------------------------
+       4. Render Font Selector Cards & Custom Font Loader
+    ------------------------------------------------------------- */
+    function populateFontList(container, fontList, isPersian) {
+      container.innerHTML = '';
+      if (fontList.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-6 px-3 text-slate-500 text-xs border border-dashed border-slate-800 rounded-xl">
+            هنوز فونت دلخواهی آپلود نکرده‌اید.<br>
+            فایل فونت سینما یا هر فونت دیگر را از دکمه بالا انتخاب کنید.
+          </div>
+        `;
+        return;
+      }
+
+      fontList.forEach(font => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between font-item-btn ${
+          state.fontFamily === font.family 
+            ? 'bg-rose-500/15 border-rose-500 text-rose-300' 
+            : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700 hover:bg-slate-950'
+        }`;
+        
+        btn.innerHTML = `
+          <div class="flex flex-col overflow-hidden">
+            <span class="text-xs font-bold leading-tight truncate" style="font-family: ${font.family};">${font.name}</span>
+            <span class="text-[11px] opacity-70 mt-0.5 truncate" style="font-family: ${font.family};">${font.sample || 'نمونه متن پیش‌نمایش'}</span>
+          </div>
+          <span class="text-[10px] px-2 py-0.5 rounded-md bg-slate-800 text-slate-400 font-sans shrink-0">${font.badge || 'فونت'}</span>
+        `;
+
+        btn.addEventListener('click', () => {
+          state.fontFamily = font.family;
+          state.fontName = font.name;
+          document.querySelectorAll('.font-item-btn').forEach(b => {
+            b.classList.remove('bg-rose-500/15', 'border-rose-500', 'text-rose-300');
+            b.classList.add('border-slate-800', 'text-slate-300');
+          });
+          btn.classList.add('bg-rose-500/15', 'border-rose-500', 'text-rose-300');
+          btn.classList.remove('border-slate-800', 'text-slate-300');
+          applyStyles();
+        });
+
+        container.appendChild(btn);
+      });
+    }
+
+    populateFontList(persianFontContainer, PERSIAN_FONTS, true);
+    populateFontList(customFontContainer, CUSTOM_FONTS, true);
+    populateFontList(englishFontContainer, ENGLISH_FONTS, false);
+
+    // Font category tabs toggle
+    function switchFontTab(activeTab) {
+      tabPersianFonts.className = 'py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition';
+      tabCustomFonts.className = 'py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center gap-1';
+      tabEnglishFonts.className = 'py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition';
+      
+      persianFontContainer.classList.add('hidden');
+      customFontContainer.classList.add('hidden');
+      englishFontContainer.classList.add('hidden');
+
+      if (activeTab === 'persian') {
+        tabPersianFonts.className = 'py-1.5 text-xs font-bold rounded-lg bg-rose-600 text-white transition';
+        persianFontContainer.classList.remove('hidden');
+      } else if (activeTab === 'custom') {
+        tabCustomFonts.className = 'py-1.5 text-xs font-bold rounded-lg bg-rose-600 text-white transition flex items-center justify-center gap-1';
+        customFontContainer.classList.remove('hidden');
+      } else if (activeTab === 'english') {
+        tabEnglishFonts.className = 'py-1.5 text-xs font-bold rounded-lg bg-rose-600 text-white transition';
+        englishFontContainer.classList.remove('hidden');
+      }
+    }
+
+    tabPersianFonts.addEventListener('click', () => switchFontTab('persian'));
+    tabCustomFonts.addEventListener('click', () => switchFontTab('custom'));
+    tabEnglishFonts.addEventListener('click', () => switchFontTab('english'));
+
+    /* -------------------------------------------------------------
+       Custom Font File Loader (.ttf, .otf, .woff, .woff2)
+    ------------------------------------------------------------- */
+    fontFileInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const rawName = file.name.replace(/\.[^/.]+$/, "");
+      const cleanFontFamily = `CustomFont_${Date.now()}`;
+      const displayName = rawName.length > 22 ? rawName.slice(0, 20) + '...' : rawName;
+
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const fontFace = new FontFace(cleanFontFamily, arrayBuffer);
+        const loadedFont = await fontFace.load();
+        document.fonts.add(loadedFont);
+
+        const newFontObj = {
+          name: `فونت ${displayName}`,
+          family: cleanFontFamily,
+          badge: 'آپلود شده',
+          sample: 'تست متن با فونت سفارشی'
+        };
+
+        CUSTOM_FONTS.unshift(newFontObj);
+        
+        // Update badge count
+        customFontCountBadge.textContent = CUSTOM_FONTS.length;
+        customFontCountBadge.classList.remove('hidden');
+
+        // Select the newly loaded font immediately
+        state.fontFamily = cleanFontFamily;
+        state.fontName = displayName;
+
+        // Switch to custom fonts tab
+        populateFontList(customFontContainer, CUSTOM_FONTS, true);
+        switchFontTab('custom');
+        applyStyles();
+
+        showToast(`فونت «${displayName}» با موفقیت افزوده و فعال شد ✨`);
+      } catch (err) {
+        console.error('Font load error:', err);
+        showToast('خطا در بارگذاری فایل فونت! لطفاً فایل سالم .ttf یا .otf بارگذاری نمایید.');
+      } finally {
+        fontFileInput.value = '';
+      }
+    });
+
+    /* -------------------------------------------------------------
+       5. Update Visual Text in Preview
+    ------------------------------------------------------------- */
+    function applyStyles() {
+      // 1. Text content
+      renderedTextDisplay.innerText = state.text;
+      renderedTextDisplay.style.direction = state.direction;
+      renderedTextDisplay.style.textAlign = state.textAlign;
+      renderedTextDisplay.style.fontFamily = state.fontFamily;
+      renderedTextDisplay.style.fontWeight = state.fontWeight;
+      renderedTextDisplay.style.lineHeight = state.lineHeight;
+      renderedTextDisplay.style.letterSpacing = `${state.letterSpacing}px`;
+
+      // Responsive font scale in preview box relative to 1080p full resolution
+      // Standard story preview box is around 380px wide (~ 380/1080 = ~0.352 scale)
+      const previewBoxWidth = storyViewport.clientWidth || 380;
+      const previewScale = previewBoxWidth / 1080;
+      const simulatedSize = Math.max(12, Math.round(state.fontSize * previewScale * 2.8));
+      renderedTextDisplay.style.fontSize = `${simulatedSize}px`;
+
+      // 2. Paragraph Width
+      storyTextBox.style.width = `${state.paragraphWidthPercent}%`;
+
+      // 3. Position
+      storyTextBox.style.left = `${state.positionX}%`;
+      storyTextBox.style.top = `${state.positionY}%`;
+
+      // 4. IG Highlight Styles & Colors
+      renderedTextDisplay.className = 'transition-all';
+      renderedTextDisplay.style.removeProperty('--highlight-color');
+      renderedTextDisplay.style.removeProperty('--highlight-color-semi');
+      renderedTextDisplay.style.removeProperty('--text-inverted-color');
+      renderedTextDisplay.style.removeProperty('--stroke-color');
+      renderedTextDisplay.style.color = state.textColor;
+
+      if (state.igStyle === 'solid') {
+        renderedTextDisplay.classList.add('ig-highlight-solid');
+        renderedTextDisplay.style.setProperty('--highlight-color', state.highlightColor);
+        
+        // Auto invert text color contrast if text color wasn't manually altered
+        const isWhiteHighlight = state.highlightColor.toLowerCase() === '#ffffff';
+        renderedTextDisplay.style.setProperty('--text-inverted-color', isWhiteHighlight ? '#000000' : state.textColor);
+      } else if (state.igStyle === 'semi') {
+        renderedTextDisplay.classList.add('ig-highlight-semi');
+        const hex = state.highlightColor.replace('#', '');
+        const r = parseInt(hex.substring(0, 2), 16) || 0;
+        const g = parseInt(hex.substring(2, 4), 16) || 0;
+        const b = parseInt(hex.substring(4, 6), 16) || 0;
+        renderedTextDisplay.style.setProperty('--highlight-color-semi', `rgba(${r}, ${g}, ${b}, 0.72)`);
+      } else if (state.igStyle === 'outline') {
+        renderedTextDisplay.classList.add('ig-highlight-outline');
+        renderedTextDisplay.style.setProperty('--stroke-color', state.highlightColor);
+      }
+
+      // 5. Canvas Background Mode
+      if (state.backgroundMode === 'transparent') {
+        storyViewport.className = 'relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[400px] aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-800/80 checkerboard flex items-center justify-center';
+        storyViewport.style.backgroundColor = '';
+      } else if (state.backgroundMode === 'dark') {
+        storyViewport.className = 'relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[400px] aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-800/80 flex items-center justify-center';
+        storyViewport.style.backgroundColor = '#0b0f19';
+      } else if (state.backgroundMode === 'custom') {
+        storyViewport.className = 'relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[400px] aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-800/80 flex items-center justify-center';
+        storyViewport.style.backgroundColor = state.customBgColor;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       6. Event Handlers
+    ------------------------------------------------------------- */
+    textContentInput.addEventListener('input', (e) => {
+      state.text = e.target.value;
+      applyStyles();
+    });
+
+    // Direction switches
+    dirRtlBtn.addEventListener('click', () => {
+      state.direction = 'rtl';
+      state.textAlign = 'right';
+      dirRtlBtn.className = 'px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/40';
+      dirLtrBtn.className = 'px-2 py-0.5 rounded bg-slate-800 text-slate-400 hover:text-white';
+      updateAlignButtons();
+      applyStyles();
+    });
+
+    dirLtrBtn.addEventListener('click', () => {
+      state.direction = 'ltr';
+      state.textAlign = 'left';
+      dirLtrBtn.className = 'px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/40';
+      dirRtlBtn.className = 'px-2 py-0.5 rounded bg-slate-800 text-slate-400 hover:text-white';
+      updateAlignButtons();
+      applyStyles();
+    });
+
+    function updateAlignButtons() {
+      alignButtons.forEach(btn => {
+        if (btn.dataset.align === state.textAlign) {
+          btn.className = 'alignBtn flex-1 py-1 text-xs rounded-lg bg-rose-600 text-white flex justify-center';
+        } else {
+          btn.className = 'alignBtn flex-1 py-1 text-xs rounded-lg text-slate-400 hover:text-white flex justify-center';
+        }
+      });
+    }
+
+    alignButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.textAlign = btn.dataset.align;
+        updateAlignButtons();
+        applyStyles();
+      });
+    });
+
+    fontSizeSlider.addEventListener('input', (e) => {
+      state.fontSize = parseInt(e.target.value);
+      fontSizeVal.textContent = `${state.fontSize}px`;
+      applyStyles();
+    });
+
+    lineHeightSlider.addEventListener('input', (e) => {
+      state.lineHeight = parseFloat(e.target.value);
+      lineHeightVal.textContent = state.lineHeight;
+      applyStyles();
+    });
+
+    paragraphWidthSlider.addEventListener('input', (e) => {
+      state.paragraphWidthPercent = parseInt(e.target.value);
+      paragraphWidthVal.textContent = `${state.paragraphWidthPercent}%`;
+      applyStyles();
+    });
+
+    letterSpacingSlider.addEventListener('input', (e) => {
+      state.letterSpacing = parseFloat(e.target.value);
+      letterSpacingVal.textContent = `${state.letterSpacing}px`;
+      applyStyles();
+    });
+
+    fontWeightSelect.addEventListener('change', (e) => {
+      state.fontWeight = e.target.value;
+      applyStyles();
+    });
+
+    // Style Mode
+    igStyleButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.igStyle = btn.dataset.igStyle;
+        igStyleButtons.forEach(b => {
+          b.classList.remove('border-rose-500', 'bg-rose-500/10', 'text-white');
+          b.classList.add('border-slate-800', 'bg-slate-950', 'text-slate-300');
+        });
+        btn.classList.add('border-rose-500', 'bg-rose-500/10', 'text-white');
+        btn.classList.remove('border-slate-800', 'bg-slate-950', 'text-slate-300');
+        applyStyles();
+      });
+    });
+
+    // Colors
+    textColorPicker.addEventListener('input', (e) => {
+      state.textColor = e.target.value;
+      applyStyles();
+    });
+
+    highlightColorPicker.addEventListener('input', (e) => {
+      state.highlightColor = e.target.value;
+      applyStyles();
+    });
+
+    canvasBgColorPicker.addEventListener('input', (e) => {
+      state.customBgColor = e.target.value;
+      applyStyles();
+    });
+
+    colorPresetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.textColor = btn.dataset.color;
+        textColorPicker.value = btn.dataset.color;
+        applyStyles();
+      });
+    });
+
+    // Background Mode Buttons
+    document.getElementById('bgTransparentBtn').addEventListener('click', () => {
+      state.backgroundMode = 'transparent';
+      customBgColorWrapper.classList.add('hidden');
+      updateBgButtons('bgTransparentBtn');
+      applyStyles();
+    });
+
+    document.getElementById('bgDarkBtn').addEventListener('click', () => {
+      state.backgroundMode = 'dark';
+      customBgColorWrapper.classList.add('hidden');
+      updateBgButtons('bgDarkBtn');
+      applyStyles();
+    });
+
+    document.getElementById('bgCustomBtn').addEventListener('click', () => {
+      state.backgroundMode = 'custom';
+      customBgColorWrapper.classList.remove('hidden');
+      updateBgButtons('bgCustomBtn');
+      applyStyles();
+    });
+
+    function updateBgButtons(activeId) {
+      bgOptBtns.forEach(btn => {
+        if (btn.id === activeId) {
+          btn.className = 'bgOptBtn p-2 text-center rounded-xl border border-rose-500 bg-rose-500/10 text-xs font-medium text-white transition';
+        } else {
+          btn.className = 'bgOptBtn p-2 text-center rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-xs font-medium text-slate-400 transition';
+        }
+      });
+    }
+
+    resetPositionBtn.addEventListener('click', () => {
+      state.positionX = 50;
+      state.positionY = 50;
+      applyStyles();
+      showToast('موقعیت متن به مرکز بازگردانده شد');
+    });
+
+    /* -------------------------------------------------------------
+       7. Drag & Drop Text positioning on Canvas
+    ------------------------------------------------------------- */
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let initialPosX = 50;
+    let initialPosY = 50;
+
+    function startDrag(e) {
+      isDragging = true;
+      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      dragStartX = clientX;
+      dragStartY = clientY;
+      initialPosX = state.positionX;
+      initialPosY = state.positionY;
+      storyTextBox.classList.add('active');
+    }
+
+    function doDrag(e) {
+      if (!isDragging) return;
+      e.preventDefault();
+      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+      const rect = storyViewport.getBoundingClientRect();
+      const deltaX = ((clientX - dragStartX) / rect.width) * 100;
+      const deltaY = ((clientY - dragStartY) / rect.height) * 100;
+
+      let newX = initialPosX + deltaX;
+      let newY = initialPosY + deltaY;
+
+      // Keep within bounds
+      newX = Math.max(10, Math.min(90, newX));
+      newY = Math.max(10, Math.min(90, newY));
+
+      state.positionX = newX;
+      state.positionY = newY;
+      storyTextBox.style.left = `${newX}%`;
+      storyTextBox.style.top = `${newY}%`;
+    }
+
+    function stopDrag() {
+      if (isDragging) {
+        isDragging = false;
+        storyTextBox.classList.remove('active');
+      }
+    }
+
+    storyTextBox.addEventListener('mousedown', startDrag);
+    window.addEventListener('mousemove', doDrag);
+    window.addEventListener('mouseup', stopDrag);
+
+    storyTextBox.addEventListener('touchstart', startDrag, { passive: false });
+    window.addEventListener('touchmove', doDrag, { passive: false });
+    window.addEventListener('touchend', stopDrag);
+
+    // Responsive Canvas Resize Observer
+    window.addEventListener('resize', applyStyles);
+
+    function showToast(msg) {
+      toastMessage.textContent = msg;
+      statusToast.classList.remove('opacity-0', 'pointer-events-none');
+      statusToast.classList.add('opacity-100');
+      setTimeout(() => {
+        statusToast.classList.remove('opacity-100');
+        statusToast.classList.add('opacity-0', 'pointer-events-none');
+      }, 3000);
+    }
+
+    /* -------------------------------------------------------------
+       8. High-Res Canvas 1080x1920 PNG Generator
+    ------------------------------------------------------------- */
+    async function exportPNG() {
+      exportBtn.disabled = true;
+      exportBtn.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+        </svg>
+        <span>در حال پردازش...</span>
+      `;
+
+      try {
+        // Ensure web fonts are completely loaded
+        await document.fonts.ready;
+
+        // Instagram standard story resolution: 1080 x 1920 px
+        const exportWidth = 1080;
+        const exportHeight = 1920;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = exportWidth;
+        canvas.height = exportHeight;
+        const ctx = canvas.getContext('2d');
+
+        // Draw background if specified
+        if (state.backgroundMode === 'dark') {
+          ctx.fillStyle = '#0b0f19';
+          ctx.fillRect(0, 0, exportWidth, exportHeight);
+        } else if (state.backgroundMode === 'custom') {
+          ctx.fillStyle = state.customBgColor;
+          ctx.fillRect(0, 0, exportWidth, exportHeight);
+        } else {
+          // Transparent: do not fill any rect, canvas is transparent by default
+          ctx.clearRect(0, 0, exportWidth, exportHeight);
+        }
+
+        // Configure typography metrics
+        // Standard typography scale for 1080 width
+        const fontSizePx = state.fontSize * 1.7; // Crisp resolution scale
+        const lineHeightPx = fontSizePx * state.lineHeight;
+        
+        ctx.font = `${state.fontWeight} ${fontSizePx}px ${state.fontFamily}`;
+        ctx.direction = state.direction;
+        ctx.textBaseline = 'middle';
+
+        // Compute paragraph bounds
+        const maxParagraphWidth = (state.paragraphWidthPercent / 100) * exportWidth;
+        const centerX = (state.positionX / 100) * exportWidth;
+        const centerY = (state.positionY / 100) * exportHeight;
+
+        // Break multi-line text into wrapped lines
+        const rawLines = state.text.split('\n');
+        const wrappedLines = [];
+
+        for (const rawLine of rawLines) {
+          if (!rawLine.trim()) {
+            wrappedLines.push('');
+            continue;
+          }
+          const words = rawLine.split(' ');
+          let currentLine = '';
+
+          for (let i = 0; i < words.length; i++) {
+            const testLine = currentLine ? `${currentLine} ${words[i]}` : words[i];
+            const metrics = ctx.measureText(testLine);
+            if (metrics.width > maxParagraphWidth && i > 0) {
+              wrappedLines.push(currentLine);
+              currentLine = words[i];
+            } else {
+              currentLine = testLine;
+            }
+          }
+          if (currentLine) {
+            wrappedLines.push(currentLine);
+          }
+        }
+
+        const totalBlockHeight = wrappedLines.length * lineHeightPx;
+        let startY = centerY - (totalBlockHeight / 2) + (lineHeightPx / 2);
+
+        // Draw each line with Instagram styles
+        wrappedLines.forEach((line) => {
+          if (!line) {
+            startY += lineHeightPx;
+            return;
+          }
+
+          const lineMetrics = ctx.measureText(line);
+          const lineWidth = lineMetrics.width;
+
+          // Compute horizontal alignment anchor
+          let lineStartX = centerX;
+          if (state.textAlign === 'right') {
+            lineStartX = centerX + (maxParagraphWidth / 2);
+            ctx.textAlign = 'right';
+          } else if (state.textAlign === 'left') {
+            lineStartX = centerX - (maxParagraphWidth / 2);
+            ctx.textAlign = 'left';
+          } else {
+            lineStartX = centerX;
+            ctx.textAlign = 'center';
+          }
+
+          // Handle Highlight Styles (Instagram Pill Box / Semi / Outline)
+          if (state.igStyle === 'solid' || state.igStyle === 'semi') {
+            ctx.save();
+            const paddingX = fontSizePx * 0.35;
+            const boxH = fontSizePx * 1.35;
+            const boxY = startY - (boxH / 2);
+            let boxX = lineStartX;
+
+            if (state.textAlign === 'center') {
+              boxX = lineStartX - (lineWidth / 2) - paddingX;
+            } else if (state.textAlign === 'right') {
+              boxX = lineStartX - lineWidth - paddingX;
+            } else {
+              boxX = lineStartX - paddingX;
+            }
+
+            const boxW = lineWidth + (paddingX * 2);
+            const cornerRadius = 14;
+
+            // Draw rounded pill
+            ctx.beginPath();
+            ctx.roundRect(boxX, boxY, boxW, boxH, cornerRadius);
+
+            if (state.igStyle === 'solid') {
+              ctx.fillStyle = state.highlightColor;
+            } else {
+              const hex = state.highlightColor.replace('#', '');
+              const r = parseInt(hex.substring(0, 2), 16) || 0;
+              const g = parseInt(hex.substring(2, 4), 16) || 0;
+              const b = parseInt(hex.substring(4, 6), 16) || 0;
+              ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.75)`;
+            }
+            ctx.fill();
+            ctx.restore();
+          }
+
+          // Text Drawing
+          ctx.save();
+          if (state.igStyle === 'outline') {
+            ctx.strokeStyle = state.highlightColor;
+            ctx.lineWidth = Math.max(3, fontSizePx * 0.08);
+            ctx.strokeText(line, lineStartX, startY);
+          }
+
+          // Set text fill color
+          if (state.igStyle === 'solid') {
+            const isWhiteHighlight = state.highlightColor.toLowerCase() === '#ffffff';
+            ctx.fillStyle = isWhiteHighlight ? '#000000' : state.textColor;
+          } else {
+            ctx.fillStyle = state.textColor;
+          }
+
+          ctx.fillText(line, lineStartX, startY);
+          ctx.restore();
+
+          startY += lineHeightPx;
+        });
+
+        // Convert to PNG download
+        const dataUrl = canvas.toDataURL('image/png');
+        const downloadLink = document.createElement('a');
+        downloadLink.download = `instagram-typography-${Date.now()}.png`;
+        downloadLink.href = dataUrl;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+
+        showToast('فایل PNG شفاف با کیفیت 1080x1920 دانلود شد 🎉');
+      } catch (err) {
+        console.error('Export error:', err);
+        showToast('خطا در ایجاد خروجی! لطفاً دوباره امتحان کنید.');
+      } finally {
+        exportBtn.disabled = false;
+        exportBtn.innerHTML = `
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>دانلود PNG شفاف</span>
+        `;
+        lucide.createIcons();
+      }
+    }
+
+    exportBtn.addEventListener('click', exportPNG);
+
+    // Initial render
+    applyStyles();
+  </script>
+</body>
+</html>
