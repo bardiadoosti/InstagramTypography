@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>استودیو تایپوگرافی اینستاگرام | Persian & English Text Studio</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -20,51 +20,33 @@
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/tanha-font@v0.9.2/dist/font-face.css" rel="stylesheet" type="text/css" />
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/samim-font@v4.0.5/dist/font-face.css" rel="stylesheet" type="text/css" />
 
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#fdf2f8',
-              500: '#ec4899',
-              600: '#db2777',
-              700: '#be185d',
-            }
-          }
-        }
-      }
-    }
-  </script>
-
   <style>
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
     }
     ::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.05);
+      background: rgba(0, 0, 0, 0.1);
     }
     ::-webkit-scrollbar-thumb {
-      background: rgba(150, 150, 150, 0.4);
+      background: rgba(140, 140, 150, 0.4);
       border-radius: 4px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(150, 150, 150, 0.6);
+      background: rgba(140, 140, 150, 0.6);
     }
 
     /* Checkerboard background for transparent canvas visual */
     .checkerboard {
-      background-color: #1a1a24;
+      background-color: #13141f;
       background-image: 
-        linear-gradient(45deg, #242433 25%, transparent 25%), 
-        linear-gradient(-45deg, #242433 25%, transparent 25%), 
-        linear-gradient(45deg, transparent 75%, #242433 75%), 
-        linear-gradient(-45deg, transparent 75%, #242433 75%);
-      background-size: 20px 20px;
-      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        linear-gradient(45deg, #1c1e2e 25%, transparent 25%), 
+        linear-gradient(-45deg, #1c1e2e 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #1c1e2e 75%), 
+        linear-gradient(-45deg, transparent 75%, #1c1e2e 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
     }
 
     /* Range slider custom look */
@@ -76,11 +58,10 @@
     .story-text-box {
       cursor: move;
       user-select: none;
-      transition: outline 0.15s ease;
       touch-action: none;
     }
     .story-text-box:hover, .story-text-box.active {
-      outline: 2px dashed rgba(236, 72, 153, 0.85);
+      outline: 2px dashed rgba(236, 72, 153, 0.9);
       outline-offset: 4px;
     }
 
@@ -106,266 +87,327 @@
                    -1.5px  1.5px 0 var(--stroke-color, #000), 
                     1.5px  1.5px 0 var(--stroke-color, #000);
     }
+
+    /* Drawer transition styling on mobile */
+    #controlPanelWrapper.collapsed {
+      max-height: 48px !important;
+    }
+    #controlPanelWrapper.collapsed .catPanel {
+      display: none !important;
+    }
   </style>
 </head>
 
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-['Vazirmatn'] select-none overflow-x-hidden">
+<body class="bg-slate-950 text-slate-100 h-screen flex flex-col font-['Vazirmatn'] select-none overflow-hidden">
 
-  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-40 px-4 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center shadow-lg shadow-rose-500/20">
-        <i data-lucide="type" class="w-5 h-5 text-white"></i>
+  <!-- Top Application Header -->
+  <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur shrink-0 z-40 px-3 py-2 sm:px-4 sm:py-2.5 flex items-center justify-between">
+    <div class="flex items-center gap-2 sm:gap-3">
+      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center shadow-md shadow-rose-500/20 shrink-0">
+        <i data-lucide="type" class="w-4 h-4 sm:w-5 sm:h-5 text-white"></i>
       </div>
       <div>
-        <h1 class="font-black text-lg text-white leading-tight flex items-center gap-2">
+        <h1 class="font-black text-sm sm:text-base text-white leading-tight flex items-center gap-1.5">
           استودیو فونت اینستاگرام
-          <span class="text-xs font-normal px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">فارسی & English</span>
+          <span class="text-[10px] font-normal px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 hidden sm:inline">فارسی & English</span>
         </h1>
-        <p class="text-xs text-slate-400">طراحی متن‌های استوری با پس‌زمینه شفاف یا دلخواه</p>
+        <p class="text-[10px] sm:text-xs text-slate-400">طراحی متن‌های استوری با پس‌زمینه شفاف</p>
       </div>
     </div>
 
     <!-- Quick action buttons -->
-    <div class="flex items-center gap-2">
-      <button id="resetPositionBtn" title="مرکز چین کردن متن" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs rounded-lg transition flex items-center gap-1.5 text-slate-200">
-        <i data-lucide="crosshair" class="w-4 h-4"></i>
+    <div class="flex items-center gap-1.5 sm:gap-2">
+      <button id="resetPositionBtn" title="مرکز چین کردن متن" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 active:scale-95 text-xs rounded-xl transition flex items-center gap-1 text-slate-200 border border-slate-700/60">
+        <i data-lucide="crosshair" class="w-3.5 h-3.5"></i>
         <span class="hidden sm:inline">وسط کادر</span>
       </button>
 
-      <button id="exportBtn" class="px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-medium text-sm rounded-xl shadow-lg shadow-pink-500/25 active:scale-95 transition flex items-center gap-2">
+      <button id="exportBtn" class="px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-lg shadow-pink-500/25 active:scale-95 transition flex items-center gap-1.5">
         <i data-lucide="download" class="w-4 h-4"></i>
-        <span>دانلود PNG شفاف</span>
+        <span>دانلود PNG</span>
       </button>
     </div>
   </header>
 
-  <main class="flex-1 flex flex-col lg:flex-row overflow-hidden">
-    
-    <!-- LEFT / RIGHT (RTL aware): Control sidebar -->
-    <aside class="w-full lg:w-[460px] bg-slate-900 border-l lg:border-l-0 lg:border-r border-slate-800 flex flex-col h-[52vh] lg:h-[calc(100vh-65px)] overflow-y-auto order-2 lg:order-1">
-      
-      <!-- Tabs for Settings -->
-      <div class="p-4 space-y-6">
+  <main class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
 
-        <!-- Text Input Section -->
-        <div class="space-y-2">
+    <!-- CANVAS SECTION: Pinned at top on mobile, centered on desktop -->
+    <section class="flex-1 min-h-[38vh] max-h-[50vh] lg:max-h-full lg:min-h-0 bg-slate-950 flex flex-col items-center justify-center p-2 sm:p-4 overflow-hidden relative order-1 lg:order-2">
+      
+      <!-- Canvas Information Header -->
+      <div class="mb-1 text-[11px] text-slate-400 flex items-center gap-3 shrink-0">
+        <span class="flex items-center gap-1 text-slate-300">
+          <i data-lucide="smartphone" class="w-3 h-3 text-rose-400"></i>
+          نسبت ۹:۱۶ عمودی استوری
+        </span>
+        <span class="text-slate-700">|</span>
+        <span class="text-slate-400 flex items-center gap-1">
+          <i data-lucide="move" class="w-3 h-3 text-rose-400"></i>
+          جابجایی آزاد با لمس و درگ
+        </span>
+      </div>
+
+      <!-- Story Viewport Container -->
+      <div id="storyViewport" class="relative w-auto h-full max-h-[calc(100%-24px)] aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-2 sm:border-4 border-slate-800/90 checkerboard flex items-center justify-center">
+        
+        <!-- Instagram Story UI Elements Overlay (Simulation) -->
+        <div class="absolute inset-x-0 top-0 p-3 sm:p-4 z-20 pointer-events-none flex justify-between items-center opacity-40">
+          <div class="h-0.5 sm:h-1 bg-white/50 rounded-full flex-1 mx-1"></div>
+          <div class="h-0.5 sm:h-1 bg-white/20 rounded-full flex-1 mx-1"></div>
+        </div>
+        <div class="absolute top-4 sm:top-5 left-3 sm:left-4 z-20 pointer-events-none flex items-center gap-1.5 opacity-60">
+          <div class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white/30 border border-white/50"></div>
+          <span class="text-[10px] sm:text-xs font-sans text-white drop-shadow">your_story</span>
+        </div>
+
+        <!-- Draggable Story Text Node -->
+        <div id="storyTextBox" class="story-text-box active absolute" style="top: 45%; left: 50%; transform: translate(-50%, -50%); width: 82%;">
+          <div id="renderedTextDisplay" class="transition-all" style="font-family: 'Vazirmatn'; font-size: 26px; line-height: 1.4; color: #ffffff; text-align: right; direction: rtl; word-break: break-word; white-space: pre-wrap; font-weight: 700;">زیبایی در سادگی است ✨
+Beauty in Simplicity</div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CONTROLS PANEL: Docked bottom sheet on mobile, sidebar on desktop -->
+    <aside id="controlPanelWrapper" class="w-full lg:w-[440px] bg-slate-900 border-t lg:border-t-0 lg:border-l lg:border-r border-slate-800 flex flex-col h-[52vh] lg:h-full shrink-0 order-2 lg:order-1 transition-all duration-300 z-30 shadow-2xl lg:shadow-none">
+      
+      <!-- Mobile Drawer Drag Handle / Collapse Bar -->
+      <div id="drawerToggleBar" class="lg:hidden flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-800/80 cursor-pointer select-none">
+        <div class="flex items-center gap-2">
+          <span class="w-10 h-1 bg-slate-700 rounded-full mx-auto inline-block"></span>
+          <span id="toggleCollapseText" class="text-[11px] font-semibold text-slate-300">تنظیمات متن و استایل</span>
+        </div>
+        <button id="toggleCollapseBtn" class="text-slate-400 hover:text-white p-1 rounded-md">
+          <i id="toggleCollapseIcon" data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200"></i>
+        </button>
+      </div>
+
+      <!-- Quick 5-Tab Bar (Always visible for immediate switching) -->
+      <div class="flex items-center gap-1 p-1.5 bg-slate-950/80 border-b border-slate-800 shrink-0 overflow-x-auto" id="catTabBar">
+        <button data-cat="text" class="catTabBtn flex-1 py-1.5 px-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 bg-rose-600 text-white shadow-sm">
+          <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+          <span>متن</span>
+        </button>
+        <button data-cat="fonts" class="catTabBtn flex-1 py-1.5 px-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 transition flex items-center justify-center gap-1.5">
+          <i data-lucide="type" class="w-3.5 h-3.5"></i>
+          <span>فونت</span>
+        </button>
+        <button data-cat="size" class="catTabBtn flex-1 py-1.5 px-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 transition flex items-center justify-center gap-1.5">
+          <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+          <span>ابعاد</span>
+        </button>
+        <button data-cat="style" class="catTabBtn flex-1 py-1.5 px-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 transition flex items-center justify-center gap-1.5">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>استایل</span>
+        </button>
+        <button data-cat="bg" class="catTabBtn flex-1 py-1.5 px-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 transition flex items-center justify-center gap-1.5">
+          <i data-lucide="image" class="w-3.5 h-3.5"></i>
+          <span>زمینه</span>
+        </button>
+      </div>
+
+      <!-- TAB PANELS CONTAINER -->
+      <div class="flex-1 overflow-y-auto p-3.5 space-y-4">
+
+        <!-- 1. TEXT INPUT PANEL -->
+        <div id="panel-text" class="catPanel space-y-3">
           <div class="flex justify-between items-center">
             <label class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
               <i data-lucide="pen-tool" class="w-3.5 h-3.5 text-rose-400"></i>
-              متن مورد نظر (فارسی یا انگلیسی)
+              متن مورد نظر شما
             </label>
             <div class="flex gap-1 text-[11px]">
-              <button id="dirRtlBtn" class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/40">راست‌چین RTL</button>
-              <button id="dirLtrBtn" class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 hover:text-white">LTR چپ‌چین</button>
+              <button id="dirRtlBtn" class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 font-bold border border-rose-500/40">راست‌چین RTL</button>
+              <button id="dirLtrBtn" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white">LTR چپ‌چین</button>
             </div>
           </div>
-          <textarea id="textContentInput" rows="3" class="w-full bg-slate-950/70 border border-slate-700 rounded-xl p-3 text-white text-sm focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 transition resize-none leading-relaxed" placeholder="متن خود را اینجا بنویسید...">زیبایی در سادگی است ✨
+          
+          <textarea id="textContentInput" rows="4" class="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-3 text-white text-sm focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 transition resize-none leading-relaxed" placeholder="متن خود را بنویسید...">زیبایی در سادگی است ✨
 Beauty in Simplicity</textarea>
+          
+          <div class="p-2.5 bg-slate-950/60 border border-slate-800 rounded-xl flex items-center justify-between text-xs text-slate-400">
+            <span>چینش افقی پاراگراف:</span>
+            <div class="flex bg-slate-900 p-1 rounded-lg border border-slate-800 gap-1">
+              <button data-align="right" class="alignBtn px-2.5 py-1 text-xs rounded bg-rose-600 text-white flex items-center">
+                <i data-lucide="align-right" class="w-3.5 h-3.5"></i>
+              </button>
+              <button data-align="center" class="alignBtn px-2.5 py-1 text-xs rounded text-slate-400 hover:text-white flex items-center">
+                <i data-lucide="align-center" class="w-3.5 h-3.5"></i>
+              </button>
+              <button data-align="left" class="alignBtn px-2.5 py-1 text-xs rounded text-slate-400 hover:text-white flex items-center">
+                <i data-lucide="align-left" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
         </div>
 
-        <!-- Font Selection Group -->
-        <div class="space-y-2.5">
+        <!-- 2. FONTS PANEL -->
+        <div id="panel-fonts" class="catPanel hidden space-y-3">
           <div class="flex items-center justify-between">
             <label class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
               <i data-lucide="a-arrow-up" class="w-3.5 h-3.5 text-rose-400"></i>
-              انتخاب فونت (Font Family)
+              انتخاب فونت یا آپلود فونت دلخواه
             </label>
             
-            <!-- Custom Font File Upload Button -->
+            <!-- Upload Button for TTF / OTF (e.g. Cinema font from RayganDL) -->
             <label for="fontFileInput" class="cursor-pointer px-2.5 py-1 rounded-lg bg-gradient-to-r from-rose-500/20 to-purple-500/20 hover:from-rose-500/30 hover:to-purple-500/30 border border-rose-500/40 text-[11px] font-bold text-rose-300 flex items-center gap-1.5 transition active:scale-95 shadow-sm">
               <i data-lucide="upload-cloud" class="w-3.5 h-3.5"></i>
-              <span>آپلود فونت دلخواه</span>
+              <span>آپلود فونت</span>
             </label>
             <input type="file" id="fontFileInput" accept=".ttf,.otf,.woff,.woff2" class="hidden">
           </div>
 
-          <!-- Quick Tip for downloaded fonts like Cinema from RayganDL -->
-          <div class="p-2.5 rounded-xl bg-slate-950/80 border border-rose-500/20 flex items-start gap-2 text-[11px] text-slate-400">
-            <i data-lucide="sparkles" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
-            <div>
-              <span class="text-slate-200 font-semibold">فایل فونت سینما، دانا یا تیتر را دارید؟</span>
-              روی دکمه «آپلود فونت دلخواه» بزنید و فایل <code class="text-rose-300 bg-rose-950/60 px-1 py-0.5 rounded">.ttf</code> یا <code class="text-rose-300 bg-rose-950/60 px-1 py-0.5 rounded">.otf</code> دانلود شده از رایگان‌دی‌ال را انتخاب کنید تا بلافاصله اعمال شود.
-            </div>
-          </div>
-
-          <div class="grid grid-cols-3 gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800" id="fontCategoryTabs">
-            <button id="tabPersianFonts" class="py-1.5 text-xs font-bold rounded-lg bg-rose-600 text-white transition">فونت‌های فارسی</button>
-            <button id="tabCustomFonts" class="py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center gap-1">
+          <!-- Font Type Sub-Tabs -->
+          <div class="grid grid-cols-3 gap-1 p-1 bg-slate-950 rounded-xl border border-slate-800 text-center">
+            <button id="tabPersianFonts" class="py-1 text-xs font-bold rounded-lg bg-rose-600 text-white transition">فارسی</button>
+            <button id="tabCustomFonts" class="py-1 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center gap-1">
               <span>شخصی</span>
               <span id="customFontCountBadge" class="bg-rose-500/30 text-rose-300 text-[10px] px-1.5 py-0.2 rounded-full hidden">0</span>
             </button>
-            <button id="tabEnglishFonts" class="py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition">انگلیسی (Latin)</button>
+            <button id="tabEnglishFonts" class="py-1 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition">انگلیسی</button>
           </div>
 
-          <!-- Persian Fonts Dropdown List -->
-          <div id="persianFontContainer" class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
-            <!-- Dynamically populated Persian fonts -->
-          </div>
+          <!-- Persian Fonts Container -->
+          <div id="persianFontContainer" class="space-y-1.5 max-h-56 overflow-y-auto pr-0.5"></div>
 
-          <!-- User Uploaded Custom Fonts List (hidden by default) -->
-          <div id="customFontContainer" class="space-y-1.5 max-h-48 overflow-y-auto pr-1 hidden">
-            <!-- Dynamically populated user uploaded fonts -->
-          </div>
+          <!-- Custom Uploaded Fonts Container -->
+          <div id="customFontContainer" class="space-y-1.5 max-h-56 overflow-y-auto pr-0.5 hidden"></div>
 
-          <!-- English Fonts Dropdown List (hidden by default) -->
-          <div id="englishFontContainer" class="space-y-1.5 max-h-48 overflow-y-auto pr-1 hidden">
-            <!-- Dynamically populated English fonts -->
-          </div>
+          <!-- English Fonts Container -->
+          <div id="englishFontContainer" class="space-y-1.5 max-h-56 overflow-y-auto pr-0.5 hidden"></div>
         </div>
 
-        <!-- Typography Controls (Sliders) -->
-        <div class="space-y-4 pt-2 border-t border-slate-800/80">
+        <!-- 3. SIZING & SPACING PANEL -->
+        <div id="panel-size" class="catPanel hidden space-y-4">
           
-          <!-- Font Size & Line Height -->
-          <div class="grid grid-cols-2 gap-4">
-            <div class="space-y-1">
+          <div class="grid grid-cols-2 gap-3">
+            <!-- Font Size -->
+            <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
               <div class="flex justify-between text-xs text-slate-300">
-                <span>اندازه فونت (Size)</span>
-                <span id="fontSizeVal" class="text-rose-400 font-mono">48px</span>
+                <span>اندازه فونت</span>
+                <span id="fontSizeVal" class="text-rose-400 font-mono font-bold">48px</span>
               </div>
               <input type="range" id="fontSizeSlider" min="18" max="130" value="48" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
             </div>
 
-            <div class="space-y-1">
+            <!-- Line Height -->
+            <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
               <div class="flex justify-between text-xs text-slate-300">
-                <span>فاصله سطرها (Line)</span>
-                <span id="lineHeightVal" class="text-rose-400 font-mono">1.4</span>
+                <span>فاصله خطوط</span>
+                <span id="lineHeightVal" class="text-rose-400 font-mono font-bold">1.4</span>
               </div>
               <input type="range" id="lineHeightSlider" min="0.9" max="2.6" step="0.05" value="1.4" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
             </div>
           </div>
 
-          <!-- Paragraph Max Width & Letter Spacing -->
-          <div class="grid grid-cols-2 gap-4">
-            <div class="space-y-1">
+          <div class="grid grid-cols-2 gap-3">
+            <!-- Paragraph Max Width -->
+            <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
               <div class="flex justify-between text-xs text-slate-300">
-                <span>عرض کادر (Width)</span>
-                <span id="paragraphWidthVal" class="text-rose-400 font-mono">82%</span>
+                <span>عرض متن</span>
+                <span id="paragraphWidthVal" class="text-rose-400 font-mono font-bold">82%</span>
               </div>
               <input type="range" id="paragraphWidthSlider" min="30" max="95" value="82" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
             </div>
 
-            <div class="space-y-1">
+            <!-- Letter Spacing -->
+            <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
               <div class="flex justify-between text-xs text-slate-300">
-                <span>فاصله حروف (Tracking)</span>
-                <span id="letterSpacingVal" class="text-rose-400 font-mono">0px</span>
+                <span>فاصله حروف</span>
+                <span id="letterSpacingVal" class="text-rose-400 font-mono font-bold">0px</span>
               </div>
               <input type="range" id="letterSpacingSlider" min="-3" max="12" step="0.5" value="0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
             </div>
           </div>
 
-          <!-- Alignment & Weight -->
-          <div class="grid grid-cols-2 gap-4 pt-1">
-            <div class="space-y-1.5">
-              <label class="text-xs text-slate-300">چینش متن (Alignment)</label>
-              <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 gap-1">
-                <button data-align="right" class="alignBtn flex-1 py-1 text-xs rounded-lg bg-rose-600 text-white flex justify-center">
-                  <i data-lucide="align-right" class="w-3.5 h-3.5"></i>
-                </button>
-                <button data-align="center" class="alignBtn flex-1 py-1 text-xs rounded-lg text-slate-400 hover:text-white flex justify-center">
-                  <i data-lucide="align-center" class="w-3.5 h-3.5"></i>
-                </button>
-                <button data-align="left" class="alignBtn flex-1 py-1 text-xs rounded-lg text-slate-400 hover:text-white flex justify-center">
-                  <i data-lucide="align-left" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="space-y-1.5">
-              <label class="text-xs text-slate-300">ضخامت قلم (Weight)</label>
-              <select id="fontWeightSelect" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl text-xs py-2 px-2.5 focus:outline-none focus:border-rose-500">
-                <option value="300">نازک (Light 300)</option>
-                <option value="400">معمولی (Regular 400)</option>
-                <option value="600">نیمه ضخیم (SemiBold 600)</option>
-                <option value="700" selected>پررنگ (Bold 700)</option>
-                <option value="900">سیاه (Black 900)</option>
-              </select>
-            </div>
+          <!-- Font Weight -->
+          <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 flex items-center justify-between">
+            <span class="text-xs text-slate-300">ضخامت قلم (Font Weight)</span>
+            <select id="fontWeightSelect" class="bg-slate-900 border border-slate-700 text-white rounded-lg text-xs py-1.5 px-3 focus:outline-none focus:border-rose-500">
+              <option value="300">نازک (Light)</option>
+              <option value="400">معمولی (Regular)</option>
+              <option value="600">نیمه ضخیم (SemiBold)</option>
+              <option value="700" selected>پررنگ (Bold)</option>
+              <option value="900">سیاه (Black / پوستر)</option>
+            </select>
           </div>
-
         </div>
 
-        <!-- Instagram Special Highlight Styles -->
-        <div class="space-y-2.5 pt-2 border-t border-slate-800/80">
-          <label class="text-xs font-bold text-slate-300 flex items-center justify-between">
-            <span class="flex items-center gap-1.5">
+        <!-- 4. STYLE & COLOR PANEL -->
+        <div id="panel-style" class="catPanel hidden space-y-4">
+          <!-- Instagram Pill Styles -->
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
               <i data-lucide="sparkles" class="w-3.5 h-3.5 text-rose-400"></i>
-              سبک هایلایت اینستاگرام (IG Style)
-            </span>
-          </label>
-          <div class="grid grid-cols-4 gap-2">
-            <button data-ig-style="none" class="igStyleBtn p-2 text-center rounded-xl border border-rose-500 bg-rose-500/10 text-xs font-medium text-white transition">
-              عادی
-            </button>
-            <button data-ig-style="solid" class="igStyleBtn p-2 text-center rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-xs font-medium text-slate-300 transition">
-              <span class="bg-white text-black px-1.5 py-0.5 rounded text-[10px]">کادر دار</span>
-            </button>
-            <button data-ig-style="semi" class="igStyleBtn p-2 text-center rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-xs font-medium text-slate-300 transition">
-              <span class="bg-black/60 text-white px-1.5 py-0.5 rounded text-[10px]">نیمه‌شفاف</span>
-            </button>
-            <button data-ig-style="outline" class="igStyleBtn p-2 text-center rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-xs font-medium text-slate-300 transition">
-              خط دور
-            </button>
+              افکت هایلایت اینستاگرام (IG Style)
+            </label>
+            <div class="grid grid-cols-4 gap-1.5">
+              <button data-ig-style="none" class="igStyleBtn p-2 text-center rounded-xl border border-rose-500 bg-rose-500/10 text-xs font-medium text-white transition">
+                عادی
+              </button>
+              <button data-ig-style="solid" class="igStyleBtn p-2 text-center rounded-xl border border-slate-800 bg-slate-950 text-xs font-medium text-slate-300 transition">
+                <span class="bg-white text-black px-1.5 py-0.5 rounded text-[10px] font-bold">کادردار</span>
+              </button>
+              <button data-ig-style="semi" class="igStyleBtn p-2 text-center rounded-xl border border-slate-800 bg-slate-950 text-xs font-medium text-slate-300 transition">
+                <span class="bg-black/60 text-white px-1.5 py-0.5 rounded text-[10px]">نیمه‌شفاف</span>
+              </button>
+              <button data-ig-style="outline" class="igStyleBtn p-2 text-center rounded-xl border border-slate-800 bg-slate-950 text-xs font-medium text-slate-300 transition">
+                خط دور
+              </button>
+            </div>
           </div>
-        </div>
 
-        <!-- Color Pickers -->
-        <div class="space-y-3 pt-2 border-t border-slate-800/80">
-          <label class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-            <i data-lucide="palette" class="w-3.5 h-3.5 text-rose-400"></i>
-            تنظیم رنگ متن و هایلایت
-          </label>
+          <!-- Colors -->
           <div class="grid grid-cols-2 gap-3">
             <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between">
               <span class="text-xs text-slate-300">رنگ متن</span>
-              <div class="flex items-center gap-2">
-                <input type="color" id="textColorPicker" value="#ffffff" class="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0">
-              </div>
+              <input type="color" id="textColorPicker" value="#ffffff" class="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0">
             </div>
 
             <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between">
               <span class="text-xs text-slate-300">رنگ کادر / خط</span>
-              <div class="flex items-center gap-2">
-                <input type="color" id="highlightColorPicker" value="#ffffff" class="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0">
-              </div>
+              <input type="color" id="highlightColorPicker" value="#ffffff" class="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0">
             </div>
           </div>
 
-          <!-- Color Presets -->
-          <div class="flex items-center justify-between gap-1 pt-1">
-            <button class="colorPresetBtn w-6 h-6 rounded-full bg-white border border-slate-600" data-color="#ffffff"></button>
-            <button class="colorPresetBtn w-6 h-6 rounded-full bg-black border border-slate-600" data-color="#000000"></button>
-            <button class="colorPresetBtn w-6 h-6 rounded-full bg-amber-400" data-color="#facc15"></button>
-            <button class="colorPresetBtn w-6 h-6 rounded-full bg-rose-500" data-color="#f43f5e"></button>
-            <button class="colorPresetBtn w-6 h-6 rounded-full bg-violet-500" data-color="#8b5cf6"></button>
-            <button class="colorPresetBtn w-6 h-6 rounded-full bg-emerald-400" data-color="#34d399"></button>
-            <button class="colorPresetBtn w-6 h-6 rounded-full bg-sky-400" data-color="#38bdf8"></button>
-            <button class="colorPresetBtn w-6 h-6 rounded-full bg-gradient-to-tr from-amber-400 to-rose-500 border border-slate-500" data-color="#f43f5e" title="اینستاگرام"></button>
+          <!-- Color Quick Presets -->
+          <div class="flex items-center justify-between p-2 bg-slate-950 rounded-xl border border-slate-800">
+            <span class="text-[11px] text-slate-400">رنگ‌های سریع:</span>
+            <div class="flex items-center gap-2">
+              <button class="colorPresetBtn w-6 h-6 rounded-full bg-white border border-slate-600" data-color="#ffffff"></button>
+              <button class="colorPresetBtn w-6 h-6 rounded-full bg-black border border-slate-600" data-color="#000000"></button>
+              <button class="colorPresetBtn w-6 h-6 rounded-full bg-amber-400" data-color="#facc15"></button>
+              <button class="colorPresetBtn w-6 h-6 rounded-full bg-rose-500" data-color="#f43f5e"></button>
+              <button class="colorPresetBtn w-6 h-6 rounded-full bg-violet-500" data-color="#8b5cf6"></button>
+              <button class="colorPresetBtn w-6 h-6 rounded-full bg-emerald-400" data-color="#34d399"></button>
+              <button class="colorPresetBtn w-6 h-6 rounded-full bg-sky-400" data-color="#38bdf8"></button>
+            </div>
           </div>
         </div>
 
-        <!-- Canvas Background Mode (For preview and export) -->
-        <div class="space-y-2 pt-2 border-t border-slate-800/80">
-          <label class="text-xs font-bold text-slate-300 flex items-center justify-between">
-            <span class="flex items-center gap-1.5">
-              <i data-lucide="layers" class="w-3.5 h-3.5 text-rose-400"></i>
-              نوع پس‌زمینه خروجی
-            </span>
+        <!-- 5. BACKGROUND PANEL -->
+        <div id="panel-bg" class="catPanel hidden space-y-3">
+          <label class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="layers" class="w-3.5 h-3.5 text-rose-400"></i>
+            نوع پس‌زمینه خروجی برای استوری
           </label>
           <div class="grid grid-cols-3 gap-2">
-            <button id="bgTransparentBtn" class="bgOptBtn p-2 text-center rounded-xl border border-rose-500 bg-rose-500/10 text-xs font-medium text-white transition">
-              شفاف (خام)
+            <button id="bgTransparentBtn" class="bgOptBtn p-2.5 text-center rounded-xl border border-rose-500 bg-rose-500/10 text-xs font-bold text-white transition">
+              شفاف (PNG خام)
             </button>
-            <button id="bgDarkBtn" class="bgOptBtn p-2 text-center rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-xs font-medium text-slate-400 transition">
+            <button id="bgDarkBtn" class="bgOptBtn p-2.5 text-center rounded-xl border border-slate-800 bg-slate-950 text-xs font-medium text-slate-400 transition">
               تیره (Dark)
             </button>
-            <button id="bgCustomBtn" class="bgOptBtn p-2 text-center rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-xs font-medium text-slate-400 transition">
+            <button id="bgCustomBtn" class="bgOptBtn p-2.5 text-center rounded-xl border border-slate-800 bg-slate-950 text-xs font-medium text-slate-400 transition">
               رنگ دلخواه
             </button>
           </div>
+          
           <div id="customBgColorWrapper" class="hidden pt-1">
             <div class="p-2.5 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between">
-              <span class="text-xs text-slate-300">رنگ پس‌زمینه دلخواه</span>
+              <span class="text-xs text-slate-300">رنگ پس‌زمینه دلخواه:</span>
               <input type="color" id="canvasBgColorPicker" value="#111827" class="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0">
             </div>
           </div>
@@ -374,56 +416,19 @@ Beauty in Simplicity</textarea>
       </div>
     </aside>
 
-    <!-- CENTER: Instagram Vertical Screen Canvas (9:16) -->
-    <section class="flex-1 bg-slate-950 flex flex-col items-center justify-center p-4 lg:p-6 overflow-hidden order-1 lg:order-2 relative">
-      
-      <!-- Canvas Information bar -->
-      <div class="mb-2 text-xs text-slate-400 flex items-center gap-4">
-        <span class="flex items-center gap-1">
-          <i data-lucide="smartphone" class="w-3.5 h-3.5 text-rose-400"></i>
-          نسبت ۹:۱۶ عمودی (Instagram Story / Reels)
-        </span>
-        <span class="text-slate-600">|</span>
-        <span class="text-slate-400 flex items-center gap-1">
-          <i data-lucide="move" class="w-3.5 h-3.5"></i>
-          متن را در کادر بکشید و جابه‌جا کنید
-        </span>
-      </div>
-
-      <!-- The Preview Box Container with phone ratio (1080x1920 scale-down simulation) -->
-      <div id="storyViewport" class="relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[400px] aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-800/80 checkerboard flex items-center justify-center">
-        
-        <!-- Instagram Story UI Elements Overlay (Simulation) -->
-        <div class="absolute inset-x-0 top-0 p-4 z-20 pointer-events-none flex justify-between items-center opacity-40">
-          <div class="h-1 bg-white/40 rounded-full flex-1 mx-1"></div>
-          <div class="h-1 bg-white/20 rounded-full flex-1 mx-1"></div>
-        </div>
-        <div class="absolute top-6 left-4 z-20 pointer-events-none flex items-center gap-2 opacity-50">
-          <div class="w-6 h-6 rounded-full bg-white/30 border border-white/40"></div>
-          <span class="text-[11px] font-sans text-white drop-shadow">your_story</span>
-        </div>
-
-        <!-- Draggable Story Text Node -->
-        <div id="storyTextBox" class="storyTextNode active absolute" style="top: 45%; left: 50%; transform: translate(-50%, -50%); width: 82%;">
-          <div id="renderedTextDisplay" class="transition-all" style="font-family: 'Vazirmatn'; font-size: 28px; line-height: 1.4; color: #ffffff; text-align: right; direction: rtl; word-break: break-word; white-space: pre-wrap; font-weight: 700;">زیبایی در سادگی است ✨
-Beauty in Simplicity</div>
-        </div>
-
-      </div>
-
-      <!-- Notification Toast -->
-      <div id="statusToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900/95 border border-rose-500/50 text-rose-300 text-xs px-4 py-2.5 rounded-xl shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-2">
-        <i data-lucide="check-circle-2" class="w-4 h-4 text-rose-400"></i>
-        <span id="toastMessage">فایل PNG با موفقیت آماده دانلود شد.</span>
-      </div>
-
-    </section>
-
   </main>
 
+  <!-- Notification Toast -->
+  <div id="statusToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900/95 border border-rose-500/50 text-rose-300 text-xs px-4 py-2.5 rounded-xl shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-2">
+    <i data-lucide="check-circle-2" class="w-4 h-4 text-rose-400"></i>
+    <span id="toastMessage">فایل PNG با موفقیت آماده دانلود شد.</span>
+  </div>
+
   <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
+    // Initialize Lucide Icons safely
+    if (window.lucide) {
+      lucide.createIcons();
+    }
 
     /* -------------------------------------------------------------
        1. Font Catalog Definitions (Open Source Persian & English)
@@ -448,10 +453,9 @@ Beauty in Simplicity</div>
       { name: "زین (Zain)", family: "'Zain', sans-serif", badge: "مدرن", sample: "متن استوری خلاق" },
       { name: "لطیف (Lateef)", family: "'Lateef', cursive", badge: "روان و کشیده", sample: "خوشنویسی ملایم" },
       { name: "میرزا (Mirza)", family: "'Mirza', cursive", badge: "فانتزی", sample: "خاص و شاعرانه" },
-      { name: "گلزار (Gulzar)", family: "'Gulzar', serif", badge: "نستعلیق گونه", sample: "هنر خطاطی ایرانی" },
+      { name: "گلزار (Gulzar)", family: "'Gulzar', serif", badge: "نستعلیق گونه", sample: "هنر خطاطی ایرانی" }
     ];
 
-    // User-uploaded fonts storage
     const CUSTOM_FONTS = [];
 
     const ENGLISH_FONTS = [
@@ -481,16 +485,15 @@ Beauty in Simplicity</div>
       letterSpacing: 0,
       textColor: '#ffffff',
       highlightColor: '#ffffff',
-      igStyle: 'none', // 'none' | 'solid' | 'semi' | 'outline'
-      backgroundMode: 'transparent', // 'transparent' | 'dark' | 'custom'
+      igStyle: 'none',
+      backgroundMode: 'transparent',
       customBgColor: '#111827',
-      // Text position on 9:16 Canvas (percentage 0 to 100)
       positionX: 50,
       positionY: 45
     };
 
     /* -------------------------------------------------------------
-       3. DOM Elements
+       3. DOM Elements Safe Retrieval
     ------------------------------------------------------------- */
     const textContentInput = document.getElementById('textContentInput');
     const renderedTextDisplay = document.getElementById('renderedTextDisplay');
@@ -532,16 +535,83 @@ Beauty in Simplicity</div>
     const fontFileInput = document.getElementById('fontFileInput');
     const customFontCountBadge = document.getElementById('customFontCountBadge');
 
+    // Drawer and category navigation elements
+    const catTabButtons = document.querySelectorAll('.catTabBtn');
+    const catPanels = document.querySelectorAll('.catPanel');
+    const controlPanelWrapper = document.getElementById('controlPanelWrapper');
+    const drawerToggleBar = document.getElementById('drawerToggleBar');
+    const toggleCollapseBtn = document.getElementById('toggleCollapseBtn');
+    const toggleCollapseText = document.getElementById('toggleCollapseText');
+    const toggleCollapseIcon = document.getElementById('toggleCollapseIcon');
+
+    /* -------------------------------------------------------------
+       Mobile Drawer & Category Tab Navigation Logic
+    ------------------------------------------------------------- */
+    let isDrawerCollapsed = false;
+
+    function switchCategory(catName) {
+      if (isDrawerCollapsed) {
+        toggleDrawerCollapse(false);
+      }
+
+      catTabButtons.forEach(btn => {
+        if (btn.dataset.cat === catName) {
+          btn.className = 'catTabBtn flex-1 py-1.5 px-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 bg-rose-600 text-white shadow-sm';
+        } else {
+          btn.className = 'catTabBtn flex-1 py-1.5 px-2 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 transition flex items-center justify-center gap-1.5';
+        }
+      });
+
+      catPanels.forEach(panel => {
+        if (panel.id === `panel-${catName}`) {
+          panel.classList.remove('hidden');
+        } else {
+          panel.classList.add('hidden');
+        }
+      });
+    }
+
+    catTabButtons.forEach(btn => {
+      btn.addEventListener('click', () => switchCategory(btn.dataset.cat));
+    });
+
+    function toggleDrawerCollapse(forceState) {
+      isDrawerCollapsed = forceState !== undefined ? forceState : !isDrawerCollapsed;
+      if (controlPanelWrapper) {
+        if (isDrawerCollapsed) {
+          controlPanelWrapper.classList.add('collapsed');
+          if (toggleCollapseText) toggleCollapseText.textContent = 'نمایش تنظیمات (دیدن بوم)';
+          if (toggleCollapseIcon) toggleCollapseIcon.style.transform = 'rotate(180deg)';
+        } else {
+          controlPanelWrapper.classList.remove('collapsed');
+          if (toggleCollapseText) toggleCollapseText.textContent = 'تنظیمات متن و استایل';
+          if (toggleCollapseIcon) toggleCollapseIcon.style.transform = 'rotate(0deg)';
+        }
+      }
+      setTimeout(applyStyles, 200);
+    }
+
+    if (drawerToggleBar) {
+      drawerToggleBar.addEventListener('click', () => toggleDrawerCollapse());
+    }
+    if (toggleCollapseBtn) {
+      toggleCollapseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleDrawerCollapse();
+      });
+    }
+
     /* -------------------------------------------------------------
        4. Render Font Selector Cards & Custom Font Loader
     ------------------------------------------------------------- */
-    function populateFontList(container, fontList, isPersian) {
+    function populateFontList(container, fontList) {
+      if (!container) return;
       container.innerHTML = '';
       if (fontList.length === 0) {
         container.innerHTML = `
-          <div class="text-center py-6 px-3 text-slate-500 text-xs border border-dashed border-slate-800 rounded-xl">
+          <div class="text-center py-5 px-3 text-slate-500 text-xs border border-dashed border-slate-800 rounded-xl">
             هنوز فونت دلخواهی آپلود نکرده‌اید.<br>
-            فایل فونت سینما یا هر فونت دیگر را از دکمه بالا انتخاب کنید.
+            فایل فونت سینما، دانا یا تیتر را از دکمه «آپلود فونت» بارگذاری کنید.
           </div>
         `;
         return;
@@ -550,7 +620,7 @@ Beauty in Simplicity</div>
       fontList.forEach(font => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = `w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between font-item-btn ${
+        btn.className = `w-full text-right p-2 rounded-xl border transition flex items-center justify-between font-item-btn ${
           state.fontFamily === font.family 
             ? 'bg-rose-500/15 border-rose-500 text-rose-300' 
             : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700 hover:bg-slate-950'
@@ -580,46 +650,45 @@ Beauty in Simplicity</div>
       });
     }
 
-    populateFontList(persianFontContainer, PERSIAN_FONTS, true);
-    populateFontList(customFontContainer, CUSTOM_FONTS, true);
-    populateFontList(englishFontContainer, ENGLISH_FONTS, false);
+    populateFontList(persianFontContainer, PERSIAN_FONTS);
+    populateFontList(customFontContainer, CUSTOM_FONTS);
+    populateFontList(englishFontContainer, ENGLISH_FONTS);
 
-    // Font category tabs toggle
+    // Font category sub-tabs
     function switchFontTab(activeTab) {
-      tabPersianFonts.className = 'py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition';
-      tabCustomFonts.className = 'py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center gap-1';
-      tabEnglishFonts.className = 'py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition';
+      if (!tabPersianFonts || !tabCustomFonts || !tabEnglishFonts) return;
+      tabPersianFonts.className = 'py-1 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition';
+      tabCustomFonts.className = 'py-1 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center gap-1';
+      tabEnglishFonts.className = 'py-1 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition';
       
-      persianFontContainer.classList.add('hidden');
-      customFontContainer.classList.add('hidden');
-      englishFontContainer.classList.add('hidden');
+      persianFontContainer?.classList.add('hidden');
+      customFontContainer?.classList.add('hidden');
+      englishFontContainer?.classList.add('hidden');
 
       if (activeTab === 'persian') {
-        tabPersianFonts.className = 'py-1.5 text-xs font-bold rounded-lg bg-rose-600 text-white transition';
-        persianFontContainer.classList.remove('hidden');
+        tabPersianFonts.className = 'py-1 text-xs font-bold rounded-lg bg-rose-600 text-white transition';
+        persianFontContainer?.classList.remove('hidden');
       } else if (activeTab === 'custom') {
-        tabCustomFonts.className = 'py-1.5 text-xs font-bold rounded-lg bg-rose-600 text-white transition flex items-center justify-center gap-1';
-        customFontContainer.classList.remove('hidden');
+        tabCustomFonts.className = 'py-1 text-xs font-bold rounded-lg bg-rose-600 text-white transition flex items-center justify-center gap-1';
+        customFontContainer?.classList.remove('hidden');
       } else if (activeTab === 'english') {
-        tabEnglishFonts.className = 'py-1.5 text-xs font-bold rounded-lg bg-rose-600 text-white transition';
-        englishFontContainer.classList.remove('hidden');
+        tabEnglishFonts.className = 'py-1 text-xs font-bold rounded-lg bg-rose-600 text-white transition';
+        englishFontContainer?.classList.remove('hidden');
       }
     }
 
-    tabPersianFonts.addEventListener('click', () => switchFontTab('persian'));
-    tabCustomFonts.addEventListener('click', () => switchFontTab('custom'));
-    tabEnglishFonts.addEventListener('click', () => switchFontTab('english'));
+    tabPersianFonts?.addEventListener('click', () => switchFontTab('persian'));
+    tabCustomFonts?.addEventListener('click', () => switchFontTab('custom'));
+    tabEnglishFonts?.addEventListener('click', () => switchFontTab('english'));
 
-    /* -------------------------------------------------------------
-       Custom Font File Loader (.ttf, .otf, .woff, .woff2)
-    ------------------------------------------------------------- */
-    fontFileInput.addEventListener('change', async (e) => {
-      const file = e.target.files[0];
+    // Custom Font File Upload (.ttf, .otf, .woff, .woff2)
+    fontFileInput?.addEventListener('change', async (e) => {
+      const file = e.target.files?.[0];
       if (!file) return;
 
       const rawName = file.name.replace(/\.[^/.]+$/, "");
       const cleanFontFamily = `CustomFont_${Date.now()}`;
-      const displayName = rawName.length > 22 ? rawName.slice(0, 20) + '...' : rawName;
+      const displayName = rawName.length > 20 ? rawName.slice(0, 18) + '...' : rawName;
 
       try {
         const arrayBuffer = await file.arrayBuffer();
@@ -636,33 +705,34 @@ Beauty in Simplicity</div>
 
         CUSTOM_FONTS.unshift(newFontObj);
         
-        // Update badge count
-        customFontCountBadge.textContent = CUSTOM_FONTS.length;
-        customFontCountBadge.classList.remove('hidden');
+        if (customFontCountBadge) {
+          customFontCountBadge.textContent = CUSTOM_FONTS.length;
+          customFontCountBadge.classList.remove('hidden');
+        }
 
-        // Select the newly loaded font immediately
         state.fontFamily = cleanFontFamily;
         state.fontName = displayName;
 
-        // Switch to custom fonts tab
-        populateFontList(customFontContainer, CUSTOM_FONTS, true);
+        populateFontList(customFontContainer, CUSTOM_FONTS);
         switchFontTab('custom');
         applyStyles();
 
-        showToast(`فونت «${displayName}» با موفقیت افزوده و فعال شد ✨`);
+        showToast(`فونت «${displayName}» بارگذاری و فعال شد ✨`);
       } catch (err) {
         console.error('Font load error:', err);
-        showToast('خطا در بارگذاری فایل فونت! لطفاً فایل سالم .ttf یا .otf بارگذاری نمایید.');
+        showToast('خطا در بارگذاری فونت! فایل سالم .ttf یا .otf بارگذاری نمایید.');
       } finally {
         fontFileInput.value = '';
       }
     });
 
     /* -------------------------------------------------------------
-       5. Update Visual Text in Preview
+       5. Update Visual Text in Canvas Preview
     ------------------------------------------------------------- */
     function applyStyles() {
-      // 1. Text content
+      if (!renderedTextDisplay || !storyTextBox || !storyViewport) return;
+
+      // 1. Text content and font metrics
       renderedTextDisplay.innerText = state.text;
       renderedTextDisplay.style.direction = state.direction;
       renderedTextDisplay.style.textAlign = state.textAlign;
@@ -671,9 +741,8 @@ Beauty in Simplicity</div>
       renderedTextDisplay.style.lineHeight = state.lineHeight;
       renderedTextDisplay.style.letterSpacing = `${state.letterSpacing}px`;
 
-      // Responsive font scale in preview box relative to 1080p full resolution
-      // Standard story preview box is around 380px wide (~ 380/1080 = ~0.352 scale)
-      const previewBoxWidth = storyViewport.clientWidth || 380;
+      // Responsive preview font size scaled to 1080p canvas baseline
+      const previewBoxWidth = storyViewport.clientWidth || 320;
       const previewScale = previewBoxWidth / 1080;
       const simulatedSize = Math.max(12, Math.round(state.fontSize * previewScale * 2.8));
       renderedTextDisplay.style.fontSize = `${simulatedSize}px`;
@@ -696,8 +765,6 @@ Beauty in Simplicity</div>
       if (state.igStyle === 'solid') {
         renderedTextDisplay.classList.add('ig-highlight-solid');
         renderedTextDisplay.style.setProperty('--highlight-color', state.highlightColor);
-        
-        // Auto invert text color contrast if text color wasn't manually altered
         const isWhiteHighlight = state.highlightColor.toLowerCase() === '#ffffff';
         renderedTextDisplay.style.setProperty('--text-inverted-color', isWhiteHighlight ? '#000000' : state.textColor);
       } else if (state.igStyle === 'semi') {
@@ -714,13 +781,13 @@ Beauty in Simplicity</div>
 
       // 5. Canvas Background Mode
       if (state.backgroundMode === 'transparent') {
-        storyViewport.className = 'relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[400px] aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-800/80 checkerboard flex items-center justify-center';
+        storyViewport.className = 'relative w-auto h-full max-h-[calc(100%-24px)] aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-2 sm:border-4 border-slate-800/90 checkerboard flex items-center justify-center';
         storyViewport.style.backgroundColor = '';
       } else if (state.backgroundMode === 'dark') {
-        storyViewport.className = 'relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[400px] aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-800/80 flex items-center justify-center';
+        storyViewport.className = 'relative w-auto h-full max-h-[calc(100%-24px)] aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-2 sm:border-4 border-slate-800/90 flex items-center justify-center';
         storyViewport.style.backgroundColor = '#0b0f19';
       } else if (state.backgroundMode === 'custom') {
-        storyViewport.className = 'relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[400px] aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-800/80 flex items-center justify-center';
+        storyViewport.className = 'relative w-auto h-full max-h-[calc(100%-24px)] aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-2 sm:border-4 border-slate-800/90 flex items-center justify-center';
         storyViewport.style.backgroundColor = state.customBgColor;
       }
     }
@@ -728,26 +795,25 @@ Beauty in Simplicity</div>
     /* -------------------------------------------------------------
        6. Event Handlers
     ------------------------------------------------------------- */
-    textContentInput.addEventListener('input', (e) => {
+    textContentInput?.addEventListener('input', (e) => {
       state.text = e.target.value;
       applyStyles();
     });
 
-    // Direction switches
-    dirRtlBtn.addEventListener('click', () => {
+    dirRtlBtn?.addEventListener('click', () => {
       state.direction = 'rtl';
       state.textAlign = 'right';
-      dirRtlBtn.className = 'px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/40';
-      dirLtrBtn.className = 'px-2 py-0.5 rounded bg-slate-800 text-slate-400 hover:text-white';
+      dirRtlBtn.className = 'px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 font-bold border border-rose-500/40';
+      dirLtrBtn.className = 'px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white';
       updateAlignButtons();
       applyStyles();
     });
 
-    dirLtrBtn.addEventListener('click', () => {
+    dirLtrBtn?.addEventListener('click', () => {
       state.direction = 'ltr';
       state.textAlign = 'left';
-      dirLtrBtn.className = 'px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/40';
-      dirRtlBtn.className = 'px-2 py-0.5 rounded bg-slate-800 text-slate-400 hover:text-white';
+      dirLtrBtn.className = 'px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 font-bold border border-rose-500/40';
+      dirRtlBtn.className = 'px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white';
       updateAlignButtons();
       applyStyles();
     });
@@ -755,9 +821,9 @@ Beauty in Simplicity</div>
     function updateAlignButtons() {
       alignButtons.forEach(btn => {
         if (btn.dataset.align === state.textAlign) {
-          btn.className = 'alignBtn flex-1 py-1 text-xs rounded-lg bg-rose-600 text-white flex justify-center';
+          btn.className = 'alignBtn px-2.5 py-1 text-xs rounded bg-rose-600 text-white flex items-center';
         } else {
-          btn.className = 'alignBtn flex-1 py-1 text-xs rounded-lg text-slate-400 hover:text-white flex justify-center';
+          btn.className = 'alignBtn px-2.5 py-1 text-xs rounded text-slate-400 hover:text-white flex items-center';
         }
       });
     }
@@ -770,31 +836,31 @@ Beauty in Simplicity</div>
       });
     });
 
-    fontSizeSlider.addEventListener('input', (e) => {
+    fontSizeSlider?.addEventListener('input', (e) => {
       state.fontSize = parseInt(e.target.value);
-      fontSizeVal.textContent = `${state.fontSize}px`;
+      if (fontSizeVal) fontSizeVal.textContent = `${state.fontSize}px`;
       applyStyles();
     });
 
-    lineHeightSlider.addEventListener('input', (e) => {
+    lineHeightSlider?.addEventListener('input', (e) => {
       state.lineHeight = parseFloat(e.target.value);
-      lineHeightVal.textContent = state.lineHeight;
+      if (lineHeightVal) lineHeightVal.textContent = state.lineHeight;
       applyStyles();
     });
 
-    paragraphWidthSlider.addEventListener('input', (e) => {
+    paragraphWidthSlider?.addEventListener('input', (e) => {
       state.paragraphWidthPercent = parseInt(e.target.value);
-      paragraphWidthVal.textContent = `${state.paragraphWidthPercent}%`;
+      if (paragraphWidthVal) paragraphWidthVal.textContent = `${state.paragraphWidthPercent}%`;
       applyStyles();
     });
 
-    letterSpacingSlider.addEventListener('input', (e) => {
+    letterSpacingSlider?.addEventListener('input', (e) => {
       state.letterSpacing = parseFloat(e.target.value);
-      letterSpacingVal.textContent = `${state.letterSpacing}px`;
+      if (letterSpacingVal) letterSpacingVal.textContent = `${state.letterSpacing}px`;
       applyStyles();
     });
 
-    fontWeightSelect.addEventListener('change', (e) => {
+    fontWeightSelect?.addEventListener('change', (e) => {
       state.fontWeight = e.target.value;
       applyStyles();
     });
@@ -814,17 +880,17 @@ Beauty in Simplicity</div>
     });
 
     // Colors
-    textColorPicker.addEventListener('input', (e) => {
+    textColorPicker?.addEventListener('input', (e) => {
       state.textColor = e.target.value;
       applyStyles();
     });
 
-    highlightColorPicker.addEventListener('input', (e) => {
+    highlightColorPicker?.addEventListener('input', (e) => {
       state.highlightColor = e.target.value;
       applyStyles();
     });
 
-    canvasBgColorPicker.addEventListener('input', (e) => {
+    canvasBgColorPicker?.addEventListener('input', (e) => {
       state.customBgColor = e.target.value;
       applyStyles();
     });
@@ -832,29 +898,29 @@ Beauty in Simplicity</div>
     colorPresetBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         state.textColor = btn.dataset.color;
-        textColorPicker.value = btn.dataset.color;
+        if (textColorPicker) textColorPicker.value = btn.dataset.color;
         applyStyles();
       });
     });
 
     // Background Mode Buttons
-    document.getElementById('bgTransparentBtn').addEventListener('click', () => {
+    document.getElementById('bgTransparentBtn')?.addEventListener('click', () => {
       state.backgroundMode = 'transparent';
-      customBgColorWrapper.classList.add('hidden');
+      customBgColorWrapper?.classList.add('hidden');
       updateBgButtons('bgTransparentBtn');
       applyStyles();
     });
 
-    document.getElementById('bgDarkBtn').addEventListener('click', () => {
+    document.getElementById('bgDarkBtn')?.addEventListener('click', () => {
       state.backgroundMode = 'dark';
-      customBgColorWrapper.classList.add('hidden');
+      customBgColorWrapper?.classList.add('hidden');
       updateBgButtons('bgDarkBtn');
       applyStyles();
     });
 
-    document.getElementById('bgCustomBtn').addEventListener('click', () => {
+    document.getElementById('bgCustomBtn')?.addEventListener('click', () => {
       state.backgroundMode = 'custom';
-      customBgColorWrapper.classList.remove('hidden');
+      customBgColorWrapper?.classList.remove('hidden');
       updateBgButtons('bgCustomBtn');
       applyStyles();
     });
@@ -862,28 +928,28 @@ Beauty in Simplicity</div>
     function updateBgButtons(activeId) {
       bgOptBtns.forEach(btn => {
         if (btn.id === activeId) {
-          btn.className = 'bgOptBtn p-2 text-center rounded-xl border border-rose-500 bg-rose-500/10 text-xs font-medium text-white transition';
+          btn.className = 'bgOptBtn p-2.5 text-center rounded-xl border border-rose-500 bg-rose-500/10 text-xs font-bold text-white transition';
         } else {
-          btn.className = 'bgOptBtn p-2 text-center rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-xs font-medium text-slate-400 transition';
+          btn.className = 'bgOptBtn p-2.5 text-center rounded-xl border border-slate-800 bg-slate-950 text-xs font-medium text-slate-400 transition';
         }
       });
     }
 
-    resetPositionBtn.addEventListener('click', () => {
+    resetPositionBtn?.addEventListener('click', () => {
       state.positionX = 50;
-      state.positionY = 50;
+      state.positionY = 45;
       applyStyles();
       showToast('موقعیت متن به مرکز بازگردانده شد');
     });
 
     /* -------------------------------------------------------------
-       7. Drag & Drop Text positioning on Canvas
+       7. Drag & Drop Text Positioning on Canvas
     ------------------------------------------------------------- */
     let isDragging = false;
     let dragStartX = 0;
     let dragStartY = 0;
     let initialPosX = 50;
-    let initialPosY = 50;
+    let initialPosY = 45;
 
     function startDrag(e) {
       isDragging = true;
@@ -893,12 +959,12 @@ Beauty in Simplicity</div>
       dragStartY = clientY;
       initialPosX = state.positionX;
       initialPosY = state.positionY;
-      storyTextBox.classList.add('active');
+      storyTextBox?.classList.add('active');
     }
 
     function doDrag(e) {
-      if (!isDragging) return;
-      e.preventDefault();
+      if (!isDragging || !storyViewport) return;
+      if (e.cancelable) e.preventDefault();
       const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
       const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
 
@@ -909,35 +975,36 @@ Beauty in Simplicity</div>
       let newX = initialPosX + deltaX;
       let newY = initialPosY + deltaY;
 
-      // Keep within bounds
       newX = Math.max(10, Math.min(90, newX));
       newY = Math.max(10, Math.min(90, newY));
 
       state.positionX = newX;
       state.positionY = newY;
-      storyTextBox.style.left = `${newX}%`;
-      storyTextBox.style.top = `${newY}%`;
+      if (storyTextBox) {
+        storyTextBox.style.left = `${newX}%`;
+        storyTextBox.style.top = `${newY}%`;
+      }
     }
 
     function stopDrag() {
       if (isDragging) {
         isDragging = false;
-        storyTextBox.classList.remove('active');
+        storyTextBox?.classList.remove('active');
       }
     }
 
-    storyTextBox.addEventListener('mousedown', startDrag);
+    storyTextBox?.addEventListener('mousedown', startDrag);
     window.addEventListener('mousemove', doDrag);
     window.addEventListener('mouseup', stopDrag);
 
-    storyTextBox.addEventListener('touchstart', startDrag, { passive: false });
+    storyTextBox?.addEventListener('touchstart', startDrag, { passive: false });
     window.addEventListener('touchmove', doDrag, { passive: false });
     window.addEventListener('touchend', stopDrag);
 
-    // Responsive Canvas Resize Observer
     window.addEventListener('resize', applyStyles);
 
     function showToast(msg) {
+      if (!toastMessage || !statusToast) return;
       toastMessage.textContent = msg;
       statusToast.classList.remove('opacity-0', 'pointer-events-none');
       statusToast.classList.add('opacity-100');
@@ -951,20 +1018,19 @@ Beauty in Simplicity</div>
        8. High-Res Canvas 1080x1920 PNG Generator
     ------------------------------------------------------------- */
     async function exportPNG() {
+      if (!exportBtn) return;
       exportBtn.disabled = true;
       exportBtn.innerHTML = `
         <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
         </svg>
-        <span>در حال پردازش...</span>
+        <span>صبر کنید...</span>
       `;
 
       try {
-        // Ensure web fonts are completely loaded
         await document.fonts.ready;
 
-        // Instagram standard story resolution: 1080 x 1920 px
         const exportWidth = 1080;
         const exportHeight = 1920;
 
@@ -973,7 +1039,6 @@ Beauty in Simplicity</div>
         canvas.height = exportHeight;
         const ctx = canvas.getContext('2d');
 
-        // Draw background if specified
         if (state.backgroundMode === 'dark') {
           ctx.fillStyle = '#0b0f19';
           ctx.fillRect(0, 0, exportWidth, exportHeight);
@@ -981,25 +1046,20 @@ Beauty in Simplicity</div>
           ctx.fillStyle = state.customBgColor;
           ctx.fillRect(0, 0, exportWidth, exportHeight);
         } else {
-          // Transparent: do not fill any rect, canvas is transparent by default
           ctx.clearRect(0, 0, exportWidth, exportHeight);
         }
 
-        // Configure typography metrics
-        // Standard typography scale for 1080 width
-        const fontSizePx = state.fontSize * 1.7; // Crisp resolution scale
+        const fontSizePx = state.fontSize * 1.7;
         const lineHeightPx = fontSizePx * state.lineHeight;
         
         ctx.font = `${state.fontWeight} ${fontSizePx}px ${state.fontFamily}`;
         ctx.direction = state.direction;
         ctx.textBaseline = 'middle';
 
-        // Compute paragraph bounds
         const maxParagraphWidth = (state.paragraphWidthPercent / 100) * exportWidth;
         const centerX = (state.positionX / 100) * exportWidth;
         const centerY = (state.positionY / 100) * exportHeight;
 
-        // Break multi-line text into wrapped lines
         const rawLines = state.text.split('\n');
         const wrappedLines = [];
 
@@ -1029,7 +1089,6 @@ Beauty in Simplicity</div>
         const totalBlockHeight = wrappedLines.length * lineHeightPx;
         let startY = centerY - (totalBlockHeight / 2) + (lineHeightPx / 2);
 
-        // Draw each line with Instagram styles
         wrappedLines.forEach((line) => {
           if (!line) {
             startY += lineHeightPx;
@@ -1039,7 +1098,6 @@ Beauty in Simplicity</div>
           const lineMetrics = ctx.measureText(line);
           const lineWidth = lineMetrics.width;
 
-          // Compute horizontal alignment anchor
           let lineStartX = centerX;
           if (state.textAlign === 'right') {
             lineStartX = centerX + (maxParagraphWidth / 2);
@@ -1052,7 +1110,6 @@ Beauty in Simplicity</div>
             ctx.textAlign = 'center';
           }
 
-          // Handle Highlight Styles (Instagram Pill Box / Semi / Outline)
           if (state.igStyle === 'solid' || state.igStyle === 'semi') {
             ctx.save();
             const paddingX = fontSizePx * 0.35;
@@ -1069,9 +1126,8 @@ Beauty in Simplicity</div>
             }
 
             const boxW = lineWidth + (paddingX * 2);
-            const cornerRadius = 14;
+            const cornerRadius = 16;
 
-            // Draw rounded pill
             ctx.beginPath();
             ctx.roundRect(boxX, boxY, boxW, boxH, cornerRadius);
 
@@ -1088,7 +1144,6 @@ Beauty in Simplicity</div>
             ctx.restore();
           }
 
-          // Text Drawing
           ctx.save();
           if (state.igStyle === 'outline') {
             ctx.strokeStyle = state.highlightColor;
@@ -1096,7 +1151,6 @@ Beauty in Simplicity</div>
             ctx.strokeText(line, lineStartX, startY);
           }
 
-          // Set text fill color
           if (state.igStyle === 'solid') {
             const isWhiteHighlight = state.highlightColor.toLowerCase() === '#ffffff';
             ctx.fillStyle = isWhiteHighlight ? '#000000' : state.textColor;
@@ -1110,7 +1164,6 @@ Beauty in Simplicity</div>
           startY += lineHeightPx;
         });
 
-        // Convert to PNG download
         const dataUrl = canvas.toDataURL('image/png');
         const downloadLink = document.createElement('a');
         downloadLink.download = `instagram-typography-${Date.now()}.png`;
@@ -1127,13 +1180,13 @@ Beauty in Simplicity</div>
         exportBtn.disabled = false;
         exportBtn.innerHTML = `
           <i data-lucide="download" class="w-4 h-4"></i>
-          <span>دانلود PNG شفاف</span>
+          <span>دانلود PNG</span>
         `;
-        lucide.createIcons();
+        if (window.lucide) lucide.createIcons();
       }
     }
 
-    exportBtn.addEventListener('click', exportPNG);
+    exportBtn?.addEventListener('click', exportPNG);
 
     // Initial render
     applyStyles();
