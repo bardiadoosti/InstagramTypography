@@ -66,10 +66,17 @@
     .slide-viewport {
       perspective: 1000px;
     }
+
+    /* بهینه‌سازی اسکرول لمسی در موبایل */
+    .mobile-scroll-container {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      scroll-behavior: smooth;
+    }
   </style>
 </head>
 
-<body class="h-full flex flex-col overflow-hidden bg-slate-950 font-vazir text-slate-100 selection:bg-pink-500 selection:text-white">
+<body class="h-full h-[100dvh] max-h-[100dvh] flex flex-col overflow-hidden bg-slate-950 font-vazir text-slate-100 selection:bg-pink-500 selection:text-white">
 
   <!-- نوار بالای برنامه -->
   <header class="h-13 md:h-14 border-b border-slate-800 bg-slate-900/90 backdrop-blur px-3 md:px-6 flex items-center justify-between z-30 shrink-0">
@@ -118,10 +125,10 @@
   </header>
 
   <!-- بدنه اصلی برنامه: چیدمان دو تکه (موبایل: بالا پیش‌نمایش، پایین تب‌های تنظیمات) -->
-  <main class="flex-1 flex flex-col md:flex-row overflow-hidden relative">
+  <main class="flex-1 min-h-0 flex flex-col md:flex-row overflow-hidden relative">
 
     <!-- بخش پیش‌نمایش زنده (در موبایل در بالا قرار دارد: order-1) -->
-    <section id="panelPreview" class="order-1 md:order-2 flex flex-col bg-slate-950 overflow-hidden relative h-[38vh] md:h-full md:flex-1 border-b md:border-b-0 md:border-r border-slate-800/80 shrink-0">
+    <section id="panelPreview" class="order-1 md:order-2 flex flex-col bg-slate-950 overflow-hidden relative h-[32vh] sm:h-[35vh] md:h-full md:flex-1 border-b md:border-b-0 md:border-r border-slate-800/80 shrink-0">
 
       <!-- نوار کنترل پیش‌نمایش -->
       <div class="h-10 md:h-12 border-b border-slate-800/80 px-3 md:px-4 flex items-center justify-between shrink-0 bg-slate-900/50">
@@ -215,7 +222,7 @@
     </section>
 
     <!-- بخش تنظیمات با سیستم تب‌بندی حرفه‌ای (در موبایل در پایین قرار دارد: order-2) -->
-    <section id="panelEditor" class="order-2 md:order-1 w-full md:w-[460px] lg:w-[490px] xl:w-[530px] shrink-0 border-t md:border-t-0 md:border-l border-slate-800 bg-slate-900/80 flex flex-col h-[62vh] md:h-full z-10">
+    <section id="panelEditor" class="order-2 md:order-1 w-full md:w-[460px] lg:w-[490px] xl:w-[530px] flex-1 md:flex-none flex flex-col min-h-0 md:h-full border-t md:border-t-0 md:border-l border-slate-800 bg-slate-900/80 z-10 overflow-hidden">
       
       <!-- نوار ناوبری تب‌های تنظیمات -->
       <div class="shrink-0 bg-slate-900 border-b border-slate-800 p-1.5 md:p-2 grid grid-cols-4 gap-1">
@@ -237,8 +244,8 @@
         </button>
       </div>
 
-      <!-- محتوای اسکرول‌شونده تب‌های تنظیمات -->
-      <div class="flex-1 overflow-y-auto p-3 md:p-5 space-y-4">
+      <!-- محتوای اسکرول‌شونده تب‌های تنظیمات با بهینه‌سازی لمسی و فضای انتهای لیست -->
+      <div class="flex-1 min-h-0 overflow-y-auto mobile-scroll-container p-3 md:p-5 space-y-4 pb-28 md:pb-8">
 
         <!-- ==================== تب ۱: متن و تفکیک اسلایدها ==================== -->
         <div id="tabPane_text" class="tab-content space-y-4">
