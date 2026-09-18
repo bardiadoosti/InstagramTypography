@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تایپوگرافی اینستاگرام</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover-border: rgba(255, 255, 255, 0.22);
+      --text-main: #f5f6fa;
+      --text-muted: #8e95a5;
+      --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      --ig-gradient-story: linear-gradient(135deg, #f58529, #dd2a7b, #8134af, #515bd4);
+      --ig-gradient-slides: linear-gradient(135deg, #405de6, #5851db, #833ab4, #c13584);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background glow */
+    body::before {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(220, 39, 67, 0.16) 0%, rgba(11, 12, 16, 0) 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 960px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #ffd074;
+      margin-bottom: 1.25rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+
+    .gradient-text {
+      background: var(--ig-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: clamp(1rem, 2vw, 1.125rem);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 2rem;
+      text-decoration: none;
+      color: inherit;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--card-hover-border);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7),
+                  0 0 24px 2px rgba(220, 39, 67, 0.15);
+    }
+
+    .preview-box {
+      width: 100%;
+      height: 190px;
+      border-radius: 16px;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .story-card .preview-box {
+      background: var(--ig-gradient-story);
+    }
+
+    .slides-card .preview-box {
+      background: var(--ig-gradient-slides);
+    }
+
+    .preview-mockup {
+      background: rgba(11, 12, 16, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .tool-card:hover .preview-mockup {
+      transform: scale(1.06);
+    }
+
+    /* 9:16 aspect ratio placeholder */
+    .mockup-story {
+      width: 62px;
+      height: 110px;
+      border-radius: 8px;
+    }
+
+    /* Carousel aspect ratio placeholder */
+    .mockup-slides {
+      width: 88px;
+      height: 102px;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .mockup-slides::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 6px;
+      right: -8px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: -1;
+    }
+
+    .ratio-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #fff;
+      opacity: 0.95;
+    }
+
+    .card-content h2 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-content p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      font-size: 0.925rem;
+      font-weight: 600;
+      color: var(--text-main);
+      gap: 8px;
+    }
+
+    .arrow-icon {
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+
+    .tool-card:hover .arrow-icon {
+      transform: translateX(-4px);
+    }
+
+    footer {
+      margin-top: 4rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge">ابزارهای تایپوگرافی اینستاگرام</div>
+      <h1>خلق <span class="gradient-text">جذابیت بصری</span> با کلمات</h1>
+      <p class="subtitle">قالب مورد نظر خود را برای طراحی و تولید محتوای متنی باکیفیت و حرفه‌ای اینستاگرام انتخاب کنید.</p>
+    </header>
+
+    <div class="cards-grid">
+      <!-- Story Link -->
+      <a href="story.html" class="tool-card story-card">
+        <div class="preview-box">
+          <div class="preview-mockup mockup-story">
+            <span class="ratio-badge">۹ : ۱۶</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <h2>استوری اینستاگرام</h2>
+          <p>طراحی استوری‌های عمودی ۹:۱۶ با استایل‌های متنی اختصاصی، چیدمان‌های متنوع و جلوه‌های بصری متحرک.</p>
+          <div class="card-footer">
+            <span>ورود به ویرایشگر استوری</span>
+            <span class="arrow-icon">←</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Slides Link -->
+      <a href="slides.html" class="tool-card slides-card">
+        <div class="preview-box">
+          <div class="preview-mockup mockup-slides">
+            <span class="ratio-badge">اسلایدی</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <h2>اسلایدهای اینستاگرام</h2>
+          <p>ساخت پست‌های اسلایدی پیوسته، مطالب متنی چندصفحه‌ای و اسلایدهای کاروسل خوانا و مدرن.</p>
+          <div class="card-footer">
+            <span>ورود به ویرایشگر اسلایدها</span>
+            <span class="arrow-icon">←</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      تایپوگرافی اینستاگرام &bull; یکی از قالب‌ها را برای شروع انتخاب کنید
+    </footer>
+  </div>
+
+</body>
+</html>
