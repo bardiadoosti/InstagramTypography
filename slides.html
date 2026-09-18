@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اینستااسلاید - سازنده اسلایدهای متنی اینستاگرام</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- فونت‌های گوگل برای فارسی و انگلیسی -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600;700;800&family=Lalezar&family=Lateef:wght@400;700&family=Markazi+Text:wght@400;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;600;700;800&family=Noto+Sans+Arabic:wght@300;400;600;700;800&family=Oswald:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" crossorigin="anonymous">
+  
+  <!-- کتابخانه html-to-image و JSZip -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            vazir: ['Vazirmatn', 'sans-serif'],
+            lalezar: ['Lalezar', 'cursive'],
+            amiri: ['Amiri', 'serif'],
+            notoArabic: ['Noto Sans Arabic', 'sans-serif'],
+            markazi: ['Markazi Text', 'serif'],
+            lateef: ['Lateef', 'cursive'],
+            inter: ['Inter', 'sans-serif'],
+            poppins: ['Poppins', 'sans-serif'],
+            playfair: ['Playfair Display', 'serif'],
+            montserrat: ['Montserrat', 'sans-serif'],
+            oswald: ['Oswald', 'sans-serif'],
+            cinzel: ['Cinzel', 'serif'],
+            merriweather: ['Merriweather', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* نوار اسکرول باریک */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.5);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(148, 163, 184, 0.8);
+    }
+
+    input[type=range] {
+      accent-color: #ec4899;
+    }
+
+    .slide-viewport {
+      perspective: 1000px;
+    }
+  </style>
+</head>
+
+<body class="h-full flex flex-col overflow-hidden bg-slate-950 font-vazir text-slate-100 selection:bg-pink-500 selection:text-white">
+
+  <!-- نوار بالای برنامه -->
+  <header class="h-13 md:h-14 border-b border-slate-800 bg-slate-900/90 backdrop-blur px-3 md:px-6 flex items-center justify-between z-30 shrink-0">
+    <div class="flex items-center gap-2 md:gap-3">
+      <div class="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center shadow-md shadow-pink-500/20 shrink-0">
+        <svg class="w-4 h-4 md:w-5 md:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-xs md:text-base font-bold tracking-tight text-white flex items-center gap-1.5">
+          <span>اینستااسلاید</span>
+          <span class="text-[10px] md:text-xs px-1.5 py-0.5 rounded bg-pink-500/20 text-pink-400 border border-pink-500/30">سازنده اسلاید متنی</span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- دکمه‌های کمکی و دانلود -->
+    <div class="flex items-center gap-1.5 md:gap-2">
+      <!-- بارگذاری متن نمونه -->
+      <div class="hidden sm:flex items-center gap-1 text-xs">
+        <button onclick="loadDemoText('persian')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+          نمونه فارسی
+        </button>
+        <button onclick="loadDemoText('english')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition font-sans">
+          نمونه انگلیسی
+        </button>
+      </div>
+
+      <!-- دانلود تکی اسلاید جاری -->
+      <button onclick="downloadCurrentSlide()" class="inline-flex items-center gap-1 px-2.5 md:px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-medium transition active:scale-95">
+        <svg class="w-3.5 h-3.5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+        </svg>
+        <span>این اسلاید</span>
+      </button>
+
+      <!-- دانلود همه اسلایدها در ZIP -->
+      <button onclick="exportAllSlidesZip()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-medium text-xs md:text-sm shadow-md shadow-pink-600/25 active:scale-95 transition">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+        </svg>
+        <span>دانلود همه (ZIP)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- بدنه اصلی برنامه: چیدمان دو تکه (موبایل: بالا پیش‌نمایش، پایین تب‌های تنظیمات) -->
+  <main class="flex-1 flex flex-col md:flex-row overflow-hidden relative">
+
+    <!-- بخش پیش‌نمایش زنده (در موبایل در بالا قرار دارد: order-1) -->
+    <section id="panelPreview" class="order-1 md:order-2 flex flex-col bg-slate-950 overflow-hidden relative h-[38vh] md:h-full md:flex-1 border-b md:border-b-0 md:border-r border-slate-800/80 shrink-0">
+
+      <!-- نوار کنترل پیش‌نمایش -->
+      <div class="h-10 md:h-12 border-b border-slate-800/80 px-3 md:px-4 flex items-center justify-between shrink-0 bg-slate-900/50">
+        <div class="flex items-center gap-2">
+          <span class="text-[11px] md:text-xs font-semibold text-slate-400">پیش‌نمایش زنده</span>
+          <div class="flex items-center bg-slate-800 rounded-lg border border-slate-700 p-0.5 text-xs">
+            <button onclick="prevSlide()" class="px-2 py-0.5 md:py-1 text-slate-300 hover:text-white rounded hover:bg-slate-700 transition" title="اسلاید قبلی">
+              ‹ قبلی
+            </button>
+            <span id="currentSlideIndicator" class="px-2 py-0.5 md:py-1 font-mono text-pink-400 font-semibold text-xs">۱ / ۱</span>
+            <button onclick="nextSlide()" class="px-2 py-0.5 md:py-1 text-slate-300 hover:text-white rounded hover:bg-slate-700 transition" title="اسلاید بعدی">
+              بعدی ›
+            </button>
+          </div>
+        </div>
+
+        <!-- دکمه نمای شبکه‌ای -->
+        <div class="flex items-center gap-1.5">
+          <button onclick="openGridViewModal()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs transition flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+            </svg>
+            <span class="hidden sm:inline">نمای کلی</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- محفظه اسلاید مقیاس‌پذیر -->
+      <div id="previewContainer" class="flex-1 flex items-center justify-center p-2 md:p-6 overflow-hidden relative select-none bg-radial from-slate-900 to-slate-950">
+        
+        <!-- نگهدارنده اسلاید با مقیاس داینامیک -->
+        <div id="slideScalerWrapper" class="relative transition-transform duration-150 ease-out shadow-2xl rounded-xl md:rounded-2xl overflow-hidden border border-slate-800">
+          
+          <!-- اسلاید اصلی با ابعاد واقعی 1080 پیکسل برای خروجی باکیفیت -->
+          <div 
+            id="masterSlide" 
+            class="relative flex flex-col justify-between overflow-hidden text-white font-vazir"
+            style="width: 1080px; height: 1350px;"
+          >
+            <!-- لایه‌های پس‌زمینه -->
+            <div id="slideBgLayer" class="absolute inset-0 z-0 bg-slate-900 transition-colors duration-300"></div>
+            <div id="slideBgImageLayer" class="absolute inset-0 z-0 bg-cover bg-center hidden"></div>
+            <div id="slideOverlayLayer" class="absolute inset-0 z-0 bg-black/50 pointer-events-none hidden"></div>
+
+            <!-- هدر بالای اسلاید (واترمارک و شماره صفحه بالایی) -->
+            <div id="slideHeader" class="relative z-10 flex items-center justify-between px-16 pt-14 shrink-0">
+              <div id="slideWatermark" dir="ltr" style="direction: ltr; unicode-bidi: isolate;" class="text-2xl font-mono tracking-wider flex items-center gap-2">
+                <span id="slideWatermarkDot" class="w-2.5 h-2.5 rounded-full bg-pink-500 shrink-0"></span>
+                <span id="slideWatermarkText" dir="ltr" style="direction: ltr; unicode-bidi: isolate;">@your_instagram</span>
+              </div>
+              <div id="slideTopCounter" class="text-2xl font-mono"></div>
+            </div>
+
+            <!-- متن اصلی اسلاید -->
+            <div id="slideBody" class="relative z-10 flex-1 flex flex-col justify-center px-20 py-10 overflow-hidden">
+              <div id="slideTextContent" class="leading-relaxed whitespace-pre-wrap break-words">
+                <!-- متن اسلاید اینجا نمایش داده می‌شود -->
+              </div>
+            </div>
+
+            <!-- پاورقی اسلاید (شماره صفحه و آیکون ورق زدن) -->
+            <div id="slideFooter" class="relative z-10 flex items-center justify-between px-16 pb-14 shrink-0">
+              <div id="slideBottomCounter" class="text-2xl font-medium tracking-wide">
+                ۱ / ۵
+              </div>
+
+              <!-- آیکون نشانگر بعدی (با LTR ایزوله) -->
+              <div id="slideNextIcon" dir="ltr" style="direction: ltr; unicode-bidi: isolate;" class="text-4xl font-bold tracking-tight select-none drop-shadow-md">
+                »
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- دکمه‌های ناوبری سریع چپ و راست -->
+        <button onclick="prevSlide()" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-white flex items-center justify-center shadow-lg backdrop-blur opacity-75 hover:opacity-100 transition z-20 text-sm md:text-base">
+          ›
+        </button>
+        <button onclick="nextSlide()" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-white flex items-center justify-center shadow-lg backdrop-blur opacity-75 hover:opacity-100 transition z-20 text-sm md:text-base">
+          ‹
+        </button>
+      </div>
+
+      <!-- نوار اسلایدهای کوچک در پایین پیش‌نمایش (در دسکتاپ) -->
+      <div class="hidden md:flex h-20 border-t border-slate-800/80 bg-slate-900/60 px-4 py-2 items-center gap-3 overflow-x-auto shrink-0">
+        <div id="thumbnailStrip" class="flex items-center gap-2.5 h-full">
+          <!-- با جاوااسکریپت پر می‌شود -->
+        </div>
+      </div>
+    </section>
+
+    <!-- بخش تنظیمات با سیستم تب‌بندی حرفه‌ای (در موبایل در پایین قرار دارد: order-2) -->
+    <section id="panelEditor" class="order-2 md:order-1 w-full md:w-[460px] lg:w-[490px] xl:w-[530px] shrink-0 border-t md:border-t-0 md:border-l border-slate-800 bg-slate-900/80 flex flex-col h-[62vh] md:h-full z-10">
+      
+      <!-- نوار ناوبری تب‌های تنظیمات -->
+      <div class="shrink-0 bg-slate-900 border-b border-slate-800 p-1.5 md:p-2 grid grid-cols-4 gap-1">
+        <button id="tabBtn_text" onclick="switchTab('text')" class="tab-btn py-2 px-1 rounded-lg text-xs font-medium transition flex items-center justify-center gap-1 bg-pink-600 text-white shadow-md shadow-pink-600/30">
+          <span>📝</span>
+          <span>متن</span>
+        </button>
+        <button id="tabBtn_font" onclick="switchTab('font')" class="tab-btn py-2 px-1 rounded-lg text-xs font-medium transition flex items-center justify-center gap-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800">
+          <span>✍️</span>
+          <span>قلم و اندازه</span>
+        </button>
+        <button id="tabBtn_bg" onclick="switchTab('bg')" class="tab-btn py-2 px-1 rounded-lg text-xs font-medium transition flex items-center justify-center gap-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800">
+          <span>🎨</span>
+          <span>پس‌زمینه</span>
+        </button>
+        <button id="tabBtn_footer" onclick="switchTab('footer')" class="tab-btn py-2 px-1 rounded-lg text-xs font-medium transition flex items-center justify-center gap-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800">
+          <span>🏷️</span>
+          <span>پاورقی</span>
+        </button>
+      </div>
+
+      <!-- محتوای اسکرول‌شونده تب‌های تنظیمات -->
+      <div class="flex-1 overflow-y-auto p-3 md:p-5 space-y-4">
+
+        <!-- ==================== تب ۱: متن و تفکیک اسلایدها ==================== -->
+        <div id="tabPane_text" class="tab-content space-y-4">
+          <div class="bg-slate-800/60 rounded-xl p-4 border border-slate-700/60 shadow-sm space-y-3">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-pink-500"></span> متن و تقسیم‌بندی اسلایدها
+              </label>
+              <span id="slideCountBadge" class="text-xs px-2 py-0.5 rounded-full bg-slate-700 text-slate-300 font-mono">۱ اسلاید</span>
+            </div>
+
+            <p class="text-xs text-slate-400 leading-relaxed">
+              متن خود را بنویسید. برای ساخت اسلاید جدید، علامت <code class="bg-slate-900 text-pink-400 px-1 py-0.5 rounded font-mono">---</code> را در یک خط جدا بنویسید یا از دکمه‌های تفکیک خودکار زیر استفاده کنید.
+            </p>
+
+            <div class="relative">
+              <textarea 
+                id="rawTextInput" 
+                rows="6" 
+                class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 font-vazir leading-relaxed"
+                placeholder="متن مقاله، کپشن، داستان یا شعر خود را اینجا وارد کنید..."
+              ></textarea>
+            </div>
+
+            <!-- دکمه‌های تفکیک اسلاید -->
+            <div class="flex flex-wrap gap-2 pt-1 text-xs">
+              <button onclick="insertSlideSeparator()" class="px-2.5 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 font-medium transition flex items-center gap-1">
+                <span>+ درج اسلاید جدید</span> <code class="text-pink-400 font-mono">---</code>
+              </button>
+              <button onclick="autoSplitByParagraph()" class="px-2.5 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 transition">
+                تفکیک با پاراگراف
+              </button>
+              <button onclick="autoSplitByLength(320)" class="px-2.5 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 transition">
+                تفکیک بر اساس طول (~۳۲۰ حرف)
+              </button>
+              <button onclick="clearText()" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-rose-900/40 text-rose-400 mr-auto transition">
+                پاک کردن
+              </button>
+            </div>
+          </div>
+
+          <!-- جهت متن -->
+          <div class="bg-slate-800/60 rounded-xl p-4 border border-slate-700/60 shadow-sm space-y-2">
+            <label class="text-xs font-semibold text-slate-200 block">جهت چیدمان متن (راست‌چین یا چپ‌چین)</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button id="dirRtlBtn" onclick="setTextDirection('rtl')" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-pink-500/50 bg-pink-500/20 text-pink-300 flex items-center justify-center gap-1">
+                <span>راست‌چین (فارسی)</span>
+              </button>
+              <button id="dirLtrBtn" onclick="setTextDirection('ltr')" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 flex items-center justify-center gap-1">
+                <span>چپ‌چین (English)</span>
+              </button>
+              <button id="dirAutoBtn" onclick="setTextDirection('auto')" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 flex items-center justify-center gap-1">
+                <span>تشخیص خودکار</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== تب ۲: قلم، اندازه و چیدمان ==================== -->
+        <div id="tabPane_font" class="tab-content hidden space-y-4">
+          <div class="bg-slate-800/60 rounded-xl p-4 border border-slate-700/60 shadow-sm space-y-4">
+            
+            <!-- انتخاب فونت -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs text-slate-300">
+                <span class="font-semibold">انتخاب فونت متن</span>
+                <span id="fontCategoryLabel" class="text-pink-400 text-[11px]">فونت‌های متن‌باز فارسی</span>
+              </div>
+              <select id="fontSelect" onchange="updateDesign()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-pink-500">
+                <optgroup label="✨ فونت‌های فارسی استاندارد و زیبا">
+                  <option value="Vazirmatn" selected>وزیرمتن (Vazirmatn - مدرن و خوانا)</option>
+                  <option value="Lalezar">لاله‌زار (Lalezar - تیترهای درشت و جذاب)</option>
+                  <option value="Amiri">امیری (Amiri - خط نسخ کلاسیک)</option>
+                  <option value="Noto Sans Arabic">نوتو سنس عربی (Noto Sans Arabic)</option>
+                  <option value="Markazi Text">مرکزی (Markazi Text - متن ادبی و نشریه‌ای)</option>
+                  <option value="Lateef">لطیف (Lateef - نستعلیق روان و سنتی)</option>
+                </optgroup>
+                <optgroup label="🌐 فونت‌های لاتین و انگلیسی">
+                  <option value="Inter">Inter (ساده و مینیمال مدرن)</option>
+                  <option value="Poppins">Poppins (هندسی و گیرا)</option>
+                  <option value="Playfair Display">Playfair Display (کلاسیک و لوکس سریک)</option>
+                  <option value="Montserrat">Montserrat (مدرن و خوش‌خوان)</option>
+                  <option value="Oswald">Oswald (بلند و پرانرژی)</option>
+                  <option value="Cinzel">Cinzel (رومی و باشکوه)</option>
+                  <option value="Merriweather">Merriweather (خوانا و رسمی)</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <!-- اندازه قلم و فاصله خطوط -->
+            <div class="grid grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs text-slate-300">
+                  <span>اندازه فونت</span>
+                  <span id="fontSizeVal" class="text-slate-400 font-mono">۴۲px</span>
+                </div>
+                <input id="fontSizeInput" type="range" min="24" max="76" value="42" oninput="updateDesign()" class="w-full">
+              </div>
+
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs text-slate-300">
+                  <span>فاصله خطوط</span>
+                  <span id="lineHeightVal" class="text-slate-400 font-mono">۱.۸</span>
+                </div>
+                <input id="lineHeightInput" type="range" min="1.1" max="2.6" step="0.05" value="1.8" oninput="updateDesign()" class="w-full">
+              </div>
+            </div>
+
+            <!-- ضخامت قلم و حاشیه کادر (پدینگ) -->
+            <div class="grid grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs text-slate-300">
+                  <span>ضخامت قلم</span>
+                  <span id="fontWeightVal" class="text-slate-400 font-mono">۵۰۰</span>
+                </div>
+                <select id="fontWeightInput" onchange="updateDesign()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-100 focus:outline-none focus:border-pink-500">
+                  <option value="300">نازک (Light ۳۰۰)</option>
+                  <option value="400">عادی (Regular ۴۰۰)</option>
+                  <option value="500" selected>متوسط (Medium ۵۰۰)</option>
+                  <option value="700">پررنگ / بولد (Bold ۷۰۰)</option>
+                  <option value="900">خیلی ضخیم (Black ۹۰۰)</option>
+                </select>
+              </div>
+
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs text-slate-300">
+                  <span>فاصله از لبه‌ها</span>
+                  <span id="paddingVal" class="text-slate-400 font-mono">۸۰px</span>
+                </div>
+                <input id="paddingInput" type="range" min="40" max="140" value="80" oninput="updateDesign()" class="w-full">
+              </div>
+            </div>
+
+            <!-- ترازبندی افقی و عمودی -->
+            <div class="grid grid-cols-2 gap-4 pt-1">
+              <div>
+                <span class="text-xs text-slate-300 block mb-1">ترازبندی افقی</span>
+                <div class="flex bg-slate-950 rounded-lg border border-slate-700 p-0.5 text-xs">
+                  <button onclick="setTextAlign('right')" class="flex-1 py-1 text-center rounded hover:bg-slate-800 text-slate-300 align-btn" data-align="right" title="راست‌چین">
+                    راست
+                  </button>
+                  <button onclick="setTextAlign('center')" class="flex-1 py-1 text-center rounded hover:bg-slate-800 text-slate-300 align-btn" data-align="center" title="وسط‌چین">
+                    وسط
+                  </button>
+                  <button onclick="setTextAlign('left')" class="flex-1 py-1 text-center rounded hover:bg-slate-800 text-slate-300 align-btn" data-align="left" title="چپ‌چین">
+                    چپ
+                  </button>
+                  <button onclick="setTextAlign('justify')" class="flex-1 py-1 text-center rounded bg-pink-600 text-white align-btn" data-align="justify" title="هم‌تراز کامل">
+                    تراز
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <span class="text-xs text-slate-300 block mb-1">ترازبندی عمودی</span>
+                <div class="flex bg-slate-950 rounded-lg border border-slate-700 p-0.5 text-xs">
+                  <button onclick="setVerticalAlign('top')" class="flex-1 py-1 text-center rounded hover:bg-slate-800 text-slate-300 valign-btn" data-valign="top" title="بالا">
+                    بالا
+                  </button>
+                  <button onclick="setVerticalAlign('center')" class="flex-1 py-1 text-center rounded bg-pink-600 text-white valign-btn" data-valign="center" title="وسط">
+                    وسط
+                  </button>
+                  <button onclick="setVerticalAlign('bottom')" class="flex-1 py-1 text-center rounded hover:bg-slate-800 text-slate-300 valign-btn" data-valign="bottom" title="پایین">
+                    پایین
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- رنگ متن و سایه متن -->
+            <div class="grid grid-cols-2 gap-4 items-center pt-1 border-t border-slate-700/60">
+              <div class="flex items-center gap-2">
+                <label class="text-xs text-slate-300">رنگ متن:</label>
+                <input id="textColorInput" type="color" value="#ffffff" oninput="updateDesign()" class="w-8 h-8 rounded border border-slate-700 cursor-pointer bg-transparent">
+                <span id="textColorHex" class="text-xs text-slate-400 font-mono">#ffffff</span>
+              </div>
+
+              <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
+                <input id="textShadowToggle" type="checkbox" checked onchange="updateDesign()" class="rounded border-slate-700 bg-slate-950 text-pink-600 focus:ring-pink-500 w-4 h-4">
+                <span>سایه ملایم متن</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== تب ۳: ابعاد و پس‌زمینه اسلاید ==================== -->
+        <div id="tabPane_bg" class="tab-content hidden space-y-4">
+          <div class="bg-slate-800/60 rounded-xl p-4 border border-slate-700/60 shadow-sm space-y-4">
+            
+            <!-- نسبت ابعاد اینستاگرام -->
+            <div class="space-y-1.5">
+              <label class="text-xs font-semibold text-slate-200">ابعاد و نسبت تصویر اینستاگرام</label>
+              <div class="grid grid-cols-3 gap-2 text-xs">
+                <button onclick="setAspectRatio('4:5')" class="ratio-btn px-2.5 py-2 rounded-lg border border-pink-500/50 bg-pink-500/20 text-pink-300 font-medium text-center" data-ratio="4:5">
+                  <div class="font-bold">۴:۵ عمودی</div>
+                  <div class="text-[10px] text-slate-400 font-mono">1080 × 1350</div>
+                </button>
+                <button onclick="setAspectRatio('1:1')" class="ratio-btn px-2.5 py-2 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 text-center" data-ratio="1:1">
+                  <div class="font-bold">۱:۱ مربعی</div>
+                  <div class="text-[10px] text-slate-400 font-mono">1080 × 1080</div>
+                </button>
+                <button onclick="setAspectRatio('9:16')" class="ratio-btn px-2.5 py-2 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 text-center" data-ratio="9:16">
+                  <div class="font-bold">۹:۱۶ استوری</div>
+                  <div class="text-[10px] text-slate-400 font-mono">1080 × 1920</div>
+                </button>
+              </div>
+            </div>
+
+            <!-- پالت‌های گرادیان -->
+            <div class="space-y-2">
+              <span class="text-xs font-semibold text-slate-300 block">پالت‌های رنگی و گرادیان جذاب</span>
+              <div class="grid grid-cols-5 gap-2" id="presetPaletteContainer">
+                <!-- پالت‌ها با جاوااسکریپت تزریق می‌شوند -->
+              </div>
+            </div>
+
+            <!-- رنگ پس‌زمینه تک‌رنگ -->
+            <div class="flex items-center justify-between pt-1">
+              <label class="text-xs text-slate-300">رنگ دلخواه تک‌رنگ:</label>
+              <div class="flex items-center gap-2">
+                <input id="customBgColorInput" type="color" value="#0f172a" oninput="applySolidBg(this.value)" class="w-7 h-7 rounded border border-slate-700 cursor-pointer bg-transparent">
+                <span id="customBgColorHex" class="text-xs text-slate-400 font-mono">#0f172a</span>
+              </div>
+            </div>
+
+            <!-- آپلود عکس پس‌زمینه دلخواه -->
+            <div class="pt-2 border-t border-slate-700/60 space-y-2">
+              <label class="text-xs font-semibold text-slate-300 block">تصویر پس‌زمینه دلخواه</label>
+              <div class="flex items-center gap-2">
+                <label class="flex-1 cursor-pointer flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 hover:border-pink-500 text-xs text-slate-300 hover:text-white transition">
+                  <svg class="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                  <span>بارگذاری تصویر از دستگاه</span>
+                  <input id="bgImageUpload" type="file" accept="image/*" onchange="handleBgImageUpload(event)" class="hidden">
+                </label>
+                <button onclick="removeBgImage()" class="px-2.5 py-2 rounded-lg bg-slate-800 hover:bg-rose-900/40 text-rose-400 text-xs border border-slate-700 transition" title="حذف تصویر">
+                  حذف
+                </button>
+              </div>
+
+              <!-- اسلایدرهای تصویر -->
+              <div id="bgImageControls" class="space-y-3 pt-2 hidden">
+                <div class="space-y-1">
+                  <div class="flex justify-between text-xs text-slate-300">
+                    <span>لایه تیرگی روی عکس</span>
+                    <span id="bgOverlayVal" class="text-slate-400 font-mono">۵۰%</span>
+                  </div>
+                  <input id="bgOverlayInput" type="range" min="0" max="90" value="50" oninput="updateDesign()" class="w-full">
+                </div>
+                <div class="space-y-1">
+                  <div class="flex justify-between text-xs text-slate-300">
+                    <span>تاری تصویر (Blur)</span>
+                    <span id="bgBlurVal" class="text-slate-400 font-mono">۰px</span>
+                  </div>
+                  <input id="bgBlurInput" type="range" min="0" max="25" value="0" oninput="updateDesign()" class="w-full">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==================== تب ۴: پاورقی، آیکون ورق زدن و شماره صفحه ==================== -->
+        <div id="tabPane_footer" class="tab-content hidden space-y-4">
+          <div class="bg-slate-800/60 rounded-xl p-4 border border-slate-700/60 shadow-sm space-y-4">
+            
+            <!-- رنگ‌های پاورقی و آیکون بعدی -->
+            <div class="bg-slate-950/50 p-3 rounded-lg border border-slate-700/60 space-y-3">
+              <span class="text-xs font-semibold text-slate-200 block">رنگ‌های پاورقی و نشانگر</span>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="space-y-1">
+                  <label class="text-[11px] text-slate-400 block">رنگ شماره صفحه و آیدی</label>
+                  <div class="flex items-center gap-2">
+                    <input id="footerTextColorInput" type="color" value="#e2e8f0" oninput="updateDesign()" class="w-7 h-7 rounded border border-slate-700 cursor-pointer bg-transparent">
+                    <span id="footerTextColorHex" class="text-xs text-slate-400 font-mono">#e2e8f0</span>
+                  </div>
+                </div>
+                <div class="space-y-1">
+                  <label class="text-[11px] text-slate-400 block">رنگ آیکون / نشانگر بعدی</label>
+                  <div class="flex items-center gap-2">
+                    <input id="nextIconColorInput" type="color" value="#f472b6" oninput="updateDesign()" class="w-7 h-7 rounded border border-slate-700 cursor-pointer bg-transparent">
+                    <span id="nextIconColorHex" class="text-xs text-slate-400 font-mono">#f472b6</span>
+                  </div>
+                </div>
+              </div>
+              <button onclick="syncFooterWithTextColor()" class="text-[11px] text-pink-400 hover:text-pink-300 underline block pt-1">
+                هماهنگ‌سازی با رنگ متن اصلی اسلاید
+              </button>
+            </div>
+
+            <!-- تنظیمات نشانگر ورق زدن -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs text-slate-300 flex items-center gap-2 cursor-pointer">
+                  <input id="showNextEmoji" type="checkbox" checked onchange="updateDesign()" class="rounded border-slate-700 bg-slate-950 text-pink-600 focus:ring-pink-500 w-4 h-4">
+                  <span class="font-medium">نمایش نشانگر اسلاید بعدی</span>
+                </label>
+                <label class="text-xs text-slate-400 flex items-center gap-1.5 cursor-pointer">
+                  <input id="hideNextOnLastSlide" type="checkbox" checked onchange="updateDesign()" class="rounded border-slate-700 bg-slate-950 text-pink-600 focus:ring-pink-500 w-3.5 h-3.5">
+                  <span>مخفی‌سازی در آخرین اسلاید</span>
+                </label>
+              </div>
+
+              <!-- فیلد متن آیکون و دکمه معکوس‌سازی جهت -->
+              <div class="flex items-center gap-2">
+                <div class="relative flex-1">
+                  <input 
+                    id="nextEmojiCustomInput" 
+                    type="text" 
+                    value="»" 
+                    oninput="setCustomNextEmoji(this.value)" 
+                    placeholder="متن یا اموجی (مانند » یا >>)"
+                    class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-100 focus:outline-none focus:border-pink-500 font-mono text-center"
+                  >
+                </div>
+                <button onclick="flipNextIconDirection()" class="px-2.5 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-medium transition flex items-center gap-1" title="چرخش جهت فلش">
+                  <span>⇄ تغییر جهت</span>
+                </button>
+              </div>
+
+              <!-- گزینه‌های آماده نشانگر -->
+              <div class="flex items-center gap-1.5 pt-1 flex-wrap text-sm" id="emojiSelectorGroup">
+                <button onclick="setNextEmoji('»')" class="px-2 py-1 rounded bg-pink-600 text-white emoji-choice font-bold">»</button>
+                <button onclick="setNextEmoji('«')" class="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-slate-200 emoji-choice font-bold">«</button>
+                <button onclick="setNextEmoji('>>')" class="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-slate-200 emoji-choice font-bold">&gt;&gt;</button>
+                <button onclick="setNextEmoji('<<')" class="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-slate-200 emoji-choice font-bold">&lt;&lt;</button>
+                <button onclick="setNextEmoji('>')" class="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-slate-200 emoji-choice font-bold">&gt;</button>
+                <button onclick="setNextEmoji('<')" class="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-slate-200 emoji-choice font-bold">&lt;</button>
+                <button onclick="setNextEmoji('👉')" class="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-slate-200 emoji-choice">👉</button>
+                <button onclick="setNextEmoji('👈')" class="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-slate-200 emoji-choice">👈</button>
+                <button onclick="setNextEmoji('➔')" class="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-slate-200 emoji-choice">➔</button>
+                <button onclick="setNextEmoji('ورق بزنید ›')" class="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-slate-200 emoji-choice text-xs">ورق بزنید ›</button>
+                <button onclick="setNextEmoji('‹ ورق بزنید')" class="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-slate-200 emoji-choice text-xs">‹ ورق بزنید</button>
+                <button onclick="setNextEmoji('swipe ›')" class="px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-slate-200 emoji-choice text-xs font-sans">swipe ›</button>
+              </div>
+            </div>
+
+            <!-- تنظیمات شماره صفحه -->
+            <div class="pt-2 border-t border-slate-700/60 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs text-slate-300 flex items-center gap-2 cursor-pointer">
+                  <input id="showPageCounter" type="checkbox" checked onchange="updateDesign()" class="rounded border-slate-700 bg-slate-950 text-pink-600 focus:ring-pink-500 w-4 h-4">
+                  <span class="font-medium">نمایش شماره صفحه اسلاید</span>
+                </label>
+
+                <label class="text-xs text-slate-400 flex items-center gap-1.5 cursor-pointer">
+                  <input id="persianDigitsToggle" type="checkbox" checked onchange="updateDesign()" class="rounded border-slate-700 bg-slate-950 text-pink-600 focus:ring-pink-500 w-3.5 h-3.5">
+                  <span>اعداد فارسی (۱/۵)</span>
+                </label>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <select id="counterFormatSelect" onchange="updateDesign()" class="bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-100 focus:outline-none">
+                  <option value="simple" selected>ساده (۱/۵)</option>
+                  <option value="persian">اسلاید ۱ از ۵</option>
+                  <option value="of">صفحه ۱ از ۵ (انگلیسی)</option>
+                  <option value="dots">نقطه‌ای (● ○ ○)</option>
+                </select>
+
+                <select id="counterPositionSelect" onchange="updateDesign()" class="bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-100 focus:outline-none">
+                  <option value="bottom" selected>پایین اسلاید</option>
+                  <option value="top">بالای اسلاید</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- آیدی اینستاگرام / واترمارک (همواره LTR برای جلوگیری از جابجایی @) -->
+            <div class="pt-2 border-t border-slate-700/60 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <label class="text-xs text-slate-300">نام پیج اینستاگرام / واترمارک:</label>
+                <input id="watermarkToggle" type="checkbox" checked onchange="updateDesign()" class="rounded border-slate-700 bg-slate-950 text-pink-600 focus:ring-pink-500 w-3.5 h-3.5">
+              </div>
+              <input 
+                id="watermarkInput" 
+                type="text" 
+                dir="ltr"
+                value="@your_instagram" 
+                oninput="updateDesign()" 
+                placeholder="@username"
+                class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-100 focus:outline-none focus:border-pink-500 font-mono text-left"
+              >
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- مدال نمای شبکه‌ای تمام اسلایدها -->
+  <div id="gridViewModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex-col p-3 md:p-8">
+    <div class="flex items-center justify-between pb-3 border-b border-slate-800 max-w-6xl mx-auto w-full">
+      <div>
+        <h2 class="text-base md:text-lg font-bold text-white">نمای کلی تمام اسلایدها</h2>
+        <p class="text-xs text-slate-400">برای مشاهده یا ویرایش هر اسلاید روی آن کلیک کنید</p>
+      </div>
+      <button onclick="closeGridViewModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center text-sm">
+        ✕
+      </button>
+    </div>
+    <div id="gridSlidesContainer" class="flex-1 overflow-y-auto max-w-6xl mx-auto w-full py-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+      <!-- کارت‌ها با جاوااسکریپت پر می‌شوند -->
+    </div>
+  </div>
+
+  <!-- کادر اعلان پیام (Toast) -->
+  <div id="toast" class="fixed bottom-4 left-4 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 border border-pink-500/50 text-white px-3.5 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 max-w-md pointer-events-none text-xs md:text-sm">
+    <div id="toastIcon" class="w-5 h-5 rounded-full bg-pink-600 flex items-center justify-center shrink-0 text-[10px]">✓</div>
+    <div id="toastMsg" class="font-medium">پیام سیستم</div>
+  </div>
+
+  <!-- جاوااسکریپت و منطق برنامه -->
+  <script>
+    /* وضعیت سراسری برنامه */
+    const state = {
+      slides: [],
+      currentSlideIdx: 0,
+      direction: 'rtl',
+      fontFamily: 'Vazirmatn',
+      fontSize: 42,
+      lineHeight: 1.8,
+      fontWeight: 500,
+      padding: 80,
+      textAlign: 'justify',
+      verticalAlign: 'center',
+      textColor: '#ffffff',
+      hasTextShadow: true,
+      aspectRatio: '4:5',
+      bgType: 'preset',
+      bgValue: 'linear-gradient(135deg, #0f172a, #1e293b)',
+      uploadedBgImage: null,
+      bgOverlay: 50,
+      bgBlur: 0,
+      showNextEmoji: true,
+      nextEmoji: '»',
+      nextIconColor: '#f472b6',
+      footerTextColor: '#e2e8f0',
+      hideNextOnLastSlide: true,
+      showPageCounter: true,
+      persianDigits: true,
+      counterFormat: 'simple',
+      counterPosition: 'bottom',
+      showWatermark: true,
+      watermarkText: '@your_instagram'
+    };
+
+    /* پالت‌های رنگی آماده با نام‌های فارسی */
+    const presets = [
+      { name: 'تیره ذغالی', value: 'linear-gradient(135deg, #0f172a, #1e293b)' },
+      { name: 'شب بنفش', value: 'linear-gradient(135deg, #180928, #3b0764)' },
+      { name: 'غروب گرم', value: 'linear-gradient(135deg, #4a044e, #9d174d, #ea580c)' },
+      { name: 'کاغذ کهن', value: 'linear-gradient(135deg, #26211d, #141210)' },
+      { name: 'سبز جنگلی', value: 'linear-gradient(135deg, #022c22, #064e3b)' },
+      { name: 'آبی اقیانوس', value: 'linear-gradient(135deg, #082f49, #0c4a6e)' },
+      { name: 'مشکی عمیق', value: '#050507' },
+      { name: 'سایبر نئون', value: 'linear-gradient(135deg, #111827, #31103f)' },
+      { name: 'آبی نوردیک', value: 'linear-gradient(135deg, #1e293b, #334155)' },
+      { name: 'رز وینتیج', value: 'linear-gradient(135deg, #3f1d2a, #201018)' }
+    ];
+
+    /* متن‌های پیش‌فرض نمونه */
+    const DEMO_PERSIAN = `رازهای کوچک آرامش در زندگی مدرن
+هر روز هزاران فکر در ذهن ما جریان دارد، اما تنها اندکی از آن‌ها ارزش توجه و انرژی شما را دارند.
+
+---
+
+گام اول: رها کردن آنچه در اختیارتان نیست
+بسیاری از نگرانی‌های روزمره ما درباره اتفاقاتی است که کنترل آن‌ها دست ما نیست. پذیرش این موضوع، نخستین کلید آرامش ذهن است.
+
+---
+
+گام دوم: ارزش زمان حال
+گذشته قابل تغییر نیست و آینده هنوز از راه نرسیده است. هنر واقعی زندگی، لذت بردن از لحظه‌ای است که هم‌اکنون در آن نفس می‌کشید.
+
+---
+
+گام سوم: حرکت مداوم هرچند کوچک
+موفقیت‌های بزرگ حاصل معجزه‌های یک شبه نیستند؛ نتیجه عادت‌های کوچک و منظمی هستند که هر روز با عشق تکرار می‌شوند.
+
+---
+
+اگر این نکات برای شما مفید و آرامش‌بخش بود، آن را ذخیره کنید و با دوستانتان به اشتراک بگذارید. ✨`;
+
+    const DEMO_ENGLISH = `The Art of Deep Focus
+In an era of endless notifications and constant digital noise, the ability to focus deeply has become a rare superpower.
+
+---
+
+1. Eliminate Micro-Frictions
+Every single notification or open browser tab fractures your cognitive clarity. Guard your attention with ruthless intention.
+
+---
+
+2. The 90-Minute Focus Wave
+Human biology naturally flows in ultradian rhythms. Work with intense dedication for 90 minutes, then recharge for 15 minutes.
+
+---
+
+3. Consistency Over Intensity
+Small, deliberate actions taken every single day compound exponentially into mastery over time.
+
+---
+
+Save this post for your next study or deep work session. Let us know your thoughts in the comments! 🚀`;
+
+    // تبدیل اعداد انگلیسی به فارسی
+    function toPersianDigits(str) {
+      if (str === null || str === undefined) return '';
+      const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+      return String(str).replace(/[0-9]/g, function (w) {
+        return persianNumbers[+w];
+      });
+    }
+
+    // تشخیص خودکار راست‌چین بودن متن
+    function detectRTL(text) {
+      const rtlRegex = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
+      return rtlRegex.test(text);
+    }
+
+    // مدیریت تب‌های اختصاصی تنظیمات: متن، قلم و اندازه، پس‌زمینه، پاورقی
+    function switchTab(tabKey) {
+      const tabs = ['text', 'font', 'bg', 'footer'];
+
+      tabs.forEach(key => {
+        const pane = document.getElementById(`tabPane_${key}`);
+        const btn = document.getElementById(`tabBtn_${key}`);
+
+        if (key === tabKey) {
+          if (pane) pane.classList.remove('hidden');
+          if (btn) {
+            btn.className = "tab-btn py-2 px-1 rounded-lg text-xs font-medium transition flex items-center justify-center gap-1 bg-pink-600 text-white shadow-md shadow-pink-600/30";
+          }
+        } else {
+          if (pane) pane.classList.add('hidden');
+          if (btn) {
+            btn.className = "tab-btn py-2 px-1 rounded-lg text-xs font-medium transition flex items-center justify-center gap-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800";
+          }
+        }
+      });
+    }
+
+    // تفکیک متن و ساخت اسلایدها
+    function parseSlides() {
+      const raw = document.getElementById('rawTextInput').value;
+      if (!raw.trim()) {
+        state.slides = ['متن خود را اینجا بنویسید...'];
+      } else {
+        const parts = raw.split(/\n\s*---\s*\n|\n\s*---\s*$/);
+        state.slides = parts.map(s => s.trim()).filter(s => s.length > 0);
+        if (state.slides.length === 0) {
+          state.slides = [raw.trim()];
+        }
+      }
+
+      if (state.currentSlideIdx >= state.slides.length) {
+        state.currentSlideIdx = Math.max(0, state.slides.length - 1);
+      }
+
+      const count = state.slides.length;
+      document.getElementById('slideCountBadge').textContent = 
+        `${toPersianDigits(count)} اسلاید`;
+    }
+
+    // درج جداکننده اسلاید
+    function insertSlideSeparator() {
+      const textarea = document.getElementById('rawTextInput');
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const val = textarea.value;
+      const insertText = "\n\n---\n\n";
+
+      textarea.value = val.substring(0, start) + insertText + val.substring(end);
+      textarea.focus();
+      textarea.selectionStart = textarea.selectionEnd = start + insertText.length;
+      onTextChange();
+      showToast("جداکننده اسلاید درج شد!");
+    }
+
+    // تفکیک بر اساس پاراگراف
+    function autoSplitByParagraph() {
+      const textarea = document.getElementById('rawTextInput');
+      const text = textarea.value.trim();
+      if (!text) return;
+
+      const paragraphs = text.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+      if (paragraphs.length <= 1) {
+        showToast("لطفاً چند پاراگراف بنویسید تا تفکیک شوند.");
+        return;
+      }
+
+      textarea.value = paragraphs.join("\n\n---\n\n");
+      onTextChange();
+      showToast(`متن با موفقیت به ${toPersianDigits(paragraphs.length)} اسلاید تفکیک شد!`);
+    }
+
+    // تفکیک خودکار بر اساس طول کاراکترها
+    function autoSplitByLength(targetLength = 320) {
+      const textarea = document.getElementById('rawTextInput');
+      const text = textarea.value.trim().replace(/\n\s*---\s*\n/g, "\n\n");
+      if (!text) return;
+
+      const words = text.split(/\s+/);
+      const slides = [];
+      let currentSlide = [];
+      let currentCount = 0;
+
+      words.forEach(word => {
+        if (currentCount + word.length > targetLength && currentSlide.length > 0) {
+          slides.push(currentSlide.join(" "));
+          currentSlide = [word];
+          currentCount = word.length;
+        } else {
+          currentSlide.push(word);
+          currentCount += word.length + 1;
+        }
+      });
+
+      if (currentSlide.length > 0) {
+        slides.push(currentSlide.join(" "));
+      }
+
+      textarea.value = slides.join("\n\n---\n\n");
+      onTextChange();
+      showToast(`تقسیم خودکار به ${toPersianDigits(slides.length)} اسلاید انجام شد!`);
+    }
+
+    function clearText() {
+      document.getElementById('rawTextInput').value = '';
+      onTextChange();
+      showToast("متن پاک شد.");
+    }
+
+    // خواندن مقادیر ورودی‌ها و همگام‌سازی با State
+    function readInputs() {
+      const getVal = (id, fallback) => {
+        const el = document.getElementById(id);
+        return el ? el.value : fallback;
+      };
+      const getChecked = (id, fallback) => {
+        const el = document.getElementById(id);
+        return el ? el.checked : fallback;
+      };
+
+      state.fontSize = parseInt(getVal('fontSizeInput', 42));
+      state.lineHeight = parseFloat(getVal('lineHeightInput', 1.8));
+      state.fontWeight = parseInt(getVal('fontWeightInput', 500));
+      state.padding = parseInt(getVal('paddingInput', 80));
+      state.fontFamily = getVal('fontSelect', 'Vazirmatn');
+      state.textColor = getVal('textColorInput', '#ffffff');
+      state.hasTextShadow = getChecked('textShadowToggle', true);
+      state.showNextEmoji = getChecked('showNextEmoji', true);
+      state.nextEmoji = getVal('nextEmojiCustomInput', '»') || '»';
+      state.nextIconColor = getVal('nextIconColorInput', '#f472b6');
+      state.footerTextColor = getVal('footerTextColorInput', '#e2e8f0');
+      state.hideNextOnLastSlide = getChecked('hideNextOnLastSlide', true);
+      state.showPageCounter = getChecked('showPageCounter', true);
+      state.persianDigits = getChecked('persianDigitsToggle', true);
+      state.counterFormat = getVal('counterFormatSelect', 'simple');
+      state.counterPosition = getVal('counterPositionSelect', 'bottom');
+      state.showWatermark = getChecked('watermarkToggle', true);
+      state.watermarkText = getVal('watermarkInput', '@your_instagram');
+      state.bgOverlay = parseInt(getVal('bgOverlayInput', 50));
+      state.bgBlur = parseInt(getVal('bgBlurInput', 0));
+
+      const setText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      };
+
+      setText('fontSizeVal', `${toPersianDigits(state.fontSize)}px`);
+      setText('lineHeightVal', toPersianDigits(state.lineHeight));
+      setText('paddingVal', `${toPersianDigits(state.padding)}px`);
+      setText('textColorHex', state.textColor);
+      setText('footerTextColorHex', state.footerTextColor);
+      setText('nextIconColorHex', state.nextIconColor);
+      setText('bgOverlayVal', `${toPersianDigits(state.bgOverlay)}%`);
+      setText('bgBlurVal', `${toPersianDigits(state.bgBlur)}px`);
+
+      const isPersianFont = ['Vazirmatn', 'Lalezar', 'Amiri', 'Noto Sans Arabic', 'Markazi Text', 'Lateef'].includes(state.fontFamily);
+      setText('fontCategoryLabel', isPersianFont ? 'فونت‌های متن‌باز فارسی' : 'فونت‌های انگلیسی و لاتین');
+    }
+
+    function updateDesign() {
+      readInputs();
+      renderCurrentSlide();
+      renderThumbnails();
+      adjustSlideScale();
+      if (state.fontFamily) {
+        getBase64FontCSS(state.fontFamily);
+      }
+    }
+
+    // رندر کردن اسلاید فعال
+    function renderCurrentSlide() {
+      if (state.slides.length === 0) parseSlides();
+
+      const total = state.slides.length;
+      const current = state.currentSlideIdx + 1;
+      const slideContent = state.slides[state.currentSlideIdx] || '';
+
+      let effectiveDir = state.direction;
+      if (effectiveDir === 'auto') {
+        effectiveDir = detectRTL(slideContent) ? 'rtl' : 'ltr';
+      }
+
+      const curDisplay = state.persianDigits ? toPersianDigits(current) : current;
+      const totDisplay = state.persianDigits ? toPersianDigits(total) : total;
+      document.getElementById('currentSlideIndicator').textContent = `${curDisplay} / ${totDisplay}`;
+
+      const masterSlide = document.getElementById('masterSlide');
+      const textContentEl = document.getElementById('slideTextContent');
+      const slideBodyEl = document.getElementById('slideBody');
+      const bgLayer = document.getElementById('slideBgLayer');
+      const bgImageLayer = document.getElementById('slideBgImageLayer');
+      const overlayLayer = document.getElementById('slideOverlayLayer');
+      const watermarkEl = document.getElementById('slideWatermark');
+      const watermarkDotEl = document.getElementById('slideWatermarkDot');
+      const watermarkTextEl = document.getElementById('slideWatermarkText');
+      const nextIconEl = document.getElementById('slideNextIcon');
+      const topCounterEl = document.getElementById('slideTopCounter');
+      const bottomCounterEl = document.getElementById('slideBottomCounter');
+
+      let baseWidth = 1080;
+      let baseHeight = 1350;
+      if (state.aspectRatio === '1:1') {
+        baseHeight = 1080;
+      } else if (state.aspectRatio === '9:16') {
+        baseHeight = 1920;
+      }
+      masterSlide.style.width = `${baseWidth}px`;
+      masterSlide.style.height = `${baseHeight}px`;
+
+      masterSlide.dir = effectiveDir;
+      textContentEl.style.direction = effectiveDir;
+      textContentEl.style.fontFamily = `"${state.fontFamily}", sans-serif`;
+      textContentEl.style.fontSize = `${state.fontSize}px`;
+      textContentEl.style.lineHeight = state.lineHeight;
+      textContentEl.style.fontWeight = state.fontWeight;
+      textContentEl.style.textAlign = state.textAlign;
+      textContentEl.style.color = state.textColor;
+      textContentEl.style.textShadow = state.hasTextShadow ? '0 2px 10px rgba(0,0,0,0.6)' : 'none';
+      textContentEl.innerText = slideContent;
+
+      slideBodyEl.style.paddingLeft = `${state.padding}px`;
+      slideBodyEl.style.paddingRight = `${state.padding}px`;
+      if (state.verticalAlign === 'top') {
+        slideBodyEl.style.justifyContent = 'flex-start';
+      } else if (state.verticalAlign === 'bottom') {
+        slideBodyEl.style.justifyContent = 'flex-end';
+      } else {
+        slideBodyEl.style.justifyContent = 'center';
+      }
+
+      if (state.uploadedBgImage) {
+        bgLayer.style.display = 'none';
+        bgImageLayer.classList.remove('hidden');
+        bgImageLayer.style.backgroundImage = `url("${state.uploadedBgImage}")`;
+        bgImageLayer.style.filter = `blur(${state.bgBlur}px)`;
+        
+        overlayLayer.classList.remove('hidden');
+        overlayLayer.style.backgroundColor = `rgba(0, 0, 0, ${state.bgOverlay / 100})`;
+      } else {
+        bgLayer.style.display = 'block';
+        bgImageLayer.classList.add('hidden');
+        overlayLayer.classList.add('hidden');
+        bgLayer.style.background = state.bgValue;
+      }
+
+      // واترمارک و آیدی همیشه با جهت LTR ایزوله می‌شود
+      if (state.showWatermark && state.watermarkText.trim()) {
+        watermarkEl.style.display = 'flex';
+        watermarkEl.dir = 'ltr';
+        watermarkEl.style.direction = 'ltr';
+        watermarkEl.style.unicodeBidi = 'isolate';
+        watermarkEl.style.color = state.footerTextColor;
+        watermarkDotEl.style.backgroundColor = state.nextIconColor;
+        watermarkTextEl.dir = 'ltr';
+        watermarkTextEl.style.direction = 'ltr';
+        watermarkTextEl.style.unicodeBidi = 'isolate';
+        watermarkTextEl.textContent = state.watermarkText;
+      } else {
+        watermarkEl.style.display = 'none';
+      }
+
+      // نشانگر ورق زدن
+      const isLastSlide = (state.currentSlideIdx === total - 1);
+      if (state.showNextEmoji && !(state.hideNextOnLastSlide && isLastSlide)) {
+        nextIconEl.style.display = 'block';
+        nextIconEl.style.color = state.nextIconColor;
+        nextIconEl.style.direction = 'ltr';
+        nextIconEl.style.unicodeBidi = 'isolate';
+        nextIconEl.textContent = state.nextEmoji;
+      } else {
+        nextIconEl.style.display = 'none';
+      }
+
+      // شماره صفحه
+      const formattedCounter = formatCounterText(current, total, effectiveDir);
+
+      if (state.showPageCounter) {
+        if (state.counterPosition === 'top') {
+          topCounterEl.style.display = 'block';
+          topCounterEl.style.color = state.footerTextColor;
+          topCounterEl.textContent = formattedCounter;
+          bottomCounterEl.style.display = 'none';
+        } else {
+          topCounterEl.style.display = 'none';
+          bottomCounterEl.style.display = 'block';
+          bottomCounterEl.style.color = state.footerTextColor;
+          bottomCounterEl.textContent = formattedCounter;
+        }
+      } else {
+        topCounterEl.style.display = 'none';
+        bottomCounterEl.style.display = 'none';
+      }
+    }
+
+    function formatCounterText(cur, tot, dir) {
+      const c = (state.persianDigits || dir === 'rtl') ? toPersianDigits(cur) : cur;
+      const t = (state.persianDigits || dir === 'rtl') ? toPersianDigits(tot) : tot;
+
+      switch (state.counterFormat) {
+        case 'persian':
+          return `اسلاید ${c} از ${t}`;
+        case 'of':
+          return `Page ${c} of ${t}`;
+        case 'dots':
+          let dots = '';
+          for (let i = 1; i <= tot; i++) {
+            dots += (i === cur) ? '● ' : '○ ';
+          }
+          return dots.trim();
+        case 'simple':
+        default:
+          return `${c} / ${t}`;
+      }
+    }
+
+    // تنظیم مقیاس اسلاید در محیط پیش‌نمایش متناسب با موبایل و دسکتاپ
+    function adjustSlideScale() {
+      const container = document.getElementById('previewContainer');
+      const wrapper = document.getElementById('slideScalerWrapper');
+      const masterSlide = document.getElementById('masterSlide');
+
+      if (!container || !wrapper || !masterSlide) return;
+
+      const containerWidth = container.clientWidth - 20;
+      const containerHeight = container.clientHeight - 20;
+
+      let baseWidth = 1080;
+      let baseHeight = 1350;
+      if (state.aspectRatio === '1:1') baseHeight = 1080;
+      if (state.aspectRatio === '9:16') baseHeight = 1920;
+
+      const scaleX = containerWidth / baseWidth;
+      const scaleY = containerHeight / baseHeight;
+      const scale = Math.min(scaleX, scaleY, 0.75);
+
+      wrapper.style.width = `${baseWidth * scale}px`;
+      wrapper.style.height = `${baseHeight * scale}px`;
+
+      masterSlide.style.transform = `scale(${scale})`;
+      masterSlide.style.transformOrigin = 'top right';
+    }
+
+    window.addEventListener('resize', adjustSlideScale);
+
+    function renderThumbnails() {
+      const strip = document.getElementById('thumbnailStrip');
+      if (!strip) return;
+      strip.innerHTML = '';
+
+      state.slides.forEach((slideText, idx) => {
+        const thumb = document.createElement('div');
+        const isActive = idx === state.currentSlideIdx;
+        thumb.className = `h-14 aspect-[4/5] rounded-md border flex items-center justify-center p-1 cursor-pointer transition-all shrink-0 text-[10px] font-mono select-none overflow-hidden relative ${
+          isActive 
+            ? 'border-pink-500 ring-2 ring-pink-500/50 scale-105 bg-slate-800 text-white font-bold' 
+            : 'border-slate-700 bg-slate-900/90 text-slate-400 hover:border-slate-500'
+        }`;
+
+        const snippet = slideText.substring(0, 25);
+        thumb.innerHTML = `
+          <span class="absolute top-0.5 right-0.5 text-[8px] px-1 rounded bg-black/70 text-pink-400 font-bold">${toPersianDigits(idx + 1)}</span>
+          <span class="line-clamp-2 px-1 text-center opacity-80">${snippet}...</span>
+        `;
+
+        thumb.onclick = () => {
+          state.currentSlideIdx = idx;
+          renderCurrentSlide();
+          renderThumbnails();
+        };
+
+        strip.appendChild(thumb);
+      });
+    }
+
+    function prevSlide() {
+      if (state.currentSlideIdx > 0) {
+        state.currentSlideIdx--;
+        renderCurrentSlide();
+        renderThumbnails();
+      }
+    }
+
+    function nextSlide() {
+      if (state.currentSlideIdx < state.slides.length - 1) {
+        state.currentSlideIdx++;
+        renderCurrentSlide();
+        renderThumbnails();
+      }
+    }
+
+    // هدایت با کلیدهای جهت‌نمای کیبورد
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+      if (e.key === 'ArrowLeft') {
+        state.direction === 'rtl' ? nextSlide() : prevSlide();
+      } else if (e.key === 'ArrowRight') {
+        state.direction === 'rtl' ? prevSlide() : nextSlide();
+      }
+    });
+
+    function initPresets() {
+      const container = document.getElementById('presetPaletteContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      presets.forEach((p) => {
+        const btn = document.createElement('button');
+        btn.className = 'h-8 rounded-lg border border-slate-700 hover:scale-105 transition-transform shadow-inner';
+        btn.title = p.name;
+        btn.style.background = p.value;
+        btn.onclick = () => {
+          state.uploadedBgImage = null;
+          const bgControls = document.getElementById('bgImageControls');
+          if (bgControls) bgControls.classList.add('hidden');
+          state.bgValue = p.value;
+          updateDesign();
+          showToast(`تم «${p.name}» اعمال شد`);
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function applySolidBg(colorHex) {
+      state.uploadedBgImage = null;
+      const bgControls = document.getElementById('bgImageControls');
+      if (bgControls) bgControls.classList.add('hidden');
+      state.bgValue = colorHex;
+      const customBgHex = document.getElementById('customBgColorHex');
+      if (customBgHex) customBgHex.textContent = colorHex;
+      updateDesign();
+    }
+
+    function handleBgImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        state.uploadedBgImage = e.target.result;
+        const bgControls = document.getElementById('bgImageControls');
+        if (bgControls) bgControls.classList.remove('hidden');
+        updateDesign();
+        showToast("تصویر پس‌زمینه با موفقیت بارگذاری شد!");
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeBgImage() {
+      state.uploadedBgImage = null;
+      const uploadInput = document.getElementById('bgImageUpload');
+      if (uploadInput) uploadInput.value = '';
+      const bgControls = document.getElementById('bgImageControls');
+      if (bgControls) bgControls.classList.add('hidden');
+      state.bgValue = presets[0].value;
+      updateDesign();
+      showToast("تصویر پس‌زمینه حذف شد.");
+    }
+
+    function setTextDirection(dir) {
+      state.direction = dir;
+      ['dirRtlBtn', 'dirLtrBtn', 'dirAutoBtn'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 flex items-center justify-center gap-1";
+      });
+
+      if (dir === 'rtl') {
+        document.getElementById('dirRtlBtn').className = "px-3 py-1.5 rounded-lg text-xs font-medium border border-pink-500/50 bg-pink-500/20 text-pink-300 flex items-center justify-center gap-1";
+        document.getElementById('rawTextInput').dir = 'rtl';
+      } else if (dir === 'ltr') {
+        document.getElementById('dirLtrBtn').className = "px-3 py-1.5 rounded-lg text-xs font-medium border border-pink-500/50 bg-pink-500/20 text-pink-300 flex items-center justify-center gap-1";
+        document.getElementById('rawTextInput').dir = 'ltr';
+      } else {
+        document.getElementById('dirAutoBtn').className = "px-3 py-1.5 rounded-lg text-xs font-medium border border-pink-500/50 bg-pink-500/20 text-pink-300 flex items-center justify-center gap-1";
+      }
+
+      updateDesign();
+    }
+
+    function setTextAlign(alignment) {
+      state.textAlign = alignment;
+      document.querySelectorAll('.align-btn').forEach(btn => {
+        if (btn.dataset.align === alignment) {
+          btn.className = "flex-1 py-1 text-center rounded bg-pink-600 text-white align-btn";
+        } else {
+          btn.className = "flex-1 py-1 text-center rounded hover:bg-slate-800 text-slate-300 align-btn";
+        }
+      });
+      updateDesign();
+    }
+
+    function setVerticalAlign(valign) {
+      state.verticalAlign = valign;
+      document.querySelectorAll('.valign-btn').forEach(btn => {
+        if (btn.dataset.valign === valign) {
+          btn.className = "flex-1 py-1 text-center rounded bg-pink-600 text-white valign-btn";
+        } else {
+          btn.className = "flex-1 py-1 text-center rounded hover:bg-slate-800 text-slate-300 valign-btn";
+        }
+      });
+      updateDesign();
+    }
+
+    function setAspectRatio(ratio) {
+      state.aspectRatio = ratio;
+      document.querySelectorAll('.ratio-btn').forEach(btn => {
+        if (btn.dataset.ratio === ratio) {
+          btn.className = "ratio-btn px-2.5 py-2 rounded-lg border border-pink-500/50 bg-pink-500/20 text-pink-300 font-medium text-center";
+        } else {
+          btn.className = "ratio-btn px-2.5 py-2 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 text-center";
+        }
+      });
+      updateDesign();
+    }
+
+    function setNextEmoji(emoji) {
+      state.nextEmoji = emoji;
+      document.getElementById('nextEmojiCustomInput').value = emoji;
+      document.querySelectorAll('.emoji-choice').forEach(b => {
+        if (b.innerText.trim() === emoji.trim()) {
+          b.className = "px-2 py-1 rounded bg-pink-600 text-white emoji-choice font-bold";
+        } else {
+          b.className = "px-2 py-1 rounded bg-slate-700 hover:bg-slate-600 text-slate-200 emoji-choice";
+        }
+      });
+      updateDesign();
+    }
+
+    function setCustomNextEmoji(val) {
+      state.nextEmoji = val || '';
+      updateDesign();
+    }
+
+    function flipNextIconDirection() {
+      const flips = {
+        '»': '«',
+        '«': '»',
+        '>>': '<<',
+        '<<': '>>',
+        '>': '<',
+        '<': '>',
+        '👉': '👈',
+        '👈': '👉',
+        '➔': '⬅',
+        '⬅': '➔',
+        '›': '‹',
+        '‹': '›',
+        'ورق بزنید ›': '‹ ورق بزنید',
+        '‹ ورق بزنید': 'ورق بزنید ›',
+        'swipe ›': '‹ swipe',
+        '‹ swipe': 'swipe ›'
+      };
+
+      const current = state.nextEmoji.trim();
+      const flipped = flips[current] || current;
+      setNextEmoji(flipped);
+      showToast(`جهت آیکون به «${flipped}» تغییر یافت`);
+    }
+
+    function syncFooterWithTextColor() {
+      const mainColor = document.getElementById('textColorInput').value;
+      document.getElementById('footerTextColorInput').value = mainColor;
+      state.footerTextColor = mainColor;
+      updateDesign();
+      showToast("رنگ پاورقی با رنگ متن اصلی هماهنگ شد!");
+    }
+
+    function loadDemoText(lang) {
+      if (lang === 'persian') {
+        document.getElementById('rawTextInput').value = DEMO_PERSIAN;
+        document.getElementById('fontSelect').value = 'Vazirmatn';
+        setTextDirection('rtl');
+        setTextAlign('justify');
+        showToast("نمونه متن فارسی بارگذاری شد!");
+      } else {
+        document.getElementById('rawTextInput').value = DEMO_ENGLISH;
+        document.getElementById('fontSelect').value = 'Playfair Display';
+        setTextDirection('ltr');
+        setTextAlign('left');
+        showToast("نمونه متن انگلیسی بارگذاری شد!");
+      }
+      onTextChange();
+    }
+
+    function onTextChange() {
+      parseSlides();
+      updateDesign();
+    }
+
+    document.getElementById('rawTextInput').addEventListener('input', onTextChange);
+
+    const FONT_PARAMS = {
+      'Vazirmatn': 'family=Vazirmatn:wght@300;400;500;600;700;800;900',
+      'Lalezar': 'family=Lalezar',
+      'Amiri': 'family=Amiri:ital,wght@0,400;0,700',
+      'Noto Sans Arabic': 'family=Noto+Sans+Arabic:wght@300;400;600;700;800',
+      'Markazi Text': 'family=Markazi+Text:wght@400;600;700',
+      'Lateef': 'family=Lateef:wght@400;700',
+      'Inter': 'family=Inter:wght@300;400;500;600;700;800',
+      'Poppins': 'family=Poppins:wght@300;400;500;600;700;800',
+      'Playfair Display': 'family=Playfair+Display:ital,wght@0,400;0,700',
+      'Montserrat': 'family=Montserrat:wght@400;600;700;800',
+      'Oswald': 'family=Oswald:wght@400;600;700',
+      'Cinzel': 'family=Cinzel:wght@500;700',
+      'Merriweather': 'family=Merriweather:ital,wght@0,400;0,700'
+    };
+
+    const fontBase64Cache = {};
+
+    async function getBase64FontCSS(fontFamily) {
+      if (fontBase64Cache[fontFamily]) {
+        return fontBase64Cache[fontFamily];
+      }
+
+      const param = FONT_PARAMS[fontFamily] || `family=${encodeURIComponent(fontFamily)}:wght@400;700`;
+      const url = `https://fonts.googleapis.com/css2?${param}&display=swap`;
+
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`خطا در واکشی قلم ${fontFamily}`);
+        const cssText = await res.text();
+
+        const urlRegex = /url\((https:\/\/fonts\.gstatic\.com\/[^)]+)\)/g;
+        const urlsToFetch = new Set();
+        let match;
+        while ((match = urlRegex.exec(cssText)) !== null) {
+          const cleanUrl = match[1].replace(/['"]/g, '');
+          urlsToFetch.add(cleanUrl);
+        }
+
+        const urlToDataUri = {};
+        await Promise.all(
+          Array.from(urlsToFetch).map(async (fontUrl) => {
+            try {
+              const fontRes = await fetch(fontUrl);
+              const blob = await fontRes.blob();
+              const dataUri = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+              });
+              urlToDataUri[fontUrl] = dataUri;
+            } catch (err) {
+              console.warn('عدم امکان کدگذاری باینری فونت:', fontUrl, err);
+            }
+          })
+        );
+
+        let inlinedCSS = cssText;
+        for (const [fontUrl, dataUri] of Object.entries(urlToDataUri)) {
+          const escaped = fontUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          inlinedCSS = inlinedCSS.replace(new RegExp(escaped, 'g'), dataUri);
+        }
+
+        fontBase64Cache[fontFamily] = inlinedCSS;
+        return inlinedCSS;
+      } catch (err) {
+        console.warn('خطا در ایجاد استایل فونت:', fontFamily, err);
+        return '';
+      }
+    }
+
+    async function captureSlideAsPng(slideIdx) {
+      await document.fonts.ready;
+
+      if (state.currentSlideIdx !== slideIdx) {
+        state.currentSlideIdx = slideIdx;
+        renderCurrentSlide();
+        await new Promise(resolve => setTimeout(resolve, 40));
+      }
+
+      const masterSlide = document.getElementById('masterSlide');
+
+      let baseWidth = 1080;
+      let baseHeight = 1350;
+      if (state.aspectRatio === '1:1') baseHeight = 1080;
+      if (state.aspectRatio === '9:16') baseHeight = 1920;
+
+      const fontEmbedCSS = await getBase64FontCSS(state.fontFamily);
+
+      const prevTransform = masterSlide.style.transform;
+      const prevOrigin = masterSlide.style.transformOrigin;
+      masterSlide.style.transform = 'none';
+      masterSlide.style.transformOrigin = 'top right';
+
+      try {
+        const dataUrl = await htmlToImage.toPng(masterSlide, {
+          width: baseWidth,
+          height: baseHeight,
+          pixelRatio: 1,
+          fontEmbedCSS: fontEmbedCSS || undefined,
+          style: {
+            transform: 'none',
+            transformOrigin: 'top right'
+          }
+        });
+        return dataUrl;
+      } finally {
+        masterSlide.style.transform = prevTransform;
+        masterSlide.style.transformOrigin = prevOrigin;
+      }
+    }
+
+    // دانلود تکی اسلاید جاری با کیفیت اصلی ۱۰۸۰ پیکسل
+    async function downloadCurrentSlide() {
+      try {
+        showToast("در حال ساخت و آماده‌سازی فایل تصویری باکیفیت...", 2000);
+        const dataUrl = await captureSlideAsPng(state.currentSlideIdx);
+
+        const link = document.createElement('a');
+        link.download = `slide-${state.currentSlideIdx + 1}.png`;
+        link.href = dataUrl;
+        link.click();
+        showToast(`اسلاید شماره ${toPersianDigits(state.currentSlideIdx + 1)} با موفقیت دانلود شد!`);
+      } catch (err) {
+        console.error("Export error:", err);
+        showToast("خطا در دانلود اسلاید. لطفاً دوباره تلاش کنید.");
+      }
+    }
+
+    // دانلود فشرده تمامی اسلایدها در قالب ZIP
+    async function exportAllSlidesZip() {
+      if (!state.slides.length) return;
+
+      const originalIdx = state.currentSlideIdx;
+      try {
+        showToast(`در حال پردازش فونت‌ها و ${toPersianDigits(state.slides.length)} اسلاید...`, 3000);
+        await getBase64FontCSS(state.fontFamily);
+
+        const zip = new JSZip();
+
+        for (let i = 0; i < state.slides.length; i++) {
+          showToast(`در حال پردازش اسلاید ${toPersianDigits(i + 1)} از ${toPersianDigits(state.slides.length)}...`, 2000);
+          const dataUrl = await captureSlideAsPng(i);
+
+          const base64Data = dataUrl.replace(/^data:image\/png;base64,/, "");
+          const fileName = `slide-${String(i + 1).padStart(2, '0')}.png`;
+          zip.file(fileName, base64Data, { base64: true });
+        }
+
+        showToast("در حال فشرده‌سازی و دانلود فایل ZIP...", 2000);
+        const zipBlob = await zip.generateAsync({ type: "blob" });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(zipBlob);
+        link.download = `instagram-carousel-${Date.now()}.zip`;
+        link.click();
+
+        showToast("تمام اسلایدها با موفقیت در فایل ZIP دانلود شدند!");
+      } catch (err) {
+        console.error("ZIP Export error:", err);
+        showToast("خطا در ایجاد فایل فشرده زیپ.");
+      } finally {
+        state.currentSlideIdx = originalIdx;
+        renderCurrentSlide();
+        renderThumbnails();
+      }
+    }
+
+    function openGridViewModal() {
+      const modal = document.getElementById('gridViewModal');
+      const container = document.getElementById('gridSlidesContainer');
+      container.innerHTML = '';
+
+      state.slides.forEach((text, i) => {
+        const card = document.createElement('div');
+        card.className = `p-3 rounded-xl border cursor-pointer hover:scale-105 transition-transform flex flex-col justify-between aspect-[4/5] bg-slate-900 ${
+          i === state.currentSlideIdx ? 'border-pink-500 ring-2 ring-pink-500/40' : 'border-slate-800'
+        }`;
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between text-xs text-slate-400">
+            <span class="px-1.5 py-0.5 rounded bg-pink-500/20 text-pink-400 font-mono font-bold">#${toPersianDigits(i + 1)}</span>
+            <span class="font-mono text-[11px]">${state.aspectRatio}</span>
+          </div>
+          <p class="text-xs text-slate-200 line-clamp-5 leading-relaxed my-auto font-vazir" dir="${state.direction === 'rtl' ? 'rtl' : 'ltr'}">
+            ${text}
+          </p>
+          <div class="text-[10px] text-slate-500 text-left">برای مشاهده کلیک کنید</div>
+        `;
+
+        card.onclick = () => {
+          state.currentSlideIdx = i;
+          renderCurrentSlide();
+          renderThumbnails();
+          closeGridViewModal();
+        };
+
+        container.appendChild(card);
+      });
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeGridViewModal() {
+      const modal = document.getElementById('gridViewModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // پیمایش با کشیدن انگشت (Swipe) روی پیش‌نمایش در موبایل
+    let touchStartX = 0;
+    const previewStage = document.getElementById('previewContainer');
+
+    previewStage.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    previewStage.addEventListener('touchend', e => {
+      const touchEndX = e.changedTouches[0].screenX;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 35) {
+        if (diff > 0) {
+          state.direction === 'rtl' ? nextSlide() : prevSlide();
+        } else {
+          state.direction === 'rtl' ? prevSlide() : nextSlide();
+        }
+      }
+    }, { passive: true });
+
+    function showToast(msg, duration = 2500) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, duration);
+    }
+
+    // مقداردهی اولیه برنامه
+    window.addEventListener('DOMContentLoaded', () => {
+      initPresets();
+      loadDemoText('persian');
+      switchTab('text');
+      setTimeout(adjustSlideScale, 150);
+      getBase64FontCSS('Vazirmatn');
+    });
+  </script>
+</body>
+</html>
