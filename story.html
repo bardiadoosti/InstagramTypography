@@ -430,8 +430,8 @@
     const state = {
       text: 'گلامون پرپرن ای وای\nیه دیوونه تو باغه',
       direction: 'rtl',
-      fontFamily: 'Lalezar',
-      fontName: 'لاله‌زار (سینمایی و تیتر)',
+      fontFamily: 'Vazirmatn',
+      fontName: 'وزیری (وزیرمتن مدرن و خوانا)',
       fontSize: 80,
       fontWeight: '400',
       lineHeight: 1.4,
@@ -449,8 +449,8 @@
 
     // Built-in Font Presets (Persian & English)
     const builtInFonts = [
+      { id: 'vazirmatn', name: 'وزیری (وزیرمتن مدرن و خوانا)', family: 'Vazirmatn', cat: 'persian', weights: ['300', '400', '700', '900'] },
       { id: 'lalezar', name: 'لاله‌زار (سینمایی و ضخیم)', family: 'Lalezar', cat: 'persian', weights: ['400'] },
-      { id: 'vazirmatn', name: 'وزیرمتن (مدرن و خوانا)', family: 'Vazirmatn', cat: 'persian', weights: ['300', '400', '700', '900'] },
       { id: 'noto-kufi', name: 'کوفی عربی (مستطیلی و مدرن)', family: 'Noto Kufi Arabic', cat: 'persian', weights: ['400', '700', '900'] },
       { id: 'lemonada', name: 'لمونادا (فانتزی و پرانرژی)', family: 'Lemonada', cat: 'persian', weights: ['400', '700'] },
       { id: 'rubik', name: 'روبیک (گرد و صمیمی)', family: 'Rubik', cat: 'persian', weights: ['400', '700', '900'] },
@@ -913,8 +913,8 @@
             await deleteCustomFontFromDB(font.id);
             customFonts = customFonts.filter(f => f.id !== font.id);
             if (state.fontFamily === font.family) {
-              state.fontFamily = 'Lalezar';
-              state.fontName = 'لاله‌زار (سینمایی)';
+              state.fontFamily = 'Vazirmatn';
+              state.fontName = 'وزیری (وزیرمتن مدرن و خوانا)';
             }
             renderFontsList();
             renderCanvas();
