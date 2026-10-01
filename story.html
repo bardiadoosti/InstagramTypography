@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" class="h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>استودیو تایپوگرافی اینستاگرام | Persian & English Typography Studio</title>
+  <title>استودیو تایپوگرافی اینستاگرام</title>
   
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Google Fonts for Persian & English Typography -->
+  <!-- Google Fonts for Persian & English -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Anton&family=Caveat:wght@600&family=Cinzel:wght@700&family=Gulzar&family=Katibeh&family=Lalezar&family=Lateef:wght@400;700&family=Lemonada:wght@400;700&family=Markazi+Text:wght@500;700&family=Mirza:wght@600&family=Montserrat:wght@400;700;900&family=Noto+Kufi+Arabic:wght@400;700;900&family=Noto+Naskh+Arabic:wght@400;700&family=Noto+Sans+Arabic:wght@300;500;800;900&family=Pacifico&family=Playfair+Display:ital,wght@0,600;0,900;1,600&family=Plus+Jakarta+Sans:wght@400;600;800&family=Rakkas&family=Rubik:wght@400;700;900&family=Vazirmatn:wght@300;400;700;900&family=Zain:wght@400;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Anton&family=Caveat:wght@600&family=Cinzel:wght@600;900&family=Gulzar&family=Inter:wght@400;600;800&family=Katibeh&family=Lalezar&family=Lateef:wght@400;700&family=Markazi+Text:wght@400;700&family=Mirza:wght@500;700&family=Montserrat:wght@400;700;900&family=Noto+Kufi+Arabic:wght@400;700;900&family=Noto+Naskh+Arabic:wght@400;700&family=Noto+Sans+Arabic:wght@400;600;800&family=Pacifico&family=Playfair+Display:ital,wght@0,600;0,900;1,600&family=Plus+Jakarta+Sans:wght@400;700;800&family=Rakkas&family=Rubik:wght@400;700;900&family=Vazirmatn:wght@300;400;500;700;900&family=Zain:wght@400;700;900&display=swap" rel="stylesheet">
 
   <script>
     (function (i, s, o, g, r, a, m) {
@@ -39,19 +42,18 @@
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Vazirmatn', 'system-ui', 'sans-serif'],
-          },
           colors: {
-            ig: {
-              pink: '#E1306C',
-              purple: '#833AB4',
-              orange: '#F56040',
-              yellow: '#FCAF45',
-              dark: '#121212',
-              card: '#1e1e1e',
-              border: '#2e2e2e'
+            brand: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              500: '#f43f5e',
+              600: '#e11d48',
+              700: '#be123c',
+              900: '#881337',
             }
+          },
+          fontFamily: {
+            sans: ['Vazirmatn', 'system-ui', 'sans-serif']
           }
         }
       }
@@ -59,518 +61,617 @@
   </script>
 
   <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
     }
-    body {
-      font-family: 'Vazirmatn', system-ui, sans-serif;
-      touch-action: manipulation;
-      overflow-x: hidden;
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
     }
-    /* Transparent Canvas Checkerboard */
-    .checkerboard {
+    ::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.5);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(244, 63, 94, 0.6);
+    }
+
+    /* Transparent canvas checkerboard */
+    .bg-checkered {
       background-color: #0f172a;
       background-image: 
         linear-gradient(45deg, #1e293b 25%, transparent 25%), 
         linear-gradient(-45deg, #1e293b 25%, transparent 25%), 
         linear-gradient(45deg, transparent 75%, #1e293b 75%), 
         linear-gradient(-45deg, transparent 75%, #1e293b 75%);
-      background-size: 20px 20px;
-      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
     }
-    /* Custom Scrollbars */
-    ::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.6);
-    }
-    ::-webkit-scrollbar-thumb {
+
+    /* Range slider custom styling with vibrant red fill and thumb */
+    input[type=range] {
+      -webkit-appearance: none;
+      appearance: none;
       background: #334155;
       border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #475569;
-    }
-    /* Mobile drawer smooth collapse transition */
-    #mobileDrawer {
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s ease, flex 0.25s ease;
-    }
-    #mobileDrawer.collapsed {
-      height: 38px !important;
-      flex: 0 0 38px !important;
-      max-height: 38px !important;
-      overflow: hidden;
-    }
-    input[type=range] {
+      height: 8px;
       accent-color: #f43f5e;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: #f43f5e;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(244, 63, 94, 0.7);
+      border: 2.5px solid #ffffff;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    input[type=range]::-moz-range-thumb {
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: #f43f5e;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(244, 63, 94, 0.7);
+      border: 2.5px solid #ffffff;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover,
+    input[type=range]::-moz-range-thumb:hover {
+      transform: scale(1.18);
+      box-shadow: 0 0 16px rgba(244, 63, 94, 0.95);
+    }
+    input[type=range]::-moz-range-progress {
+      background-color: #f43f5e;
+      border-radius: 9999px;
+      height: 8px;
     }
   </style>
 </head>
 
-<body class="bg-slate-950 text-slate-100 h-screen h-[100dvh] max-h-screen flex flex-col select-none antialiased overflow-hidden">
-
-  <header class="h-12 sm:h-16 border-b border-slate-800/80 bg-slate-900/90 backdrop-blur-md px-3 sm:px-6 flex items-center justify-between z-30 shrink-0">
-    <div class="flex items-center gap-2 sm:gap-3">
-      <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-rose-500/20">
-        <i data-lucide="type" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+<body class="bg-slate-950 text-slate-100 font-sans h-[100dvh] flex flex-col overflow-hidden select-none">
+  <header class="shrink-0 h-14 bg-slate-900/90 backdrop-blur border-b border-slate-800 px-4 flex items-center justify-between z-30">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-white shadow-md shadow-rose-500/20">
+        <i data-lucide="sparkles" class="w-4 h-4"></i>
       </div>
       <div>
-        <h1 class="text-xs sm:text-base font-black tracking-tight flex items-center gap-1.5 text-white">
-          <span>تایپوگرافی استوری</span>
-          <span class="text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-normal">HD 1080p</span>
-        </h1>
-        <p class="text-[10px] sm:text-xs text-slate-400 hidden xs:block">خروجی مستقیم بدون پس‌زمینه (استیکر استوری)</p>
+        <h1 class="text-sm font-bold text-white tracking-wide">استودیو تایپوگرافی اینستاگرام</h1>
+        <p class="text-[10px] text-slate-400">فونت‌های استاندارد فارسی و انگلیسی با خروجی ۱۰۸۰×۱۹۲۰</p>
       </div>
     </div>
 
-    <!-- Quick Actions Header -->
     <div class="flex items-center gap-2">
-      <!-- Reset Coordinates Button -->
-      <button id="resetPositionBtn" title="تنظیم مجدد موقعیت متن" class="p-1.5 sm:px-3 sm:py-2 text-xs rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition flex items-center gap-1.5 border border-slate-700">
-        <i data-lucide="scan" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
-        <span class="hidden sm:inline">وسط‌چین بوم</span>
+      <button id="addTextBoxHeaderBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-rose-300 hover:text-white transition">
+        <i data-lucide="plus" class="w-3.5 h-3.5 text-rose-400"></i>
+        <span class="hidden sm:inline">متن جدید</span>
       </button>
 
-      <!-- PNG Export Button -->
-      <button id="downloadBtn" class="px-3 py-1.5 sm:px-5 sm:py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-bold text-xs sm:text-sm shadow-lg shadow-rose-500/25 active:scale-95 transition flex items-center gap-1.5 sm:gap-2">
-        <i data-lucide="download" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+      <button id="resetPositionBtn" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white transition" title="وسط‌چین کردن متن انتخابی">
+        <i data-lucide="crosshair" class="w-4 h-4"></i>
+      </button>
+
+      <button id="downloadBtn" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition shadow-lg shadow-rose-600/30 active:scale-95">
+        <i data-lucide="download" class="w-4 h-4"></i>
         <span>دانلود PNG</span>
       </button>
     </div>
   </header>
 
-  <div class="flex-1 flex flex-col lg:flex-row min-h-0 relative overflow-hidden">
+  <main class="flex-1 min-h-0 flex flex-col lg:flex-row overflow-hidden relative">
     
-    <!-- TOP ON MOBILE / LEFT ON DESKTOP: Story Viewport Arena -->
-    <main id="previewMain" class="h-[35vh] sm:h-[40vh] lg:h-full lg:flex-1 shrink-0 lg:shrink relative flex items-center justify-center p-1.5 sm:p-4 bg-slate-950 overflow-hidden border-b lg:border-b-0 lg:border-l border-slate-800/80 transition-all">
+    <!-- Canvas Story Viewport Area -->
+    <div id="canvasContainer" class="flex-none h-[38vh] sm:h-[45vh] lg:flex-1 lg:h-full bg-slate-900/60 p-2 sm:p-4 flex items-center justify-center relative overflow-hidden transition-all duration-300">
       
-      <!-- 9:16 Canvas Story Container (Scaled down neatly on mobile) -->
-      <div id="canvasContainer" class="relative w-auto h-full max-h-full aspect-[9/16] rounded-xl sm:rounded-3xl overflow-hidden shadow-xl sm:shadow-2xl border-2 sm:border-4 border-slate-800 checkerboard flex items-center justify-center">
+      <!-- 9:16 Instagram Story Box Frame -->
+      <div id="storyFrame" class="relative aspect-[9/16] h-full max-h-full max-w-full rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-700/80 bg-checkered flex items-center justify-center">
         
-        <!-- Instagram Story UI Overlay Simulator -->
-        <div class="absolute inset-x-0 top-0 p-2 sm:p-4 z-20 pointer-events-none flex justify-between items-center opacity-40">
-          <div class="h-0.5 sm:h-1 bg-white/60 rounded-full flex-1 mx-0.5"></div>
-          <div class="h-0.5 sm:h-1 bg-white/20 rounded-full flex-1 mx-0.5"></div>
-        </div>
-        <div class="absolute top-2.5 sm:top-5 left-2.5 sm:left-4 z-20 pointer-events-none flex items-center gap-1.5 sm:gap-2 opacity-50">
-          <div class="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-white/40 border border-white/60"></div>
-          <span class="text-[9px] sm:text-xs font-sans text-white">your_story</span>
-        </div>
-
-        <!-- Master 1080x1920 WYSIWYG Canvas -->
+        <!-- Live WYSIWYG 1080x1920 Canvas -->
         <canvas id="liveCanvas" width="1080" height="1920" class="w-full h-full object-contain pointer-events-none select-none"></canvas>
 
-        <!-- Snapping Guides -->
-        <div id="guideX" class="absolute inset-y-0 left-1/2 w-[1px] bg-rose-500/80 dashed hidden z-10 pointer-events-none"></div>
-        <div id="guideY" class="absolute inset-x-0 top-1/2 h-[1px] bg-rose-500/80 dashed hidden z-10 pointer-events-none"></div>
+        <!-- Snapping Alignment Guides -->
+        <div id="guideX" class="hidden absolute top-0 bottom-0 left-1/2 w-[1px] bg-rose-500/80 pointer-events-none z-10 shadow-[0_0_8px_rgba(244,63,94,0.8)]"></div>
+        <div id="guideY" class="hidden absolute left-0 right-0 top-1/2 h-[1px] bg-rose-500/80 pointer-events-none z-10 shadow-[0_0_8px_rgba(244,63,94,0.8)]"></div>
 
-        <!-- Bounding Box Indicator -->
-        <div id="selectionBox" class="absolute border-2 border-dashed border-rose-400/80 rounded-lg pointer-events-none z-10 hidden transition-all duration-75"></div>
-
-        <!-- Touch/Mouse Drag Layer -->
-        <div id="touchLayer" class="absolute inset-0 z-15 cursor-grab active:cursor-grabbing"></div>
-
-        <!-- Drag Hint Badge -->
-        <div class="absolute bottom-2 inset-x-0 mx-auto w-fit px-2.5 py-0.5 bg-black/60 backdrop-blur-md rounded-full text-[9px] sm:text-[10px] text-slate-300 pointer-events-none z-20 flex items-center gap-1 opacity-60">
-          <i data-lucide="move" class="w-2.5 h-2.5 sm:w-3 sm:h-3"></i>
-          <span>جابجایی لمسی متن</span>
+        <!-- Dynamic Selection Box -->
+        <div id="selectionBox" class="hidden absolute border-2 border-dashed border-rose-400 pointer-events-none z-20 rounded-lg transition-all duration-75">
+          <div class="absolute -top-2 -left-2 w-3.5 h-3.5 bg-rose-500 rounded-full border-2 border-white shadow"></div>
+          <div class="absolute -top-2 -right-2 w-3.5 h-3.5 bg-rose-500 rounded-full border-2 border-white shadow"></div>
+          <div class="absolute -bottom-2 -left-2 w-3.5 h-3.5 bg-rose-500 rounded-full border-2 border-white shadow"></div>
+          <div class="absolute -bottom-2 -right-2 w-3.5 h-3.5 bg-rose-500 rounded-full border-2 border-white shadow"></div>
         </div>
-      </div>
-    </main>
 
-    <aside id="mobileDrawer" class="w-full lg:w-[440px] flex-1 lg:flex-none lg:h-full min-h-0 bg-slate-900 border-t lg:border-t-0 flex flex-col z-20 shadow-2xl overflow-hidden">
+        <!-- Touch / Drag Surface Layer -->
+        <div id="touchLayer" class="absolute inset-0 z-10 cursor-move"></div>
+      </div>
+
+      <!-- Quick Canvas Overlay Controls -->
+      <div class="absolute bottom-3 left-4 z-20 flex items-center gap-1.5 bg-slate-900/80 backdrop-blur px-2.5 py-1 rounded-full border border-slate-700 text-[11px] text-slate-300 pointer-events-none">
+        <i data-lucide="move" class="w-3 h-3 text-rose-400"></i>
+        <span>بکشید و جابه‌جا کنید</span>
+      </div>
+    </div>
+
+    <div id="controlPanelWrapper" class="flex-1 min-h-0 lg:w-[440px] xl:w-[480px] lg:flex-none flex flex-col bg-slate-900 border-t lg:border-t-0 lg:border-r border-slate-800 z-20 overflow-hidden">
       
-      <!-- Mobile Peek / Collapse Handle Bar -->
-      <div id="drawerToggle" class="lg:hidden h-8 px-3 flex items-center justify-between bg-slate-850 border-b border-slate-800/80 cursor-pointer active:bg-slate-800 select-none">
-        <div class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-300">
-          <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-rose-400"></i>
-          <span id="drawerTitle">تنظیمات استوری</span>
+      <!-- Mobile Drawer Collapse Handle -->
+      <div id="drawerToggle" class="lg:hidden flex items-center justify-between px-4 py-1.5 bg-slate-800/80 border-b border-slate-700/60 cursor-pointer select-none">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-1 rounded-full bg-slate-600 block"></span>
+          <span id="drawerToggleHint" class="text-[11px] font-medium text-slate-300">پنل تنظیمات تایپوگرافی</span>
         </div>
-        <div class="flex items-center gap-1 text-slate-400 text-[11px]">
-          <span id="drawerToggleHint">کوچک‌کردن</span>
-          <i id="drawerToggleIcon" data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform"></i>
-        </div>
+        <button class="text-slate-400 hover:text-white p-1">
+          <i id="drawerToggleIcon" data-lucide="chevron-down" class="w-4 h-4"></i>
+        </button>
       </div>
 
-      <!-- Navigation Tabs (5 Categorized Sections) -->
-      <nav class="flex items-center border-b border-slate-800 bg-slate-900/95 overflow-x-auto shrink-0 scrollbar-none px-1">
-        <button data-tab="tab-text" class="tab-btn flex-1 min-w-[64px] py-2 px-1.5 text-[11px] font-bold text-center border-b-2 border-rose-500 text-rose-400 flex flex-col items-center gap-1">
-          <i data-lucide="file-text" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+      <!-- Text Layer Chips Bar -->
+      <div class="shrink-0 px-3 py-2 bg-slate-950/60 border-b border-slate-800 flex items-center gap-2 overflow-x-auto">
+        <div class="flex items-center gap-1.5 text-xs text-slate-400 shrink-0 font-medium">
+          <i data-lucide="layers" class="w-3.5 h-3.5 text-rose-400"></i>
+          <span>لایه‌ها:</span>
+        </div>
+        
+        <div id="textBoxChipsList" class="flex items-center gap-1.5 overflow-x-auto py-0.5">
+          <!-- Populated by JS -->
+        </div>
+
+        <button id="addTextBoxBtn" class="shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-rose-300 text-xs font-semibold transition" title="افزودن متن جدید به استوری">
+          <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+          <span>متن جدید</span>
+        </button>
+      </div>
+
+      <!-- Categories Navigation Bar -->
+      <div class="shrink-0 flex items-center justify-between border-b border-slate-800 bg-slate-900 px-2 overflow-x-auto">
+        <button data-tab="tab-text" class="catTabBtn active flex-1 py-2.5 px-2 text-xs font-bold text-rose-400 border-b-2 border-rose-500 flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
           <span>متن</span>
         </button>
-        <button data-tab="tab-fonts" class="tab-btn flex-1 min-w-[64px] py-2 px-1.5 text-[11px] font-semibold text-center border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex flex-col items-center gap-1">
-          <i data-lucide="type" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+        <button data-tab="tab-fonts" class="catTabBtn flex-1 py-2.5 px-2 text-xs font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="type" class="w-3.5 h-3.5"></i>
           <span>فونت‌ها</span>
         </button>
-        <button data-tab="tab-size" class="tab-btn flex-1 min-w-[64px] py-2 px-1.5 text-[11px] font-semibold text-center border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex flex-col items-center gap-1">
-          <i data-lucide="sliders" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+        <button data-tab="tab-size" class="catTabBtn flex-1 py-2.5 px-2 text-xs font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
           <span>ابعاد</span>
         </button>
-        <button data-tab="tab-style" class="tab-btn flex-1 min-w-[64px] py-2 px-1.5 text-[11px] font-semibold text-center border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex flex-col items-center gap-1">
-          <i data-lucide="palette" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+        <button data-tab="tab-style" class="catTabBtn flex-1 py-2.5 px-2 text-xs font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="palette" class="w-3.5 h-3.5"></i>
           <span>استایل</span>
         </button>
-        <button data-tab="tab-bg" class="tab-btn flex-1 min-w-[64px] py-2 px-1.5 text-[11px] font-semibold text-center border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex flex-col items-center gap-1">
-          <i data-lucide="image" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+        <button data-tab="tab-bg" class="catTabBtn flex-1 py-2.5 px-2 text-xs font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="image" class="w-3.5 h-3.5"></i>
           <span>بک‌گراند</span>
         </button>
-      </nav>
+      </div>
 
-      <div class="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4">
-        <!-- TAB 1: TEXT & EDITING -->
+      <div id="tabContentContainer" class="flex-1 min-h-0 overflow-y-auto p-4 space-y-4">
+        
+        <!-- Tab 1: Text Content -->
         <section id="tab-text" class="tab-content space-y-4">
-          <div>
-            <div class="flex items-center justify-between mb-1.5">
-              <label class="text-xs font-bold text-slate-300">متن استوری خود را تایپ کنید:</label>
-              <div class="flex items-center gap-1 bg-slate-800 p-0.5 rounded-lg border border-slate-700">
-                <button id="btnRTL" class="px-2 py-1 text-[11px] font-bold rounded bg-rose-500 text-white">راست‌چین (RTL)</button>
-                <button id="btnLTR" class="px-2 py-1 text-[11px] font-bold rounded text-slate-400 hover:text-white">چپ‌چین (LTR)</button>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-bold text-slate-300">متن این لایه</label>
+              <div class="flex items-center bg-slate-800 p-0.5 rounded-lg border border-slate-700">
+                <button id="btnRTL" class="px-2 py-1 text-[11px] font-bold rounded bg-rose-500 text-white">راست‌چین (فا)</button>
+                <button id="btnLTR" class="px-2 py-1 text-[11px] font-bold rounded text-slate-400 hover:text-white">چپ‌چین (EN)</button>
               </div>
             </div>
-            <textarea id="textInput" rows="5" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition resize-none leading-relaxed" placeholder="متن مورد نظرتان را اینجا بنویسید... (پشتیبانی از اینتر برای خطوط جدید)"></textarea>
+            <textarea id="textInput" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition resize-none"></textarea>
           </div>
 
-          <!-- Quick Text Presets -->
-          <div>
-            <span class="text-[11px] text-slate-400 block mb-2">نمونه‌های آماده برای آزمایش:</span>
-            <div class="flex flex-wrap gap-1.5">
-              <button class="preset-text-btn px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-750 text-slate-300 rounded-lg border border-slate-700/60" data-text="گلامون پرپرن ای وای&#10;یه دیوونه تو باغه">فارسی</button>
-              <button class="preset-text-btn px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-750 text-slate-300 rounded-lg border border-slate-700/60" data-text="NEW COLLECTION&#10;Available in Stores Now">English</button>
+          <!-- Presets (Simplified to Persian & English) -->
+          <div class="space-y-1.5">
+            <span class="text-[11px] font-medium text-slate-400">نمونه‌های آماده برای آزمایش:</span>
+            <div class="grid grid-cols-2 gap-2">
+              <button class="preset-text-btn px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 border border-slate-700 hover:border-rose-500/50 text-xs text-slate-200 text-center transition" data-text="گلامون پرپرن ای وای&#10;یه دیوونه تو باغه">
+                فارسی
+              </button>
+              <button class="preset-text-btn px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 border border-slate-700 hover:border-rose-500/50 text-xs text-slate-200 text-center font-sans transition" data-text="Stay Hungry,&#10;Stay Foolish.">
+                English
+              </button>
             </div>
           </div>
         </section>
 
-        <!-- TAB 2: FONTS LIBRARY & CUSTOM UPLOADER -->
+        <!-- Tab 2: Fonts Selection & Upload -->
         <section id="tab-fonts" class="tab-content hidden space-y-4">
-          <!-- Custom Font File Upload with IndexedDB persistence -->
-          <div class="p-3 bg-gradient-to-r from-rose-950/40 via-purple-950/30 to-slate-900 border border-rose-500/30 rounded-2xl">
-            <div class="flex items-center justify-between mb-2">
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="upload" class="w-4 h-4 text-rose-400"></i>
-                <span class="text-xs font-bold text-rose-200">افزودن فونت دلخواه</span>
+          <!-- Custom Font File Upload -->
+          <div class="p-3.5 rounded-2xl bg-gradient-to-r from-rose-950/40 via-purple-950/30 to-slate-900 border border-rose-500/30 space-y-2">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <i data-lucide="file-up" class="w-4 h-4 text-rose-400"></i>
+                <span class="text-xs font-bold text-white">آپلود فونت دلخواه</span>
               </div>
-              <span class="text-[10px] text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-500/30">ذخیره دائمی</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">ذخیره خودکار</span>
             </div>
-            <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
-              فایل‌های فونت (<code class="text-rose-300">.ttf</code> یا <code class="text-rose-300">.otf</code>) را اضافه کنید تا برای همیشه روی مرورگر شما ذخیره بمانند.
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              فایل‌های دانلودی فونت (<code class="text-rose-300">.ttf</code> یا <code class="text-rose-300">.otf</code>) را انتخاب کنید تا برای همیشه در مرورگر شما ذخیره و در دسترس باشند.
             </p>
-            <label class="w-full cursor-pointer py-2.5 px-3 bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/50 rounded-xl text-center flex items-center justify-center gap-2 text-rose-200 text-xs font-bold transition active:scale-98">
-              <i data-lucide="folder-plus" class="w-4 h-4"></i>
-              <span>انتخاب و آپلود فونت جدید (.TTF / .OTF)</span>
+            <label class="flex items-center justify-center gap-2 w-full py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold cursor-pointer transition shadow-md shadow-rose-600/20 active:scale-98">
+              <i data-lucide="upload" class="w-4 h-4"></i>
+              <span>انتخاب و نصب فایل فونت</span>
               <input type="file" id="fontFileInput" accept=".ttf,.otf,.woff,.woff2" class="hidden">
             </label>
           </div>
 
-          <!-- Font Filter Tabs -->
-          <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
-            <button class="font-cat-btn flex-1 py-1.5 text-xs font-bold rounded-lg bg-rose-500 text-white" data-cat="all">همه</button>
-            <button class="font-cat-btn flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white" data-cat="custom">شخصی شما</button>
-            <button class="font-cat-btn flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white" data-cat="persian">فارسی</button>
-            <button class="font-cat-btn flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white" data-cat="english">English</button>
+          <!-- Font Category Tabs -->
+          <div class="flex items-center gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800 text-xs">
+            <button class="font-cat-btn flex-1 py-1.5 rounded-lg font-bold bg-rose-500 text-white transition" data-cat="all">همه</button>
+            <button class="font-cat-btn flex-1 py-1.5 rounded-lg text-slate-400 hover:text-white transition" data-cat="persian">فارسی</button>
+            <button class="font-cat-btn flex-1 py-1.5 rounded-lg text-slate-400 hover:text-white transition" data-cat="latin">English</button>
+            <button class="font-cat-btn flex-1 py-1.5 rounded-lg text-slate-400 hover:text-white transition" data-cat="custom">شخصی</button>
           </div>
 
-          <!-- Fonts List Container -->
-          <div id="fontsList" class="space-y-2 max-h-[220px] sm:max-h-[300px] overflow-y-auto pr-1">
-            <!-- Populated dynamically via JS -->
+          <!-- Font List Grid -->
+          <div id="fontsList" class="space-y-1.5 max-h-[280px] overflow-y-auto pr-1">
+            <!-- Populated by JS -->
           </div>
         </section>
 
-        <!-- TAB 3: SIZING & GEOMETRY -->
+        <!-- Tab 3: Dimensions & Alignment -->
         <section id="tab-size" class="tab-content hidden space-y-4">
-          <!-- Text Alignment -->
-          <div>
-            <label class="text-xs font-bold text-slate-300 block mb-2">چینش پاراگراف:</label>
+          <!-- Font Size -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-slate-300">اندازه قلم</span>
+              <span id="fontSizeVal" class="text-rose-400 font-mono font-bold">80px</span>
+            </div>
+            <input type="range" id="fontSizeSlider" min="28" max="180" value="80" dir="ltr" class="w-full">
+          </div>
+
+          <!-- Paragraph Max Width -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-slate-300">عرض کادر پاراگراف</span>
+              <span id="boxWidthVal" class="text-rose-400 font-mono font-bold">900px</span>
+            </div>
+            <input type="range" id="boxWidthSlider" min="300" max="1020" value="900" dir="ltr" class="w-full">
+          </div>
+
+          <!-- Line Height -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-slate-300">فاصله سطرها (Line Height)</span>
+              <span id="lineHeightVal" class="text-rose-400 font-mono font-bold">1.4</span>
+            </div>
+            <input type="range" id="lineHeightSlider" min="1.0" max="2.4" step="0.05" value="1.4" dir="ltr" class="w-full">
+          </div>
+
+          <!-- Letter Spacing -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-slate-300">فاصله حروف (Letter Spacing)</span>
+              <span id="letterSpacingVal" class="text-rose-400 font-mono font-bold">0px</span>
+            </div>
+            <input type="range" id="letterSpacingSlider" min="-5" max="30" value="0" dir="ltr" class="w-full">
+          </div>
+
+          <!-- Alignment Buttons (Left to Right in physical display) -->
+          <div class="space-y-1.5 pt-1">
+            <span class="text-xs font-bold text-slate-300">چینش پاراگراف</span>
             <div class="grid grid-cols-3 gap-2" dir="ltr">
-              <button class="align-btn p-2 rounded-xl bg-slate-800 border border-slate-700 hover:border-slate-500 flex items-center justify-center gap-1.5 text-xs text-slate-300" data-align="left">
+              <button class="align-btn p-2 rounded-xl bg-slate-800 border border-slate-700 hover:border-slate-500 flex items-center justify-center gap-1.5 text-xs text-slate-300 transition" data-align="left">
                 <i data-lucide="align-left" class="w-4 h-4"></i>
                 <span>چپ</span>
               </button>
-              <button class="align-btn p-2 rounded-xl bg-rose-500/20 border-2 border-rose-500 text-rose-300 flex items-center justify-center gap-1.5 text-xs font-bold" data-align="center">
+              <button class="align-btn p-2 rounded-xl bg-rose-500/20 border-2 border-rose-500 text-rose-300 flex items-center justify-center gap-1.5 text-xs font-bold transition" data-align="center">
                 <i data-lucide="align-center" class="w-4 h-4"></i>
                 <span>وسط</span>
               </button>
-              <button class="align-btn p-2 rounded-xl bg-slate-800 border border-slate-700 hover:border-slate-500 flex items-center justify-center gap-1.5 text-xs text-slate-300" data-align="right">
+              <button class="align-btn p-2 rounded-xl bg-slate-800 border border-slate-700 hover:border-slate-500 flex items-center justify-center gap-1.5 text-xs text-slate-300 transition" data-align="right">
                 <i data-lucide="align-right" class="w-4 h-4"></i>
                 <span>راست</span>
               </button>
             </div>
           </div>
 
-          <!-- Font Size Slider -->
-          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-1.5">
-            <div class="flex justify-between items-center text-xs">
-              <span class="font-bold text-slate-300">اندازه قلم (Font Size)</span>
-              <span id="fontSizeVal" class="text-rose-400 font-mono font-bold">80px</span>
-            </div>
-            <input type="range" id="fontSizeSlider" min="28" max="180" value="80" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
-          </div>
-
-          <!-- Paragraph Max Width -->
-          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-1.5">
-            <div class="flex justify-between items-center text-xs">
-              <span class="font-bold text-slate-300">عرض کادر پاراگراف</span>
-              <span id="boxWidthVal" class="text-rose-400 font-mono font-bold">900px</span>
-            </div>
-            <input type="range" id="boxWidthSlider" min="300" max="1020" value="900" step="10" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
-          </div>
-
-          <!-- Line Height (Spacing) -->
-          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-1.5">
-            <div class="flex justify-between items-center text-xs">
-              <span class="font-bold text-slate-300">فاصله بین خطوط (Line Spacing)</span>
-              <span id="lineHeightVal" class="text-rose-400 font-mono font-bold">1.4</span>
-            </div>
-            <input type="range" id="lineHeightSlider" min="1.0" max="2.6" value="1.4" step="0.05" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
-          </div>
-
-          <!-- Letter Spacing (Tracking) -->
-          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-1.5">
-            <div class="flex justify-between items-center text-xs">
-              <span class="font-bold text-slate-300">فاصله حروف (Letter Spacing)</span>
-              <span id="letterSpacingVal" class="text-rose-400 font-mono font-bold">0px</span>
-            </div>
-            <input type="range" id="letterSpacingSlider" min="-5" max="30" value="0" step="1" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
-          </div>
-
-          <!-- Font Weight -->
-          <div>
-            <label class="text-xs font-bold text-slate-300 block mb-2">ضخامت فونت (Weight):</label>
-            <div class="grid grid-cols-4 gap-2">
-              <button class="weight-btn p-2 rounded-xl bg-slate-800 border border-slate-700 text-xs" data-weight="300">نازک</button>
-              <button class="weight-btn p-2 rounded-xl bg-rose-500/20 border-2 border-rose-500 text-rose-300 text-xs font-bold" data-weight="400">عادی</button>
-              <button class="weight-btn p-2 rounded-xl bg-slate-800 border border-slate-700 text-xs" data-weight="700">پررنگ</button>
-              <button class="weight-btn p-2 rounded-xl bg-slate-800 border border-slate-700 text-xs" data-weight="900">سیاه</button>
+          <!-- Font Weight (Default Normal 400) -->
+          <div class="space-y-1.5">
+            <span class="text-xs font-bold text-slate-300">ضخامت متن (Weight)</span>
+            <div class="grid grid-cols-3 gap-2">
+              <button class="weight-btn p-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:border-slate-500 transition" data-weight="300">نازک (Light)</button>
+              <button class="weight-btn p-2 rounded-xl bg-rose-500/20 border-2 border-rose-500 text-rose-300 text-xs font-bold transition" data-weight="400">عادی (Normal)</button>
+              <button class="weight-btn p-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:border-slate-500 transition" data-weight="700">ضخیم (Bold)</button>
             </div>
           </div>
         </section>
 
-        <!-- TAB 4: INSTAGRAM HIGHLIGHT STYLES & COLORS -->
+        <!-- Tab 4: Style & Colors -->
         <section id="tab-style" class="tab-content hidden space-y-4">
           <!-- Instagram Highlight Modes -->
-          <div>
-            <label class="text-xs font-bold text-slate-300 block mb-2">استایل هایلایت اینستاگرام:</label>
+          <div class="space-y-1.5">
+            <span class="text-xs font-bold text-slate-300">افکت پس‌زمینه کلمات (Instagram Highlight)</span>
             <div class="grid grid-cols-2 gap-2">
-              <button class="highlight-btn p-2.5 rounded-xl border-2 border-rose-500 bg-rose-500/20 text-rose-200 text-xs font-bold flex items-center justify-center gap-2" data-mode="none">
-                <span>ساده (بدون کادر)</span>
+              <button class="highlight-btn p-2.5 rounded-xl border-2 border-rose-500 bg-rose-500/20 text-rose-200 font-bold text-xs flex items-center justify-center gap-1.5 transition" data-mode="none">
+                <i data-lucide="slash" class="w-3.5 h-3.5"></i>
+                <span>بدون کادر (سایه ملایم)</span>
               </button>
-              <button class="highlight-btn p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 text-xs flex items-center justify-center gap-2" data-mode="solid">
-                <span class="px-2 py-0.5 bg-white text-black font-bold rounded">کادر پر (Solid)</span>
+              <button class="highlight-btn p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-500 text-xs flex items-center justify-center gap-1.5 transition" data-mode="solid">
+                <i data-lucide="square" class="w-3.5 h-3.5"></i>
+                <span>کادر مات اینستاگرام</span>
               </button>
-              <button class="highlight-btn p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 text-xs flex items-center justify-center gap-2" data-mode="semi">
-                <span class="px-2 py-0.5 bg-black/60 text-white rounded">نیمه‌شفاف</span>
+              <button class="highlight-btn p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-500 text-xs flex items-center justify-center gap-1.5 transition" data-mode="semi">
+                <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+                <span>نیمه‌شفاف شیشه‌ای</span>
               </button>
-              <button class="highlight-btn p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 text-xs flex items-center justify-center gap-2" data-mode="stroke">
-                <span class="border border-white px-2 py-0.5 rounded">خط دور (Outline)</span>
+              <button class="highlight-btn p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-500 text-xs flex items-center justify-center gap-1.5 transition" data-mode="stroke">
+                <i data-lucide="maximize" class="w-3.5 h-3.5"></i>
+                <span>خط حاشیه (Outline)</span>
               </button>
             </div>
           </div>
 
           <!-- Text Color -->
-          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex items-center justify-between">
-              <label class="text-xs font-bold text-slate-300">رنگ متن</label>
-              <input type="color" id="textColorPicker" value="#ffffff" class="w-8 h-8 rounded-lg bg-transparent cursor-pointer border border-slate-700">
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-slate-300">رنگ فونت</span>
+              <input type="color" id="textColorPicker" value="#ffffff" class="w-7 h-7 rounded-lg border border-slate-650 cursor-pointer bg-transparent">
             </div>
-            <!-- Quick Palettes -->
             <div class="flex items-center gap-2 pt-1">
-              <button class="quick-text-color w-6 h-6 rounded-full bg-white border border-slate-400" data-color="#ffffff"></button>
-              <button class="quick-text-color w-6 h-6 rounded-full bg-black border border-slate-600" data-color="#000000"></button>
-              <button class="quick-text-color w-6 h-6 rounded-full bg-amber-400" data-color="#facc15"></button>
-              <button class="quick-text-color w-6 h-6 rounded-full bg-rose-500" data-color="#f43f5e"></button>
-              <button class="quick-text-color w-6 h-6 rounded-full bg-cyan-400" data-color="#22d3ee"></button>
-              <button class="quick-text-color w-6 h-6 rounded-full bg-emerald-400" data-color="#34d399"></button>
+              <button class="quick-text-color w-6 h-6 rounded-full bg-white border border-slate-400 shadow-sm" data-color="#ffffff"></button>
+              <button class="quick-text-color w-6 h-6 rounded-full bg-black border border-slate-600 shadow-sm" data-color="#000000"></button>
+              <button class="quick-text-color w-6 h-6 rounded-full bg-amber-400 border border-slate-600 shadow-sm" data-color="#fbbf24"></button>
+              <button class="quick-text-color w-6 h-6 rounded-full bg-rose-500 border border-slate-600 shadow-sm" data-color="#f43f5e"></button>
+              <button class="quick-text-color w-6 h-6 rounded-full bg-sky-400 border border-slate-600 shadow-sm" data-color="#38bdf8"></button>
+              <button class="quick-text-color w-6 h-6 rounded-full bg-emerald-400 border border-slate-600 shadow-sm" data-color="#34d399"></button>
             </div>
           </div>
 
-          <!-- Highlight / Background Pill Color -->
-          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex items-center justify-between">
-              <label class="text-xs font-bold text-slate-300">رنگ پس‌زمینه هایلایت</label>
-              <input type="color" id="highlightColorPicker" value="#000000" class="w-8 h-8 rounded-lg bg-transparent cursor-pointer border border-slate-700">
+          <!-- Highlight Box Color -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-slate-300">رنگ پس‌زمینه کادر کلمات</span>
+              <input type="color" id="highlightColorPicker" value="#000000" class="w-7 h-7 rounded-lg border border-slate-650 cursor-pointer bg-transparent">
             </div>
             <div class="flex items-center gap-2 pt-1">
-              <button class="quick-hl-color w-6 h-6 rounded-full bg-black border border-slate-600" data-color="#000000"></button>
-              <button class="quick-hl-color w-6 h-6 rounded-full bg-white border border-slate-400" data-color="#ffffff"></button>
-              <button class="quick-hl-color w-6 h-6 rounded-full bg-rose-600" data-color="#e11d48"></button>
-              <button class="quick-hl-color w-6 h-6 rounded-full bg-amber-500" data-color="#f59e0b"></button>
-              <button class="quick-hl-color w-6 h-6 rounded-full bg-purple-600" data-color="#9333ea"></button>
+              <button class="quick-hl-color w-6 h-6 rounded-full bg-black border border-slate-600 shadow-sm" data-color="#000000"></button>
+              <button class="quick-hl-color w-6 h-6 rounded-full bg-white border border-slate-400 shadow-sm" data-color="#ffffff"></button>
+              <button class="quick-hl-color w-6 h-6 rounded-full bg-rose-600 border border-slate-600 shadow-sm" data-color="#e11d48"></button>
+              <button class="quick-hl-color w-6 h-6 rounded-full bg-amber-500 border border-slate-600 shadow-sm" data-color="#f59e0b"></button>
+              <button class="quick-hl-color w-6 h-6 rounded-full bg-indigo-600 border border-slate-600 shadow-sm" data-color="#4f46e5"></button>
+              <button class="quick-hl-color w-6 h-6 rounded-full bg-emerald-600 border border-slate-600 shadow-sm" data-color="#059669"></button>
+            </div>
+          </div>
+
+          <!-- Glow & Shadow Intensity (New Control) -->
+          <div class="space-y-2 pt-1 border-t border-slate-800/80">
+            <div class="flex justify-between items-center text-xs">
+              <div class="flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-rose-400"></i>
+                <span class="font-bold text-slate-300">شدت هاله و سایه (Glow / Shadow)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button id="disableShadowBtn" class="px-2 py-0.5 rounded-md bg-slate-800 hover:bg-slate-700 border border-slate-700 text-[10px] text-slate-300 hover:text-white transition">خاموش (تخت)</button>
+                <span id="shadowBlurVal" class="text-rose-400 font-mono font-bold">0px</span>
+              </div>
+            </div>
+            <input type="range" id="shadowBlurSlider" min="0" max="60" value="0" dir="ltr" class="w-full">
+          </div>
+
+          <!-- Glow & Shadow Color (New Control) -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-slate-300">رنگ هاله و درخشش متن</span>
+              <input type="color" id="shadowColorPicker" value="#000000" class="w-7 h-7 rounded-lg border border-slate-650 cursor-pointer bg-transparent">
+            </div>
+            <div class="flex items-center gap-2 pt-1">
+              <button class="quick-shadow-color w-6 h-6 rounded-full bg-black border border-slate-600 shadow-sm" data-color="#000000" title="سایه مشکی طبیعی"></button>
+              <button class="quick-shadow-color w-6 h-6 rounded-full bg-white border border-slate-400 shadow-sm" data-color="#ffffff" title="هاله سفید"></button>
+              <button class="quick-shadow-color w-6 h-6 rounded-full bg-rose-500 border border-slate-600 shadow-sm" data-color="#f43f5e" title="درخشش نئونی قرمز/صورتی"></button>
+              <button class="quick-shadow-color w-6 h-6 rounded-full bg-amber-400 border border-slate-600 shadow-sm" data-color="#fbbf24" title="درخشش طلایی"></button>
+              <button class="quick-shadow-color w-6 h-6 rounded-full bg-sky-400 border border-slate-600 shadow-sm" data-color="#38bdf8" title="درخشش آبی فیروزه‌ای"></button>
+              <button class="quick-shadow-color w-6 h-6 rounded-full bg-purple-500 border border-slate-600 shadow-sm" data-color="#a855f7" title="درخشش بنفش"></button>
             </div>
           </div>
         </section>
 
-        <!-- TAB 5: CANVAS BACKGROUND -->
+        <!-- Tab 5: Background -->
         <section id="tab-bg" class="tab-content hidden space-y-4">
-          <div>
-            <label class="text-xs font-bold text-slate-300 block mb-2">نوع پس‌زمینه تصویر خروجی:</label>
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-300">حالت پس‌زمینه استوری</span>
             <div class="grid grid-cols-2 gap-2">
-              <button class="bg-mode-btn p-3 rounded-xl border-2 border-rose-500 bg-rose-500/20 text-rose-300 text-xs font-bold flex flex-col items-center gap-1.5" data-bg="transparent">
-                <i data-lucide="shield-check" class="w-5 h-5"></i>
-                <span>بدون پس‌زمینه (شفاف)</span>
-                <span class="text-[10px] text-slate-400">بهترین گزینه برای استیکر استوری</span>
+              <button class="bg-mode-btn p-3 rounded-xl border-2 border-rose-500 bg-rose-500/20 text-rose-300 font-bold text-xs flex flex-col items-center justify-center gap-1 transition" data-bg="transparent">
+                <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                <span>بدون بک‌گراند (شفاف PNG)</span>
+                <span class="text-[10px] text-slate-400 font-normal">مناسب استیکر استوری اینستاگرام</span>
               </button>
-              <button class="bg-mode-btn p-3 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 text-xs flex flex-col items-center gap-1.5" data-bg="dark">
-                <i data-lucide="moon" class="w-5 h-5"></i>
-                <span>تیره مات (Instagram Dark)</span>
-                <span class="text-[10px] text-slate-400">رنگ مشکی استوری</span>
+              <button class="bg-mode-btn p-3 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-500 text-xs flex flex-col items-center justify-center gap-1 transition" data-bg="dark">
+                <i data-lucide="moon" class="w-4 h-4"></i>
+                <span>تیره مات (مشکی)</span>
+                <span class="text-[10px] text-slate-400 font-normal">برای پست‌ها و استوری‌های شب</span>
               </button>
-              <button class="bg-mode-btn p-3 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 text-xs flex flex-col items-center gap-1.5" data-bg="light">
-                <i data-lucide="sun" class="w-5 h-5"></i>
-                <span>سفید مینیمال</span>
-                <span class="text-[10px] text-slate-400">مناسب استوری‌های روشن</span>
+              <button class="bg-mode-btn p-3 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-500 text-xs flex flex-col items-center justify-center gap-1 transition" data-bg="light">
+                <i data-lucide="sun" class="w-4 h-4"></i>
+                <span>روشن (سفید یکدست)</span>
+                <span class="text-[10px] text-slate-400 font-normal">کلاسیک و مینیمال</span>
               </button>
-              <button class="bg-mode-btn p-3 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 text-xs flex flex-col items-center gap-1.5" data-bg="custom">
-                <i data-lucide="pipette" class="w-5 h-5"></i>
-                <span>رنگ اختصاصی شما</span>
-                <span class="text-[10px] text-slate-400">انتخاب آزاد رنگ</span>
+              <button class="bg-mode-btn p-3 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-500 text-xs flex flex-col items-center justify-center gap-1 transition" data-bg="custom">
+                <i data-lucide="pipette" class="w-4 h-4"></i>
+                <span>رنگ دلخواه</span>
+                <span class="text-[10px] text-slate-400 font-normal">انتخاب پالت شخصی</span>
               </button>
             </div>
           </div>
 
-          <div id="customBgColorWrapper" class="bg-slate-950 p-3 rounded-2xl border border-slate-800 hidden space-y-2">
-            <div class="flex items-center justify-between">
-              <label class="text-xs font-bold text-slate-300">رنگ دلخواه بوم:</label>
-              <input type="color" id="customBgColorPicker" value="#18181b" class="w-8 h-8 rounded-lg bg-transparent cursor-pointer border border-slate-700">
+          <div id="customBgColorWrapper" class="hidden space-y-1.5 p-3 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-slate-300 font-bold">رنگ پس‌زمینه دلخواه:</span>
+              <input type="color" id="customBgColorPicker" value="#18181b" class="w-8 h-8 rounded-lg cursor-pointer bg-transparent">
             </div>
           </div>
         </section>
 
       </div>
-    </aside>
+    </div>
+  </main>
 
-  </div>
-
-  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-700 text-white text-xs font-bold shadow-2xl transition-all duration-300 opacity-0 pointer-events-none translate-y-3 flex items-center gap-2">
-    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
-    <span id="toastMsg">عملیات انجام شد</span>
+  <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900/95 border border-slate-700 text-white text-xs px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2 pointer-events-none transition-all duration-300 opacity-0 translate-y-3">
+    <i data-lucide="info" class="w-4 h-4 text-rose-400"></i>
+    <span id="toastMsg">پیام</span>
   </div>
 
   <script>
-    // State management
-    const state = {
-      text: 'گلامون پرپرن ای وای\nیه دیوونه تو باغه',
-      direction: 'rtl',
-      fontFamily: 'Vazirmatn',
-      fontName: 'وزیری (وزیرمتن مدرن و خوانا)',
-      fontSize: 80,
-      fontWeight: '400',
-      lineHeight: 1.4,
-      letterSpacing: 0,
-      maxWidth: 900,
-      textAlign: 'center',
-      textColor: '#ffffff',
-      highlightMode: 'none', // none, solid, semi, stroke
-      highlightColor: '#000000',
+    // Global Canvas Background State
+    const globalState = {
       bgMode: 'transparent', // transparent, dark, light, custom
-      customBgColor: '#18181b',
-      posX: 540, // Center of 1080
-      posY: 960  // Center of 1920
+      customBgColor: '#18181b'
     };
+
+    // Array of independent textboxes with unique configurations
+    let textboxes = [
+      {
+        id: 'tb_1',
+        name: 'متن ۱',
+        text: 'گلامون پرپرن ای وای\nیه دیوونه تو باغه',
+        direction: 'rtl',
+        fontFamily: 'Vazirmatn',
+        fontName: 'وزیری (وزیرمتن مدرن و خوانا)',
+        fontSize: 80,
+        fontWeight: '400',
+        lineHeight: 1.4,
+        letterSpacing: 0,
+        maxWidth: 900,
+        textAlign: 'center',
+        textColor: '#ffffff',
+        highlightMode: 'none', // none, solid, semi, stroke
+        highlightColor: '#000000',
+        shadowBlur: 0, // 0 = completely flat & clean (no glow)
+        shadowColor: '#000000',
+        posX: 540,
+        posY: 960,
+        bounds: { x: 0, y: 0, w: 0, h: 0 }
+      }
+    ];
+
+    let activeTextBoxId = 'tb_1';
+
+    function getActiveBox() {
+      const found = textboxes.find(b => b.id === activeTextBoxId);
+      return found || textboxes[0];
+    }
 
     // Built-in Font Presets (Persian & English)
     const builtInFonts = [
-      { id: 'vazirmatn', name: 'وزیری (وزیرمتن مدرن و خوانا)', family: 'Vazirmatn', cat: 'persian', weights: ['300', '400', '700', '900'] },
-      { id: 'lalezar', name: 'لاله‌زار (سینمایی و ضخیم)', family: 'Lalezar', cat: 'persian', weights: ['400'] },
-      { id: 'noto-kufi', name: 'کوفی عربی (مستطیلی و مدرن)', family: 'Noto Kufi Arabic', cat: 'persian', weights: ['400', '700', '900'] },
-      { id: 'lemonada', name: 'لمونادا (فانتزی و پرانرژی)', family: 'Lemonada', cat: 'persian', weights: ['400', '700'] },
-      { id: 'rubik', name: 'روبیک (گرد و صمیمی)', family: 'Rubik', cat: 'persian', weights: ['400', '700', '900'] },
-      { id: 'rakkas', name: 'رقاص (پوستر و عنوان کلاسیک)', family: 'Rakkas', cat: 'persian', weights: ['400'] },
-      { id: 'katibeh', name: 'کتیبه (سنتی و خوشنویسی)', family: 'Katibeh', cat: 'persian', weights: ['400'] },
-      { id: 'markazi', name: 'مرکزی (مطبوعاتی و نوستالژیک)', family: 'Markazi Text', cat: 'persian', weights: ['500', '700'] },
-      { id: 'amiri', name: 'امیری (قرآنی و اصیل)', family: 'Amiri', cat: 'persian', weights: ['400', '700'] },
-      { id: 'zain', name: 'زین (نرم و خوش‌دست)', family: 'Zain', cat: 'persian', weights: ['400', '800'] },
-      { id: 'anton', name: 'Anton (Impactful Headline)', family: 'Anton', cat: 'english', weights: ['400'] },
-      { id: 'jakarta', name: 'Plus Jakarta Sans (Modern Clean)', family: 'Plus Jakarta Sans', cat: 'english', weights: ['400', '600', '800'] },
-      { id: 'playfair', name: 'Playfair Display (Luxury Editorial)', family: 'Playfair Display', cat: 'english', weights: ['600', '900'] },
-      { id: 'pacifico', name: 'Pacifico (Fun Brush Script)', family: 'Pacifico', cat: 'english', weights: ['400'] },
-      { id: 'cinzel', name: 'Cinzel (Cinematic Roman)', family: 'Cinzel', cat: 'english', weights: ['700'] },
-      { id: 'caveat', name: 'Caveat (Casual Handwriting)', family: 'Caveat', cat: 'english', weights: ['600'] },
-      { id: 'montserrat', name: 'Montserrat (Bold Street)', family: 'Montserrat', cat: 'english', weights: ['400', '700', '900'] }
+      { name: 'وزیری (وزیرمتن مدرن و خوانا)', family: 'Vazirmatn', cat: 'persian' },
+      { name: 'لاله‌زار (ضخیم و سینمایی)', family: 'Lalezar', cat: 'persian' },
+      { name: 'نوپو کوفی عربی (هندسی مدرن)', family: 'Noto Kufi Arabic', cat: 'persian' },
+      { name: 'نوپو نسخ عربی (کلاسیک و کتابی)', family: 'Noto Naskh Arabic', cat: 'persian' },
+      { name: 'نوپو سنس عربی (فلت و نرم)', family: 'Noto Sans Arabic', cat: 'persian' },
+      { name: 'مرکزی تکست (کلاسیک رمانتیک)', family: 'Markazi Text', cat: 'persian' },
+      { name: 'امیری (نسخ باشکوه سنتی)', family: 'Amiri', cat: 'persian' },
+      { name: 'کتیبه (تیتر تاریخی و پوستر)', family: 'Katibeh', cat: 'persian' },
+      { name: 'روبیک (مدرن گرد)', family: 'Rubik', cat: 'persian' },
+      { name: 'زین (نرم و روان)', family: 'Zain', cat: 'persian' },
+      { name: 'لطیف (شعر و ادبیات)', family: 'Lateef', cat: 'persian' },
+      { name: 'میرزا (تایپ دست‌نویس هنری)', family: 'Mirza', cat: 'persian' },
+      { name: 'گلزار (نستعلیق تیتر)', family: 'Gulzar', cat: 'persian' },
+      { name: 'رقاص (فانتزی نمایشی)', family: 'Rakkas', cat: 'persian' },
+      { name: 'Plus Jakarta Sans (Modern Display)', family: 'Plus Jakarta Sans', cat: 'latin' },
+      { name: 'Playfair Display (Editorial Luxury)', family: 'Playfair Display', cat: 'latin' },
+      { name: 'Anton (Impactful Tall Poster)', family: 'Anton', cat: 'latin' },
+      { name: 'Pacifico (Handwritten Retro)', family: 'Pacifico', cat: 'latin' },
+      { name: 'Montserrat (Geometric Clean)', family: 'Montserrat', cat: 'latin' },
+      { name: 'Cinzel (Cinematic Serif)', family: 'Cinzel', cat: 'latin' },
+      { name: 'Caveat (Personal Handwriting)', family: 'Caveat', cat: 'latin' },
+      { name: 'Inter (Super Clean UI)', family: 'Inter', cat: 'latin' }
     ];
 
     let customFonts = [];
+    let currentCategory = 'all';
 
-    const DB_NAME = 'InstagramTypographyStudio';
+    const DB_NAME = 'InstagramTypographyDB';
     const DB_VERSION = 1;
-    const STORE_NAME = 'user_custom_fonts';
+    const STORE_NAME = 'custom_fonts';
 
     function openDatabase() {
       return new Promise((resolve, reject) => {
-        if (!('indexedDB' in window)) {
-          resolve(null);
-          return;
-        }
-        const request = indexedDB.open(DB_NAME, DB_VERSION);
-        request.onupgradeneeded = (e) => {
+        const req = indexedDB.open(DB_NAME, DB_VERSION);
+        req.onupgradeneeded = (e) => {
           const db = e.target.result;
           if (!db.objectStoreNames.contains(STORE_NAME)) {
             db.createObjectStore(STORE_NAME, { keyPath: 'id' });
           }
         };
-        request.onsuccess = () => resolve(request.result);
-        request.onerror = () => resolve(null);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
       });
-    }
-
-    async function loadSavedCustomFonts() {
-      try {
-        const db = await openDatabase();
-        if (!db) return;
-        const tx = db.transaction(STORE_NAME, 'readonly');
-        const store = tx.objectStore(STORE_NAME);
-        const req = store.getAll();
-        req.onsuccess = async () => {
-          const records = req.result || [];
-          for (const item of records) {
-            try {
-              const fontFace = new FontFace(item.family, item.buffer);
-              const loadedFace = await fontFace.load();
-              document.fonts.add(loadedFace);
-              customFonts.push(item);
-            } catch (err) {
-              console.error('Error loading font from IndexedDB:', err);
-            }
-          }
-          renderFontsList();
-          renderCanvas();
-        };
-      } catch (err) {
-        console.warn('IndexedDB not supported or permission denied', err);
-      }
     }
 
     async function saveCustomFontToDB(fontObj) {
       try {
         const db = await openDatabase();
-        if (!db) return;
-        const tx = db.transaction(STORE_NAME, 'readwrite');
-        const store = tx.objectStore(STORE_NAME);
-        store.put(fontObj);
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction(STORE_NAME, 'readwrite');
+          const store = tx.objectStore(STORE_NAME);
+          store.put(fontObj);
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(tx.error);
+        });
       } catch (err) {
-        console.error('Failed to save font to IndexedDB', err);
+        console.error('IndexedDB save error:', err);
       }
     }
 
-    async function deleteCustomFontFromDB(fontId) {
+    async function loadSavedCustomFonts() {
       try {
         const db = await openDatabase();
-        if (!db) return;
-        const tx = db.transaction(STORE_NAME, 'readwrite');
-        const store = tx.objectStore(STORE_NAME);
-        store.delete(fontId);
+        return new Promise((resolve) => {
+          const tx = db.transaction(STORE_NAME, 'readonly');
+          const store = tx.objectStore(STORE_NAME);
+          const req = store.getAll();
+          req.onsuccess = async () => {
+            const fonts = req.result || [];
+            for (const f of fonts) {
+              try {
+                const fontFace = new FontFace(f.family, f.buffer);
+                await fontFace.load();
+                document.fonts.add(fontFace);
+                customFonts.push(f);
+              } catch (err) {
+                console.warn('Failed restoring font:', f.name, err);
+              }
+            }
+            renderFontsList();
+            renderCanvas();
+            resolve();
+          };
+          req.onerror = () => resolve();
+        });
       } catch (err) {
-        console.error('Failed to delete font from IndexedDB', err);
+        console.warn('IndexedDB read error:', err);
+      }
+    }
+
+    async function deleteCustomFontFromDB(id) {
+      try {
+        const db = await openDatabase();
+        return new Promise((resolve) => {
+          const tx = db.transaction(STORE_NAME, 'readwrite');
+          const store = tx.objectStore(STORE_NAME);
+          store.delete(id);
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => resolve();
+        });
+      } catch (err) {
+        console.error(err);
       }
     }
 
     const canvas = document.getElementById('liveCanvas');
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas ? canvas.getContext('2d') : null;
     const touchLayer = document.getElementById('touchLayer');
-    const selectionBox = document.getElementById('selectionBox');
     const guideX = document.getElementById('guideX');
     const guideY = document.getElementById('guideY');
+    const selectionBox = document.getElementById('selectionBox');
+
     const textInput = document.getElementById('textInput');
     const fontSizeSlider = document.getElementById('fontSizeSlider');
     const fontSizeVal = document.getElementById('fontSizeVal');
@@ -582,20 +683,228 @@
     const letterSpacingVal = document.getElementById('letterSpacingVal');
     const textColorPicker = document.getElementById('textColorPicker');
     const highlightColorPicker = document.getElementById('highlightColorPicker');
-    const customBgColorPicker = document.getElementById('customBgColorPicker');
+    const shadowBlurSlider = document.getElementById('shadowBlurSlider');
+    const shadowBlurVal = document.getElementById('shadowBlurVal');
+    const shadowColorPicker = document.getElementById('shadowColorPicker');
+    const disableShadowBtn = document.getElementById('disableShadowBtn');
     const customBgColorWrapper = document.getElementById('customBgColorWrapper');
+    const customBgColorPicker = document.getElementById('customBgColorPicker');
+
     const fontsList = document.getElementById('fontsList');
     const fontFileInput = document.getElementById('fontFileInput');
     const downloadBtn = document.getElementById('downloadBtn');
     const resetPositionBtn = document.getElementById('resetPositionBtn');
+    const addTextBoxBtn = document.getElementById('addTextBoxBtn');
+    const addTextBoxHeaderBtn = document.getElementById('addTextBoxHeaderBtn');
+    const textBoxChipsList = document.getElementById('textBoxChipsList');
     const btnRTL = document.getElementById('btnRTL');
     const btnLTR = document.getElementById('btnLTR');
     const toast = document.getElementById('toast');
     const toastMsg = document.getElementById('toastMsg');
-    const mobileDrawer = document.getElementById('mobileDrawer');
     const drawerToggle = document.getElementById('drawerToggle');
     const drawerToggleIcon = document.getElementById('drawerToggleIcon');
-    const drawerToggleHint = document.getElementById('drawerToggleHint');
+    const tabContentContainer = document.getElementById('tabContentContainer');
+
+    function updateSliderTrack(slider) {
+      if (!slider) return;
+      const min = parseFloat(slider.min) || 0;
+      const max = parseFloat(slider.max) || 100;
+      const val = parseFloat(slider.value) || 0;
+      const pct = Math.max(0, Math.min(100, ((val - min) / (max - min)) * 100));
+      slider.style.background = `linear-gradient(to right, #f43f5e 0%, #f43f5e ${pct}%, #334155 ${pct}%, #334155 100%)`;
+    }
+
+    function createNewTextBox() {
+      const count = textboxes.length + 1;
+      const offsetIndex = (count - 1) % 6;
+      const newY = Math.min(1600, Math.max(300, 960 + (offsetIndex * 140) * (offsetIndex % 2 === 0 ? 1 : -1)));
+
+      const newBox = {
+        id: `tb_${Date.now()}`,
+        name: `متن ${count}`,
+        text: 'متن جدید',
+        direction: 'rtl',
+        fontFamily: 'Vazirmatn',
+        fontName: 'وزیری (وزیرمتن مدرن و خوانا)',
+        fontSize: 68,
+        fontWeight: '400',
+        lineHeight: 1.4,
+        letterSpacing: 0,
+        maxWidth: 850,
+        textAlign: 'center',
+        textColor: '#ffffff',
+        highlightMode: 'none',
+        highlightColor: '#000000',
+        shadowBlur: 0,
+        shadowColor: '#000000',
+        posX: 540,
+        posY: newY,
+        bounds: { x: 0, y: 0, w: 0, h: 0 }
+      };
+
+      textboxes.push(newBox);
+      activeTextBoxId = newBox.id;
+      syncUIToActiveBox();
+      renderTextBoxChips();
+      renderCanvas();
+      showToast(`لایه «${newBox.name}» اضافه شد.`);
+    }
+
+    function removeTextBox(boxId) {
+      if (textboxes.length <= 1) {
+        showToast('حداقل یک لایه متن باید باقی بماند.');
+        return;
+      }
+      const idx = textboxes.findIndex(b => b.id === boxId);
+      if (idx === -1) return;
+
+      const removed = textboxes.splice(idx, 1)[0];
+      if (activeTextBoxId === boxId) {
+        activeTextBoxId = textboxes[Math.max(0, idx - 1)].id;
+      }
+      syncUIToActiveBox();
+      renderTextBoxChips();
+      renderCanvas();
+      showToast(`لایه «${removed.name}» حذف شد.`);
+    }
+
+    function selectTextBox(boxId) {
+      activeTextBoxId = boxId;
+      syncUIToActiveBox();
+      renderTextBoxChips();
+      renderFontsList();
+      renderCanvas();
+    }
+
+    function renderTextBoxChips() {
+      if (!textBoxChipsList) return;
+      textBoxChipsList.innerHTML = '';
+
+      textboxes.forEach((box) => {
+        const isActive = box.id === activeTextBoxId;
+        const chip = document.createElement('div');
+        chip.className = `shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs cursor-pointer transition select-none ${
+          isActive 
+            ? 'bg-rose-500/20 border-rose-500 text-rose-200 font-bold shadow-sm' 
+            : 'bg-slate-900 border-slate-700 text-slate-400 hover:border-slate-600 hover:text-slate-200'
+        }`;
+
+        const previewText = box.text.trim().replace(/\n/g, ' ').slice(0, 14) || box.name;
+
+        chip.innerHTML = `
+          <i data-lucide="type" class="w-3 h-3 ${isActive ? 'text-rose-400' : 'text-slate-500'}"></i>
+          <span class="truncate max-w-[100px]">${previewText}</span>
+          ${textboxes.length > 1 ? `
+            <button class="delete-chip-btn p-0.5 ml-1 text-slate-500 hover:text-rose-400 rounded transition" title="حذف این لایه">
+              <i data-lucide="x" class="w-3 h-3"></i>
+            </button>
+          ` : ''}
+        `;
+
+        chip.addEventListener('click', (e) => {
+          if (e.target.closest('.delete-chip-btn')) return;
+          selectTextBox(box.id);
+        });
+
+        const delBtn = chip.querySelector('.delete-chip-btn');
+        if (delBtn) {
+          delBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            removeTextBox(box.id);
+          });
+        }
+
+        textBoxChipsList.appendChild(chip);
+      });
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function syncUIToActiveBox() {
+      const box = getActiveBox();
+      if (!box) return;
+
+      // 1. Text input & direction
+      if (textInput) {
+        textInput.value = box.text;
+        textInput.dir = box.direction;
+      }
+      if (btnRTL && btnLTR) {
+        if (box.direction === 'rtl') {
+          btnRTL.className = 'px-2 py-1 text-[11px] font-bold rounded bg-rose-500 text-white';
+          btnLTR.className = 'px-2 py-1 text-[11px] font-bold rounded text-slate-400 hover:text-white';
+        } else {
+          btnLTR.className = 'px-2 py-1 text-[11px] font-bold rounded bg-rose-500 text-white';
+          btnRTL.className = 'px-2 py-1 text-[11px] font-bold rounded text-slate-400 hover:text-white';
+        }
+      }
+
+      // 2. Sliders
+      if (fontSizeSlider) {
+        fontSizeSlider.value = box.fontSize;
+        updateSliderTrack(fontSizeSlider);
+      }
+      if (fontSizeVal) fontSizeVal.textContent = `${box.fontSize}px`;
+
+      if (boxWidthSlider) {
+        boxWidthSlider.value = box.maxWidth;
+        updateSliderTrack(boxWidthSlider);
+      }
+      if (boxWidthVal) boxWidthVal.textContent = `${box.maxWidth}px`;
+
+      if (lineHeightSlider) {
+        lineHeightSlider.value = box.lineHeight;
+        updateSliderTrack(lineHeightSlider);
+      }
+      if (lineHeightVal) lineHeightVal.textContent = box.lineHeight;
+
+      if (letterSpacingSlider) {
+        letterSpacingSlider.value = box.letterSpacing;
+        updateSliderTrack(letterSpacingSlider);
+      }
+      if (letterSpacingVal) letterSpacingVal.textContent = `${box.letterSpacing}px`;
+
+      // 3. Align buttons
+      document.querySelectorAll('.align-btn').forEach(b => {
+        if (b.dataset.align === box.textAlign) {
+          b.className = 'align-btn p-2 rounded-xl bg-rose-500/20 border-2 border-rose-500 text-rose-300 flex items-center justify-center gap-1.5 text-xs font-bold transition';
+        } else {
+          b.className = 'align-btn p-2 rounded-xl bg-slate-800 border border-slate-700 hover:border-slate-500 flex items-center justify-center gap-1.5 text-xs text-slate-300 transition';
+        }
+      });
+
+      // 4. Weight buttons
+      document.querySelectorAll('.weight-btn').forEach(b => {
+        if (b.dataset.weight === box.fontWeight) {
+          b.className = 'weight-btn p-2 rounded-xl bg-rose-500/20 border-2 border-rose-500 text-rose-300 text-xs font-bold transition';
+        } else {
+          b.className = 'weight-btn p-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:border-slate-500 transition';
+        }
+      });
+
+      // 5. Highlight mode
+      document.querySelectorAll('.highlight-btn').forEach(b => {
+        if (b.dataset.mode === box.highlightMode) {
+          b.classList.add('border-2', 'border-rose-500', 'bg-rose-500/20', 'text-rose-200', 'font-bold');
+          b.classList.remove('border-slate-700', 'bg-slate-800', 'text-slate-300');
+        } else {
+          b.classList.remove('border-2', 'border-rose-500', 'bg-rose-500/20', 'text-rose-200', 'font-bold');
+          b.classList.add('border-slate-700', 'bg-slate-800', 'text-slate-300');
+        }
+      });
+
+      // 6. Colors
+      if (textColorPicker) textColorPicker.value = box.textColor;
+      if (highlightColorPicker) highlightColorPicker.value = box.highlightColor;
+
+      // 7. Glow & Shadow
+      if (shadowBlurSlider) {
+        shadowBlurSlider.value = box.shadowBlur || 0;
+        updateSliderTrack(shadowBlurSlider);
+      }
+      if (shadowBlurVal) shadowBlurVal.textContent = `${box.shadowBlur || 0}px`;
+      if (shadowColorPicker) shadowColorPicker.value = box.shadowColor || '#000000';
+    }
 
     function showToast(message) {
       if (!toast || !toastMsg) return;
@@ -608,34 +917,119 @@
       }, 2500);
     }
 
-    function wrapText(context, text, maxWidth) {
-      const paragraphs = text.split('\n');
-      const lines = [];
+    function renderFontsList() {
+      if (!fontsList) return;
+      fontsList.innerHTML = '';
 
-      paragraphs.forEach((para) => {
-        if (para.trim() === '') {
-          lines.push('');
-          return;
+      const allFonts = [...customFonts, ...builtInFonts];
+      const filtered = allFonts.filter(f => {
+        if (currentCategory === 'all') return true;
+        if (currentCategory === 'persian') return f.cat === 'persian';
+        if (currentCategory === 'latin') return f.cat === 'latin';
+        if (currentCategory === 'custom') return f.isCustom;
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        fontsList.innerHTML = `
+          <div class="text-center py-6 text-slate-500 text-xs">
+            هیچ فونتی در این دسته‌بندی یافت نشد.
+          </div>
+        `;
+        return;
+      }
+
+      const activeBox = getActiveBox();
+
+      filtered.forEach(font => {
+        const isSelected = activeBox.fontFamily === font.family;
+        const item = document.createElement('div');
+        item.className = `p-3 rounded-xl border cursor-pointer transition flex items-center justify-between group ${
+          isSelected 
+            ? 'bg-rose-500/20 border-rose-500 text-rose-200' 
+            : 'bg-slate-800/80 border-slate-700/80 text-slate-300 hover:border-slate-500 hover:bg-slate-800'
+        }`;
+
+        item.innerHTML = `
+          <div class="flex items-center gap-2 overflow-hidden">
+            <span class="w-2 h-2 rounded-full ${isSelected ? 'bg-rose-500' : 'bg-slate-600'}"></span>
+            <div class="truncate">
+              <p class="text-xs font-bold truncate" style="font-family: '${font.family}', sans-serif">${font.name}</p>
+              <p class="text-[10px] text-slate-500 font-mono">${font.family}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0">
+            ${font.isCustom ? `
+              <span class="px-1.5 py-0.5 rounded text-[9px] bg-rose-500/20 text-rose-300 border border-rose-500/30">شخصی</span>
+              <button class="delete-custom-font p-1 text-slate-500 hover:text-rose-400 rounded transition" title="حذف فونت">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
+            ` : ''}
+            ${isSelected ? '<i data-lucide="check" class="w-4 h-4 text-rose-400"></i>' : ''}
+          </div>
+        `;
+
+        item.addEventListener('click', (e) => {
+          if (e.target.closest('.delete-custom-font')) return;
+          const box = getActiveBox();
+          box.fontFamily = font.family;
+          box.fontName = font.name;
+          renderFontsList();
+          renderCanvas();
+        });
+
+        const deleteBtn = item.querySelector('.delete-custom-font');
+        if (deleteBtn) {
+          deleteBtn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            await deleteCustomFontFromDB(font.id);
+            customFonts = customFonts.filter(f => f.id !== font.id);
+            const box = getActiveBox();
+            if (box.fontFamily === font.family) {
+              box.fontFamily = 'Vazirmatn';
+              box.fontName = 'وزیری (وزیرمتن مدرن و خوانا)';
+            }
+            renderFontsList();
+            renderCanvas();
+            showToast(`فونت «${font.name}» حذف شد.`);
+          });
         }
-        const words = para.split(' ');
+
+        fontsList.appendChild(item);
+      });
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function wrapText(context, text, maxWidth) {
+      const resultLines = [];
+      const paragraphs = text.split('\n');
+
+      for (let p of paragraphs) {
+        if (p.trim() === '') {
+          resultLines.push('');
+          continue;
+        }
+
+        const words = p.split(' ');
         let currentLine = '';
 
-        for (let i = 0; i < words.length; i++) {
-          const testLine = currentLine ? currentLine + ' ' + words[i] : words[i];
+        for (let n = 0; n < words.length; n++) {
+          const testLine = currentLine.length > 0 ? currentLine + ' ' + words[n] : words[n];
           const metrics = context.measureText(testLine);
-          if (metrics.width > maxWidth && i > 0) {
-            lines.push(currentLine);
-            currentLine = words[i];
+          
+          if (metrics.width > maxWidth && currentLine.length > 0) {
+            resultLines.push(currentLine);
+            currentLine = words[n];
           } else {
             currentLine = testLine;
           }
         }
-        if (currentLine) {
-          lines.push(currentLine);
+        if (currentLine.length > 0) {
+          resultLines.push(currentLine);
         }
-      });
-
-      return lines;
+      }
+      return resultLines;
     }
 
     function renderCanvas() {
@@ -644,118 +1038,127 @@
       // 1. Clear & Background
       ctx.clearRect(0, 0, 1080, 1920);
 
-      if (state.bgMode === 'dark') {
+      if (globalState.bgMode === 'dark') {
         ctx.fillStyle = '#121212';
         ctx.fillRect(0, 0, 1080, 1920);
-      } else if (state.bgMode === 'light') {
+      } else if (globalState.bgMode === 'light') {
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, 1080, 1920);
-      } else if (state.bgMode === 'custom') {
-        ctx.fillStyle = state.customBgColor;
+      } else if (globalState.bgMode === 'custom') {
+        ctx.fillStyle = globalState.customBgColor;
         ctx.fillRect(0, 0, 1080, 1920);
       }
-      // 'transparent' mode leaves the canvas alpha 0 for PNG sticker usage
 
-      // 2. Configure Font & Context
-      ctx.save();
-      ctx.direction = state.direction;
-      ctx.letterSpacing = `${state.letterSpacing}px`;
-      ctx.font = `${state.fontWeight} ${state.fontSize}px "${state.fontFamily}", system-ui, sans-serif`;
-      ctx.textAlign = state.textAlign;
-      ctx.textBaseline = 'middle';
+      // 2. Render Each Text Box in Order
+      textboxes.forEach((box) => {
+        ctx.save();
+        ctx.direction = box.direction;
+        ctx.letterSpacing = `${box.letterSpacing}px`;
+        ctx.font = `${box.fontWeight} ${box.fontSize}px "${box.fontFamily}", system-ui, sans-serif`;
+        ctx.textAlign = box.textAlign;
+        ctx.textBaseline = 'middle';
 
-      // 3. Measure & Wrap Lines
-      const lines = wrapText(ctx, state.text, state.maxWidth);
-      const computedLineHeight = state.fontSize * state.lineHeight;
-      const totalBlockHeight = lines.length * computedLineHeight;
+        const lines = wrapText(ctx, box.text, box.maxWidth);
+        const computedLineHeight = box.fontSize * box.lineHeight;
+        const totalBlockHeight = lines.length * computedLineHeight;
+        const startY = box.posY - (totalBlockHeight / 2) + (computedLineHeight / 2);
 
-      // Calculate vertical start so (state.posX, state.posY) acts as anchor center
-      const startY = state.posY - (totalBlockHeight / 2) + (computedLineHeight / 2);
+        let maxLineWidth = 0;
+        const lineMetrics = lines.map(line => {
+          const m = ctx.measureText(line);
+          if (m.width > maxLineWidth) maxLineWidth = m.width;
+          return { text: line, width: m.width };
+        });
 
-      // Measure bounding box for bounding selection indicator
-      let maxLineWidth = 0;
-      const lineMetrics = lines.map(line => {
-        const m = ctx.measureText(line);
-        if (m.width > maxLineWidth) maxLineWidth = m.width;
-        return { text: line, width: m.width };
+        // Store bounding box for hit-testing and dragging
+        const padX = box.fontSize * 0.45;
+        const padY = box.fontSize * 0.22;
+        box.bounds = {
+          x: box.posX - (maxLineWidth / 2) - padX,
+          y: box.posY - (totalBlockHeight / 2) - padY,
+          w: maxLineWidth + (padX * 2),
+          h: totalBlockHeight + (padY * 2)
+        };
+
+        const getLineDrawX = (lineWidth) => {
+          if (box.textAlign === 'right') {
+            return box.posX + (maxLineWidth / 2);
+          } else if (box.textAlign === 'left') {
+            return box.posX - (maxLineWidth / 2);
+          }
+          return box.posX;
+        };
+
+        // Render Highlights
+        const pillPadX = box.fontSize * 0.45;
+        const pillPadY = box.fontSize * 0.22;
+        const pillRadius = box.fontSize * 0.28;
+
+        lines.forEach((line, index) => {
+          if (!line.trim()) return;
+          const currentY = startY + (index * computedLineHeight);
+          const lineWidth = lineMetrics[index].width;
+          const drawX = getLineDrawX(lineWidth);
+
+          let pillLeft = drawX - (lineWidth / 2);
+          if (box.textAlign === 'right') pillLeft = drawX - lineWidth;
+          if (box.textAlign === 'left') pillLeft = drawX;
+
+          const rectX = pillLeft - pillPadX;
+          const rectY = currentY - (computedLineHeight / 2) + (computedLineHeight - box.fontSize) / 2 - pillPadY;
+          const rectW = lineWidth + (pillPadX * 2);
+          const rectH = box.fontSize + (pillPadY * 2);
+
+          if (box.highlightMode === 'solid') {
+            ctx.fillStyle = box.highlightColor;
+            drawRoundedRect(ctx, rectX, rectY, rectW, rectH, pillRadius);
+            ctx.fill();
+          } else if (box.highlightMode === 'semi') {
+            ctx.save();
+            ctx.globalAlpha = 0.65;
+            ctx.fillStyle = box.highlightColor;
+            drawRoundedRect(ctx, rectX, rectY, rectW, rectH, pillRadius);
+            ctx.fill();
+            ctx.restore();
+          } else if (box.highlightMode === 'stroke') {
+            ctx.strokeStyle = box.highlightColor;
+            ctx.lineWidth = Math.max(3, box.fontSize * 0.05);
+            drawRoundedRect(ctx, rectX, rectY, rectW, rectH, pillRadius);
+            ctx.stroke();
+          }
+        });
+
+        // Draw Text
+        lines.forEach((line, index) => {
+          if (!line.trim()) return;
+          const currentY = startY + (index * computedLineHeight);
+          const lineWidth = lineMetrics[index].width;
+          const drawX = getLineDrawX(lineWidth);
+
+          const sBlur = box.shadowBlur !== undefined ? box.shadowBlur : 0;
+          if (sBlur > 0) {
+            ctx.save();
+            ctx.shadowColor = box.shadowColor || '#000000';
+            ctx.shadowBlur = sBlur;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+            ctx.fillStyle = box.textColor;
+            ctx.fillText(line, drawX, currentY);
+            ctx.restore();
+          } else {
+            ctx.fillStyle = box.textColor;
+            ctx.fillText(line, drawX, currentY);
+          }
+        });
+
+        ctx.restore();
       });
 
-      // Helper to compute anchor X so lines align properly within the block
-      const getLineDrawX = (lineWidth) => {
-        if (state.textAlign === 'right') {
-          return state.posX + (maxLineWidth / 2);
-        } else if (state.textAlign === 'left') {
-          return state.posX - (maxLineWidth / 2);
-        }
-        return state.posX;
-      };
-
-      // 4. Render Instagram Highlights (Solid Pill, Semi, Outline)
-      const pillPadX = state.fontSize * 0.45;
-      const pillPadY = state.fontSize * 0.22;
-      const pillRadius = state.fontSize * 0.28;
-
-      lines.forEach((line, index) => {
-        if (!line.trim()) return;
-        const currentY = startY + (index * computedLineHeight);
-        const lineWidth = lineMetrics[index].width;
-        const drawX = getLineDrawX(lineWidth);
-
-        let pillLeft = drawX - (lineWidth / 2);
-        if (state.textAlign === 'right') pillLeft = drawX - lineWidth;
-        if (state.textAlign === 'left') pillLeft = drawX;
-
-        const rectX = pillLeft - pillPadX;
-        const rectY = currentY - (computedLineHeight / 2) + (computedLineHeight - state.fontSize) / 2 - pillPadY;
-        const rectW = lineWidth + (pillPadX * 2);
-        const rectH = state.fontSize + (pillPadY * 2);
-
-        if (state.highlightMode === 'solid') {
-          ctx.fillStyle = state.highlightColor;
-          drawRoundedRect(ctx, rectX, rectY, rectW, rectH, pillRadius);
-          ctx.fill();
-        } else if (state.highlightMode === 'semi') {
-          ctx.save();
-          ctx.globalAlpha = 0.65;
-          ctx.fillStyle = state.highlightColor;
-          drawRoundedRect(ctx, rectX, rectY, rectW, rectH, pillRadius);
-          ctx.fill();
-          ctx.restore();
-        } else if (state.highlightMode === 'stroke') {
-          ctx.strokeStyle = state.highlightColor;
-          ctx.lineWidth = Math.max(3, state.fontSize * 0.05);
-          drawRoundedRect(ctx, rectX, rectY, rectW, rectH, pillRadius);
-          ctx.stroke();
-        }
-      });
-
-      // 5. Draw Actual Text Lines
-      lines.forEach((line, index) => {
-        if (!line.trim()) return;
-        const currentY = startY + (index * computedLineHeight);
-        const lineWidth = lineMetrics[index].width;
-        const drawX = getLineDrawX(lineWidth);
-
-        // Subtle drop shadow for readable stories
-        if (state.highlightMode === 'none') {
-          ctx.save();
-          ctx.shadowColor = 'rgba(0,0,0,0.5)';
-          ctx.shadowBlur = Math.max(4, state.fontSize * 0.12);
-          ctx.shadowOffsetX = 0;
-          ctx.shadowOffsetY = 3;
-          ctx.fillStyle = state.textColor;
-          ctx.fillText(line, drawX, currentY);
-          ctx.restore();
-        } else {
-          ctx.fillStyle = state.textColor;
-          ctx.fillText(line, drawX, currentY);
-        }
-      });
-
-      ctx.restore();
-
-      // 6. Update Selection Box Overlay (Mapped to Viewport Coordinates)
-      updateSelectionBox(maxLineWidth, totalBlockHeight);
+      // Update Selection Box for the active textbox
+      const active = getActiveBox();
+      if (active) {
+        updateSelectionBox(active.bounds.w, active.bounds.h, active.posX, active.posY);
+      }
     }
 
     function drawRoundedRect(ctx, x, y, width, height, radius) {
@@ -772,23 +1175,23 @@
       ctx.closePath();
     }
 
-    function updateSelectionBox(textW, textH) {
+    function updateSelectionBox(boxW, boxH, posX, posY) {
       if (!selectionBox || !canvas) return;
       const rect = canvas.getBoundingClientRect();
       const scaleX = rect.width / 1080;
       const scaleY = rect.height / 1920;
 
-      const pad = 24 * scaleX;
-      const width = (textW * scaleX) + (pad * 2);
-      const height = (textH * scaleY) + (pad * 2);
+      const width = boxW * scaleX;
+      const height = boxH * scaleY;
 
-      const boxLeft = (state.posX * scaleX) - (width / 2);
-      const boxTop = (state.posY * scaleY) - (height / 2);
+      const boxLeft = (posX * scaleX) - (width / 2);
+      const boxTop = (posY * scaleY) - (height / 2);
 
       selectionBox.style.left = `${boxLeft}px`;
       selectionBox.style.top = `${boxTop}px`;
       selectionBox.style.width = `${width}px`;
       selectionBox.style.height = `${height}px`;
+      selectionBox.classList.remove('hidden');
     }
 
     let isDragging = false;
@@ -797,17 +1200,46 @@
     let initialPosX = 0;
     let initialPosY = 0;
 
+    function findHitTextBox(clientX, clientY) {
+      if (!canvas) return null;
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = 1080 / rect.width;
+      const scaleY = 1920 / rect.height;
+
+      const cX = (clientX - rect.left) * scaleX;
+      const cY = (clientY - rect.top) * scaleY;
+
+      for (let i = textboxes.length - 1; i >= 0; i--) {
+        const b = textboxes[i].bounds;
+        if (cX >= b.x && cX <= b.x + b.w && cY >= b.y && cY <= b.y + b.h) {
+          return textboxes[i];
+        }
+      }
+      return null;
+    }
+
     function startDrag(clientX, clientY) {
+      const hitBox = findHitTextBox(clientX, clientY);
+      if (hitBox && hitBox.id !== activeTextBoxId) {
+        selectTextBox(hitBox.id);
+      }
+
+      const active = getActiveBox();
+      if (!active) return;
+
       isDragging = true;
       dragStartX = clientX;
       dragStartY = clientY;
-      initialPosX = state.posX;
-      initialPosY = state.posY;
+      initialPosX = active.posX;
+      initialPosY = active.posY;
       selectionBox?.classList.remove('hidden');
     }
 
     function moveDrag(clientX, clientY) {
       if (!isDragging || !canvas) return;
+      const active = getActiveBox();
+      if (!active) return;
+
       const rect = canvas.getBoundingClientRect();
       const scaleX = 1080 / rect.width;
       const scaleY = 1920 / rect.height;
@@ -818,7 +1250,7 @@
       let newX = Math.round(initialPosX + deltaX);
       let newY = Math.round(initialPosY + deltaY);
 
-      // Magnetic Snapping Guides (Center ± 18px)
+      // Magnetic Snapping Guides (Center ± 20px)
       const snapDist = 20;
       if (Math.abs(newX - 540) < snapDist) {
         newX = 540;
@@ -834,8 +1266,8 @@
         guideY?.classList.add('hidden');
       }
 
-      state.posX = newX;
-      state.posY = newY;
+      active.posX = newX;
+      active.posY = newY;
       renderCanvas();
     }
 
@@ -844,15 +1276,12 @@
       isDragging = false;
       guideX?.classList.add('hidden');
       guideY?.classList.add('hidden');
-      setTimeout(() => selectionBox?.classList.add('hidden'), 1200);
     }
 
-    // Mouse Dragging
     touchLayer?.addEventListener('mousedown', (e) => startDrag(e.clientX, e.clientY));
     window.addEventListener('mousemove', (e) => moveDrag(e.clientX, e.clientY));
     window.addEventListener('mouseup', endDrag);
 
-    // Touch Dragging
     touchLayer?.addEventListener('touchstart', (e) => {
       if (e.touches.length === 1) {
         startDrag(e.touches[0].clientX, e.touches[0].clientY);
@@ -867,102 +1296,80 @@
 
     window.addEventListener('touchend', endDrag);
 
-    let currentCategory = 'all';
+    addTextBoxBtn?.addEventListener('click', createNewTextBox);
+    addTextBoxHeaderBtn?.addEventListener('click', createNewTextBox);
 
-    function renderFontsList() {
-      if (!fontsList) return;
-      fontsList.innerHTML = '';
-
-      const all = [
-        ...customFonts.map(f => ({ ...f, isCustom: true })),
-        ...builtInFonts
-      ];
-
-      const filtered = all.filter(f => {
-        if (currentCategory === 'all') return true;
-        if (currentCategory === 'custom') return f.isCustom;
-        return f.cat === currentCategory;
-      });
-
-      if (filtered.length === 0) {
-        fontsList.innerHTML = `
-          <div class="text-center py-6 text-slate-500 text-xs">
-            <i data-lucide="info" class="w-6 h-6 mx-auto mb-2 opacity-50"></i>
-            <span>هیچ فونتی در این دسته‌بندی یافت نشد.</span>
-          </div>
-        `;
-        if (window.lucide) lucide.createIcons();
-        return;
-      }
-
-      filtered.forEach(font => {
-        const item = document.createElement('div');
-        item.className = `p-2.5 rounded-xl border transition flex items-center justify-between cursor-pointer ${
-          state.fontFamily === font.family 
-            ? 'bg-rose-500/15 border-rose-500 text-rose-300' 
-            : 'bg-slate-950/80 border-slate-800 text-slate-300 hover:border-slate-700'
-        }`;
-
-        item.innerHTML = `
-          <div class="flex-1 min-w-0 pr-1">
-            <div class="flex items-center gap-1.5">
-              <span class="text-xs font-bold truncate">${font.name}</span>
-              ${font.isCustom ? '<span class="text-[9px] bg-purple-500/30 text-purple-300 px-1.5 py-0.5 rounded border border-purple-500/40">شخصی</span>' : ''}
-            </div>
-            <p class="text-sm truncate mt-1 text-slate-200" style="font-family: '${font.family}', sans-serif;">
-              ${font.cat === 'english' ? 'Story Typography Studio' : 'جادوی کلمات در استوری'}
-            </p>
-          </div>
-          ${font.isCustom ? `
-            <button class="delete-custom-font p-1.5 text-slate-500 hover:text-rose-400 rounded-lg transition" title="حذف فونت">
-              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-            </button>
-          ` : ''}
-        `;
-
-        item.addEventListener('click', (e) => {
-          if (e.target.closest('.delete-custom-font')) return;
-          state.fontFamily = font.family;
-          state.fontName = font.name;
-          renderFontsList();
-          renderCanvas();
+    // Navigation Category Tabs Switcher
+    document.querySelectorAll('.catTabBtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.getAttribute('data-tab');
+        
+        document.querySelectorAll('.catTabBtn').forEach(b => {
+          b.classList.remove('active', 'text-rose-400', 'border-rose-500');
+          b.classList.add('text-slate-400', 'border-transparent');
         });
+        btn.classList.add('active', 'text-rose-400', 'border-rose-500');
+        btn.classList.remove('text-slate-400', 'border-transparent');
 
-        const deleteBtn = item.querySelector('.delete-custom-font');
-        if (deleteBtn) {
-          deleteBtn.addEventListener('click', async (e) => {
-            e.stopPropagation();
-            await deleteCustomFontFromDB(font.id);
-            customFonts = customFonts.filter(f => f.id !== font.id);
-            if (state.fontFamily === font.family) {
-              state.fontFamily = 'Vazirmatn';
-              state.fontName = 'وزیری (وزیرمتن مدرن و خوانا)';
-            }
-            renderFontsList();
-            renderCanvas();
-            showToast(`فونت «${font.name}» حذف شد.`);
-          });
+        document.querySelectorAll('.tab-content').forEach(section => {
+          section.classList.add('hidden');
+        });
+        const activeSection = document.getElementById(targetTab);
+        if (activeSection) {
+          activeSection.classList.remove('hidden');
         }
 
-        fontsList.appendChild(item);
+        // If collapsed on mobile, expand when tapping tab
+        if (tabContentContainer && tabContentContainer.classList.contains('hidden')) {
+          tabContentContainer.classList.remove('hidden');
+          if (drawerToggleIcon) drawerToggleIcon.setAttribute('data-lucide', 'chevron-down');
+          if (window.lucide) lucide.createIcons();
+        }
       });
+    });
 
+    // Mobile Drawer Toggle
+    drawerToggle?.addEventListener('click', () => {
+      if (!tabContentContainer) return;
+      const isHidden = tabContentContainer.classList.contains('hidden');
+      if (isHidden) {
+        tabContentContainer.classList.remove('hidden');
+        drawerToggleIcon?.setAttribute('data-lucide', 'chevron-down');
+      } else {
+        tabContentContainer.classList.add('hidden');
+        drawerToggleIcon?.setAttribute('data-lucide', 'chevron-up');
+      }
       if (window.lucide) lucide.createIcons();
-    }
+    });
 
-    // Custom Font File Input
+    // Font category filter buttons
+    document.querySelectorAll('.font-cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentCategory = btn.getAttribute('data-cat');
+        document.querySelectorAll('.font-cat-btn').forEach(b => {
+          b.classList.remove('bg-rose-500', 'text-white');
+          b.classList.add('text-slate-400');
+        });
+        btn.classList.add('bg-rose-500', 'text-white');
+        btn.classList.remove('text-slate-400');
+        renderFontsList();
+      });
+    });
+
+    // Custom Font File Upload Listener
     fontFileInput?.addEventListener('change', async (e) => {
-      const file = e.target.files?.[0];
+      const file = e.target.files && e.target.files[0];
       if (!file) return;
-
-      const fontName = file.name.replace(/\.[^/.]+$/, "");
-      const familyName = `CustomFont_${Date.now()}`;
 
       try {
         const arrayBuffer = await file.arrayBuffer();
+        const baseName = file.name.replace(/\.[^/.]+$/, "");
+        const fontName = baseName.replace(/[-_]/g, ' ');
+        const familyName = `Custom_${Date.now()}`;
+
         const fontFace = new FontFace(familyName, arrayBuffer);
-        const loadedFace = await fontFace.load();
-        document.fonts.add(loadedFace);
+        await fontFace.load();
+        document.fonts.add(fontFace);
 
         const customFontObj = {
           id: `custom_${Date.now()}`,
@@ -976,8 +1383,9 @@
         customFonts.unshift(customFontObj);
         await saveCustomFontToDB(customFontObj);
 
-        state.fontFamily = familyName;
-        state.fontName = fontName;
+        const box = getActiveBox();
+        box.fontFamily = familyName;
+        box.fontName = fontName;
 
         currentCategory = 'custom';
         document.querySelectorAll('.font-cat-btn').forEach(b => {
@@ -1001,60 +1409,27 @@
       }
     });
 
-    // Tab switching
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const targetTab = btn.dataset.tab;
-        document.querySelectorAll('.tab-btn').forEach(b => {
-          b.classList.remove('border-rose-500', 'text-rose-400');
-          b.classList.add('border-transparent', 'text-slate-400');
-        });
-        btn.classList.add('border-rose-500', 'text-rose-400');
-        btn.classList.remove('border-transparent', 'text-slate-400');
-
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-        document.getElementById(targetTab)?.classList.remove('hidden');
-
-        // Auto expand drawer on mobile if collapsed
-        if (mobileDrawer?.classList.contains('collapsed')) {
-          toggleMobileDrawer();
-        }
-      });
-    });
-
-    // Font category tabs
-    document.querySelectorAll('.font-cat-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        currentCategory = btn.dataset.cat;
-        document.querySelectorAll('.font-cat-btn').forEach(b => {
-          b.classList.remove('bg-rose-500', 'text-white');
-          b.classList.add('text-slate-400');
-        });
-        btn.classList.add('bg-rose-500', 'text-white');
-        btn.classList.remove('text-slate-400');
-        renderFontsList();
-      });
-    });
-
-    // Text inputs
     textInput?.addEventListener('input', (e) => {
-      state.text = e.target.value;
+      const box = getActiveBox();
+      box.text = e.target.value;
+      renderTextBoxChips();
       renderCanvas();
     });
 
-    // Preset texts
     document.querySelectorAll('.preset-text-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const txt = btn.getAttribute('data-text');
+        const box = getActiveBox();
+        box.text = txt;
         if (textInput) textInput.value = txt;
-        state.text = txt;
+        renderTextBoxChips();
         renderCanvas();
       });
     });
 
-    // RTL / LTR
     btnRTL?.addEventListener('click', () => {
-      state.direction = 'rtl';
+      const box = getActiveBox();
+      box.direction = 'rtl';
       btnRTL.className = 'px-2 py-1 text-[11px] font-bold rounded bg-rose-500 text-white';
       btnLTR.className = 'px-2 py-1 text-[11px] font-bold rounded text-slate-400 hover:text-white';
       if (textInput) textInput.dir = 'rtl';
@@ -1062,66 +1437,74 @@
     });
 
     btnLTR?.addEventListener('click', () => {
-      state.direction = 'ltr';
+      const box = getActiveBox();
+      box.direction = 'ltr';
       btnLTR.className = 'px-2 py-1 text-[11px] font-bold rounded bg-rose-500 text-white';
       btnRTL.className = 'px-2 py-1 text-[11px] font-bold rounded text-slate-400 hover:text-white';
       if (textInput) textInput.dir = 'ltr';
       renderCanvas();
     });
 
-    // Sliders
     fontSizeSlider?.addEventListener('input', (e) => {
-      state.fontSize = parseInt(e.target.value);
-      if (fontSizeVal) fontSizeVal.textContent = `${state.fontSize}px`;
+      const box = getActiveBox();
+      box.fontSize = parseInt(e.target.value);
+      if (fontSizeVal) fontSizeVal.textContent = `${box.fontSize}px`;
+      updateSliderTrack(e.target);
       renderCanvas();
     });
 
     boxWidthSlider?.addEventListener('input', (e) => {
-      state.maxWidth = parseInt(e.target.value);
-      if (boxWidthVal) boxWidthVal.textContent = `${state.maxWidth}px`;
+      const box = getActiveBox();
+      box.maxWidth = parseInt(e.target.value);
+      if (boxWidthVal) boxWidthVal.textContent = `${box.maxWidth}px`;
+      updateSliderTrack(e.target);
       renderCanvas();
     });
 
     lineHeightSlider?.addEventListener('input', (e) => {
-      state.lineHeight = parseFloat(e.target.value);
-      if (lineHeightVal) lineHeightVal.textContent = state.lineHeight;
+      const box = getActiveBox();
+      box.lineHeight = parseFloat(e.target.value);
+      if (lineHeightVal) lineHeightVal.textContent = box.lineHeight;
+      updateSliderTrack(e.target);
       renderCanvas();
     });
 
     letterSpacingSlider?.addEventListener('input', (e) => {
-      state.letterSpacing = parseInt(e.target.value);
-      if (letterSpacingVal) letterSpacingVal.textContent = `${state.letterSpacing}px`;
+      const box = getActiveBox();
+      box.letterSpacing = parseInt(e.target.value);
+      if (letterSpacingVal) letterSpacingVal.textContent = `${box.letterSpacing}px`;
+      updateSliderTrack(e.target);
       renderCanvas();
     });
 
-    // Alignment
     document.querySelectorAll('.align-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        state.textAlign = btn.dataset.align;
+        const box = getActiveBox();
+        box.textAlign = btn.dataset.align;
         document.querySelectorAll('.align-btn').forEach(b => {
-          b.className = 'align-btn p-2 rounded-xl bg-slate-800 border border-slate-700 hover:border-slate-500 flex items-center justify-center gap-1.5 text-xs text-slate-300';
+          b.className = 'align-btn p-2 rounded-xl bg-slate-800 border border-slate-700 hover:border-slate-500 flex items-center justify-center gap-1.5 text-xs text-slate-300 transition';
         });
-        btn.className = 'align-btn p-2 rounded-xl bg-rose-500/20 border-2 border-rose-500 text-rose-300 flex items-center justify-center gap-1.5 text-xs font-bold';
+        btn.className = 'align-btn p-2 rounded-xl bg-rose-500/20 border-2 border-rose-500 text-rose-300 flex items-center justify-center gap-1.5 text-xs font-bold transition';
         renderCanvas();
       });
     });
 
-    // Font weight
     document.querySelectorAll('.weight-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        state.fontWeight = btn.dataset.weight;
+        const box = getActiveBox();
+        box.fontWeight = btn.dataset.weight;
         document.querySelectorAll('.weight-btn').forEach(b => {
-          b.className = 'weight-btn p-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-slate-300';
+          b.className = 'weight-btn p-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:border-slate-500 transition';
         });
-        btn.className = 'weight-btn p-2 rounded-xl bg-rose-500/20 border-2 border-rose-500 text-rose-300 text-xs font-bold';
+        btn.className = 'weight-btn p-2 rounded-xl bg-rose-500/20 border-2 border-rose-500 text-rose-300 text-xs font-bold transition';
         renderCanvas();
       });
     });
 
-    // Highlight modes
     document.querySelectorAll('.highlight-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        state.highlightMode = btn.dataset.mode;
+        const box = getActiveBox();
+        box.highlightMode = btn.dataset.mode;
         document.querySelectorAll('.highlight-btn').forEach(b => {
           b.classList.remove('border-2', 'border-rose-500', 'bg-rose-500/20', 'text-rose-200', 'font-bold');
           b.classList.add('border-slate-700', 'bg-slate-800', 'text-slate-300');
@@ -1132,37 +1515,84 @@
       });
     });
 
-    // Colors
     textColorPicker?.addEventListener('input', (e) => {
-      state.textColor = e.target.value;
+      const box = getActiveBox();
+      box.textColor = e.target.value;
       renderCanvas();
     });
 
     document.querySelectorAll('.quick-text-color').forEach(btn => {
       btn.addEventListener('click', () => {
-        state.textColor = btn.dataset.color;
+        const box = getActiveBox();
+        box.textColor = btn.dataset.color;
         if (textColorPicker) textColorPicker.value = btn.dataset.color;
         renderCanvas();
       });
     });
 
     highlightColorPicker?.addEventListener('input', (e) => {
-      state.highlightColor = e.target.value;
+      const box = getActiveBox();
+      box.highlightColor = e.target.value;
       renderCanvas();
+    });
+
+    shadowBlurSlider?.addEventListener('input', (e) => {
+      const box = getActiveBox();
+      box.shadowBlur = parseInt(e.target.value, 10);
+      if (shadowBlurVal) shadowBlurVal.textContent = `${box.shadowBlur}px`;
+      updateSliderTrack(e.target);
+      renderCanvas();
+    });
+
+    shadowColorPicker?.addEventListener('input', (e) => {
+      const box = getActiveBox();
+      box.shadowColor = e.target.value;
+      renderCanvas();
+    });
+
+    disableShadowBtn?.addEventListener('click', () => {
+      const box = getActiveBox();
+      box.shadowBlur = 0;
+      if (shadowBlurSlider) {
+        shadowBlurSlider.value = 0;
+        updateSliderTrack(shadowBlurSlider);
+      }
+      if (shadowBlurVal) shadowBlurVal.textContent = '0px';
+      renderCanvas();
+      showToast('هاله متن غیرفعال شد (حالت تخت)');
+    });
+
+    document.querySelectorAll('.quick-shadow-color').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const box = getActiveBox();
+        const color = btn.dataset.color;
+        box.shadowColor = color;
+        if (shadowColorPicker) shadowColorPicker.value = color;
+        // If blur is 0, give it a subtle 15px glow so the user sees the color immediately
+        if (!box.shadowBlur || box.shadowBlur === 0) {
+          box.shadowBlur = 15;
+          if (shadowBlurSlider) {
+            shadowBlurSlider.value = 15;
+            updateSliderTrack(shadowBlurSlider);
+          }
+          if (shadowBlurVal) shadowBlurVal.textContent = '15px';
+        }
+        renderCanvas();
+      });
     });
 
     document.querySelectorAll('.quick-hl-color').forEach(btn => {
       btn.addEventListener('click', () => {
-        state.highlightColor = btn.dataset.color;
+        const box = getActiveBox();
+        box.highlightColor = btn.dataset.color;
         if (highlightColorPicker) highlightColorPicker.value = btn.dataset.color;
         renderCanvas();
       });
     });
 
-    // Canvas Background
     document.querySelectorAll('.bg-mode-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        state.bgMode = btn.dataset.bg;
+        globalState.bgMode = btn.dataset.bg;
         document.querySelectorAll('.bg-mode-btn').forEach(b => {
           b.classList.remove('border-2', 'border-rose-500', 'bg-rose-500/20', 'text-rose-300', 'font-bold');
           b.classList.add('border-slate-700', 'bg-slate-800', 'text-slate-300');
@@ -1170,7 +1600,7 @@
         btn.classList.add('border-2', 'border-rose-500', 'bg-rose-500/20', 'text-rose-300', 'font-bold');
         btn.classList.remove('border-slate-700', 'bg-slate-800', 'text-slate-300');
 
-        if (state.bgMode === 'custom') {
+        if (globalState.bgMode === 'custom') {
           customBgColorWrapper?.classList.remove('hidden');
         } else {
           customBgColorWrapper?.classList.add('hidden');
@@ -1180,114 +1610,62 @@
     });
 
     customBgColorPicker?.addEventListener('input', (e) => {
-      state.customBgColor = e.target.value;
+      globalState.customBgColor = e.target.value;
       renderCanvas();
     });
 
-    // Reset center position
     resetPositionBtn?.addEventListener('click', () => {
-      state.posX = 540;
-      state.posY = 960;
+      const box = getActiveBox();
+      box.posX = 540;
+      box.posY = 960;
       renderCanvas();
       showToast('موقعیت متن در مرکز بوم قرار گرفت.');
     });
 
-    // Mobile Drawer Collapse / Expand
-    function toggleMobileDrawer() {
-      if (!mobileDrawer) return;
-      const previewMain = document.getElementById('previewMain');
-      const isCollapsed = mobileDrawer.classList.toggle('collapsed');
-
-      if (previewMain) {
-        if (isCollapsed) {
-          previewMain.classList.remove('h-[35vh]', 'sm:h-[40vh]');
-          previewMain.classList.add('flex-1');
-        } else {
-          previewMain.classList.remove('flex-1');
-          previewMain.classList.add('h-[35vh]', 'sm:h-[40vh]');
-        }
-      }
-
-      if (drawerToggleIcon) {
-        drawerToggleIcon.style.transform = isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)';
-      }
-      if (drawerToggleHint) {
-        drawerToggleHint.textContent = isCollapsed ? 'نمایش ابزار' : 'کوچک‌کردن';
-      }
-      setTimeout(renderCanvas, 260);
-    }
-
-    drawerToggle?.addEventListener('click', toggleMobileDrawer);
-
-    async function exportPNG() {
-      if (!downloadBtn || !canvas) return;
-      const origText = downloadBtn.innerHTML;
-      downloadBtn.disabled = true;
-      downloadBtn.innerHTML = `
-        <svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-        </svg>
-        <span>در حال دانلود...</span>
-      `;
-
+    downloadBtn?.addEventListener('click', () => {
+      if (!canvas) return;
       try {
-        await document.fonts.ready;
-        renderCanvas();
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            const dataUrl = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = `instagram-typography-${Date.now()}.png`;
+            link.href = dataUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast('تصویر PNG با موفقیت ذخیره شد!');
+            return;
+          }
 
-        const fileName = `story-typography-${Date.now()}.png`;
-
-        if (canvas.toBlob) {
-          canvas.toBlob((blob) => {
-            if (!blob) {
-              fallbackDownload(canvas.toDataURL('image/png'), fileName);
-              return;
-            }
-            const blobUrl = URL.createObjectURL(blob);
-            triggerDownload(blobUrl, fileName);
-            setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
-            showToast('تصویر با کیفیت 1080x1920 دانلود شد! 🎉');
-          }, 'image/png');
-        } else {
-          fallbackDownload(canvas.toDataURL('image/png'), fileName);
-        }
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `instagram-story-${Date.now()}.png`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          setTimeout(() => URL.revokeObjectURL(url), 2000);
+          showToast('خروجی ۱۰۸۰×۱۹۲۰ با کیفیت بالا دانلود شد! ✨');
+        }, 'image/png');
       } catch (err) {
-        console.error('Export failed:', err);
-        showToast('خطا در دریافت تصویر! لطفاً مجدداً امتحان کنید.');
-      } finally {
-        downloadBtn.disabled = false;
-        downloadBtn.innerHTML = origText;
-        if (window.lucide) lucide.createIcons();
+        console.error(err);
+        showToast('خطا در دانلود تصویر!');
       }
-    }
-
-    function triggerDownload(url, fileName) {
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-
-    function fallbackDownload(dataUrl, fileName) {
-      triggerDownload(dataUrl, fileName);
-      showToast('تصویر با کیفیت 1080x1920 دانلود شد! 🎉');
-    }
-
-    downloadBtn?.addEventListener('click', exportPNG);
-
-    // Window resize handler to maintain aspect ratio and bounding box
-    window.addEventListener('resize', () => {
-      renderCanvas();
     });
 
     window.addEventListener('DOMContentLoaded', async () => {
-      if (textInput) textInput.value = state.text;
+      syncUIToActiveBox();
+      renderTextBoxChips();
       if (window.lucide) lucide.createIcons();
       renderFontsList();
+      [fontSizeSlider, boxWidthSlider, lineHeightSlider, letterSpacingSlider, shadowBlurSlider].forEach(updateSliderTrack);
       await loadSavedCustomFonts();
       await document.fonts.ready;
+      renderCanvas();
+    });
+
+    window.addEventListener('resize', () => {
       renderCanvas();
     });
   </script>
