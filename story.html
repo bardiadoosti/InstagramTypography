@@ -136,28 +136,41 @@
 </head>
 
 <body class="bg-slate-950 text-slate-100 font-sans h-[100dvh] flex flex-col overflow-hidden select-none">
-  <header class="shrink-0 h-14 bg-slate-900/90 backdrop-blur border-b border-slate-800 px-4 flex items-center justify-between z-30">
+  <!-- Hidden File Input for Image Uploading -->
+  <input type="file" id="imageFileInput" accept="image/*" class="hidden">
+
+  <!-- Top App Bar -->
+  <header class="shrink-0 h-14 bg-slate-900/90 backdrop-blur border-b border-slate-800 px-3 sm:px-4 flex items-center justify-between z-30">
     <div class="flex items-center gap-2">
       <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-white shadow-md shadow-rose-500/20">
         <i data-lucide="sparkles" class="w-4 h-4"></i>
       </div>
       <div>
-        <h1 class="text-sm font-bold text-white tracking-wide">استودیو تایپوگرافی اینستاگرام</h1>
-        <p class="text-[10px] text-slate-400">فونت‌های استاندارد فارسی و انگلیسی با خروجی ۱۰۸۰×۱۹۲۰</p>
+        <h1 class="text-xs sm:text-sm font-bold text-white tracking-wide">استودیو تایپوگرافی اینستاگرام</h1>
+        <p class="text-[9px] sm:text-[10px] text-slate-400">متن، عکس و فونت‌های استاندارد با خروجی ۱۰۸۰×۱۹۲۰</p>
       </div>
     </div>
 
-    <div class="flex items-center gap-2">
-      <button id="addTextBoxHeaderBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-rose-300 hover:text-white transition">
-        <i data-lucide="plus" class="w-3.5 h-3.5 text-rose-400"></i>
-        <span class="hidden sm:inline">متن جدید</span>
+    <div class="flex items-center gap-1.5 sm:gap-2">
+      <!-- Add Image Header Button -->
+      <button id="addImageHeaderBtn" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 border border-sky-500/40 text-xs font-semibold text-sky-300 hover:text-white transition shadow-sm active:scale-95" title="افزودن عکس جدید به استوری">
+        <i data-lucide="image-plus" class="w-4 h-4 text-sky-400"></i>
+        <span class="inline">+ عکس</span>
       </button>
 
-      <button id="resetPositionBtn" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white transition" title="وسط‌چین کردن متن انتخابی">
+      <!-- Add Text Header Button -->
+      <button id="addTextBoxHeaderBtn" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-rose-300 hover:text-white transition shadow-sm active:scale-95" title="افزودن متن جدید به استوری">
+        <i data-lucide="plus" class="w-4 h-4 text-rose-400"></i>
+        <span class="inline">+ متن</span>
+      </button>
+
+      <!-- Re-center Button -->
+      <button id="resetPositionBtn" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white transition" title="وسط‌چین کردن لایه فعال">
         <i data-lucide="crosshair" class="w-4 h-4"></i>
       </button>
 
-      <button id="downloadBtn" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition shadow-lg shadow-rose-600/30 active:scale-95">
+      <!-- Download Button -->
+      <button id="downloadBtn" class="flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition shadow-lg shadow-rose-600/30 active:scale-95">
         <i data-lucide="download" class="w-4 h-4"></i>
         <span>دانلود PNG</span>
       </button>
@@ -167,8 +180,28 @@
   <main class="flex-1 min-h-0 flex flex-col lg:flex-row overflow-hidden relative">
     
     <!-- Canvas Story Viewport Area -->
-    <div id="canvasContainer" class="flex-none h-[38vh] sm:h-[45vh] lg:flex-1 lg:h-full bg-slate-900/60 p-2 sm:p-4 flex items-center justify-center relative overflow-hidden transition-all duration-300">
+    <div id="canvasContainer" class="flex-none h-[40vh] sm:h-[48vh] lg:flex-1 lg:h-full bg-slate-900/60 p-2 sm:p-4 flex items-center justify-center relative overflow-hidden transition-all duration-300">
       
+      <!-- Direct Floating Action Buttons Over Canvas -->
+      <div class="absolute top-3 inset-x-0 mx-auto w-fit z-20 flex items-center gap-1.5 bg-slate-950/85 backdrop-blur-md px-2.5 py-1.5 rounded-2xl border border-slate-700/80 shadow-xl">
+        <button id="canvasAddImageBtn" class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/50 text-[11px] font-bold text-sky-200 transition active:scale-95">
+          <i data-lucide="image-plus" class="w-3.5 h-3.5 text-sky-400"></i>
+          <span>+ عکس جدید</span>
+        </button>
+        <span class="w-[1px] h-4 bg-slate-700"></span>
+        <button id="canvasAddTextBtn" class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-400/50 text-[11px] font-bold text-rose-200 transition active:scale-95">
+          <i data-lucide="plus" class="w-3.5 h-3.5 text-rose-400"></i>
+          <span>+ متن جدید</span>
+        </button>
+        <span class="w-[1px] h-4 bg-slate-700"></span>
+        <button id="bringToFrontBtn" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition" title="آوردن به روترین لایه">
+          <i data-lucide="bring-to-front" class="w-3.5 h-3.5"></i>
+        </button>
+        <button id="sendToBackBtn" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition" title="فرستادن به زیرترین لایه">
+          <i data-lucide="send-to-back" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+
       <!-- 9:16 Instagram Story Box Frame -->
       <div id="storyFrame" class="relative aspect-[9/16] h-full max-h-full max-w-full rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-700/80 bg-checkered flex items-center justify-center">
         
@@ -204,14 +237,14 @@
       <div id="drawerToggle" class="lg:hidden flex items-center justify-between px-4 py-1.5 bg-slate-800/80 border-b border-slate-700/60 cursor-pointer select-none">
         <div class="flex items-center gap-2">
           <span class="w-8 h-1 rounded-full bg-slate-600 block"></span>
-          <span id="drawerToggleHint" class="text-[11px] font-medium text-slate-300">پنل تنظیمات تایپوگرافی</span>
+          <span id="drawerToggleHint" class="text-[11px] font-medium text-slate-300">پنل تنظیمات و لایه‌ها</span>
         </div>
         <button class="text-slate-400 hover:text-white p-1">
           <i id="drawerToggleIcon" data-lucide="chevron-down" class="w-4 h-4"></i>
         </button>
       </div>
 
-      <!-- Text Layer Chips Bar -->
+      <!-- Layer Chips Bar (Texts & Images) -->
       <div class="shrink-0 px-3 py-2 bg-slate-950/60 border-b border-slate-800 flex items-center gap-2 overflow-x-auto">
         <div class="flex items-center gap-1.5 text-xs text-slate-400 shrink-0 font-medium">
           <i data-lucide="layers" class="w-3.5 h-3.5 text-rose-400"></i>
@@ -222,32 +255,43 @@
           <!-- Populated by JS -->
         </div>
 
+        <!-- Add Text Chip Button -->
         <button id="addTextBoxBtn" class="shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-rose-300 text-xs font-semibold transition" title="افزودن متن جدید به استوری">
           <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-          <span>متن جدید</span>
+          <span>متن</span>
+        </button>
+
+        <!-- Add Image Chip Button -->
+        <button id="addImageBtn" class="shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 border border-sky-500/40 text-sky-300 text-xs font-semibold transition" title="افزودن عکس به استوری">
+          <i data-lucide="image-plus" class="w-3.5 h-3.5"></i>
+          <span>عکس</span>
         </button>
       </div>
 
       <!-- Categories Navigation Bar -->
       <div class="shrink-0 flex items-center justify-between border-b border-slate-800 bg-slate-900 px-2 overflow-x-auto">
-        <button data-tab="tab-text" class="catTabBtn active flex-1 py-2.5 px-2 text-xs font-bold text-rose-400 border-b-2 border-rose-500 flex items-center justify-center gap-1.5 transition">
+        <button id="tabBtnText" data-tab="tab-text" class="catTabBtn active flex-1 py-2.5 px-2 text-xs font-bold text-rose-400 border-b-2 border-rose-500 flex items-center justify-center gap-1.5 transition">
           <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
           <span>متن</span>
         </button>
-        <button data-tab="tab-fonts" class="catTabBtn flex-1 py-2.5 px-2 text-xs font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center justify-center gap-1.5 transition">
+        <button id="tabBtnImage" data-tab="tab-image" class="catTabBtn hidden flex-1 py-2.5 px-2 text-xs font-medium text-sky-400 border-b-2 border-sky-500 flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="image" class="w-3.5 h-3.5"></i>
+          <span>تنظیمات عکس</span>
+        </button>
+        <button id="tabBtnFonts" data-tab="tab-fonts" class="catTabBtn flex-1 py-2.5 px-2 text-xs font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center justify-center gap-1.5 transition">
           <i data-lucide="type" class="w-3.5 h-3.5"></i>
           <span>فونت‌ها</span>
         </button>
-        <button data-tab="tab-size" class="catTabBtn flex-1 py-2.5 px-2 text-xs font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center justify-center gap-1.5 transition">
+        <button id="tabBtnSize" data-tab="tab-size" class="catTabBtn flex-1 py-2.5 px-2 text-xs font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center justify-center gap-1.5 transition">
           <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
           <span>ابعاد</span>
         </button>
-        <button data-tab="tab-style" class="catTabBtn flex-1 py-2.5 px-2 text-xs font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center justify-center gap-1.5 transition">
+        <button id="tabBtnStyle" data-tab="tab-style" class="catTabBtn flex-1 py-2.5 px-2 text-xs font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center justify-center gap-1.5 transition">
           <i data-lucide="palette" class="w-3.5 h-3.5"></i>
           <span>استایل</span>
         </button>
-        <button data-tab="tab-bg" class="catTabBtn flex-1 py-2.5 px-2 text-xs font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center justify-center gap-1.5 transition">
-          <i data-lucide="image" class="w-3.5 h-3.5"></i>
+        <button id="tabBtnBg" data-tab="tab-bg" class="catTabBtn flex-1 py-2.5 px-2 text-xs font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="layers" class="w-3.5 h-3.5"></i>
           <span>بک‌گراند</span>
         </button>
       </div>
@@ -261,7 +305,7 @@
               <label class="text-xs font-bold text-slate-300">متن این لایه</label>
               <div class="flex items-center bg-slate-800 p-0.5 rounded-lg border border-slate-700">
                 <button id="btnRTL" class="px-2 py-1 text-[11px] font-bold rounded bg-rose-500 text-white">راست‌چین (فا)</button>
-                <button id="btnLTR" class="px-2 py-1 text-[11px] font-bold rounded text-slate-400 hover:text-white">چپ‌چین (EN)</button>
+                <button id="btnLTR" class="px-2 py-1 text-[11px] font-bold rounded text-slate-400 hover:text-white">چپ‌‌چین (EN)</button>
               </div>
             </div>
             <textarea id="textInput" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition resize-none"></textarea>
@@ -278,6 +322,74 @@
                 English
               </button>
             </div>
+          </div>
+        </section>
+
+        <!-- Tab: Image Layer Controls (Shown when an image layer is active) -->
+        <section id="tab-image" class="tab-content hidden space-y-4">
+          <div class="p-3.5 rounded-2xl bg-gradient-to-r from-sky-950/40 via-indigo-950/30 to-slate-900 border border-sky-500/30 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i data-lucide="image" class="w-5 h-5 text-sky-400"></i>
+              <div>
+                <span id="activeImageName" class="text-xs font-bold text-white block">تنظیمات تصویر فعال</span>
+                <span class="text-[10px] text-slate-400">جابه‌جایی، تغییر اندازه و گردی گوشه</span>
+              </div>
+            </div>
+            <button id="replaceImageBtn" class="px-2.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-[11px] font-bold flex items-center gap-1 transition">
+              <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+              <span>تعویض فایل</span>
+            </button>
+          </div>
+
+          <!-- Image Width / Scaling -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-slate-300">عرض و اندازه تصویر</span>
+              <span id="imgWidthVal" class="text-sky-400 font-mono font-bold">600px</span>
+            </div>
+            <input type="range" id="imgWidthSlider" min="100" max="1080" value="600" dir="ltr" class="w-full">
+          </div>
+
+          <!-- Image Rotation -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <div class="flex items-center gap-1.5">
+                <span class="font-bold text-slate-300">زاویه چرخش (Rotation)</span>
+                <button type="button" id="resetImgRotationBtn" class="px-2 py-0.5 rounded-md bg-slate-800 hover:bg-slate-700 border border-slate-700 text-[10px] text-sky-300 hover:text-white transition">۰° صاف</button>
+              </div>
+              <span id="imgRotationVal" class="text-sky-400 font-mono font-bold">0°</span>
+            </div>
+            <input type="range" id="imgRotationSlider" min="-180" max="180" value="0" dir="ltr" class="w-full">
+          </div>
+
+          <!-- Image Border Radius (Rounded Corners) -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-slate-300">گردی گوشه‌ها (Border Radius)</span>
+              <span id="imgRadiusVal" class="text-sky-400 font-mono font-bold">0px</span>
+            </div>
+            <input type="range" id="imgRadiusSlider" min="0" max="400" value="0" dir="ltr" class="w-full">
+          </div>
+
+          <!-- Image Opacity -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-slate-300">شفافیت تصویر (Opacity)</span>
+              <span id="imgOpacityVal" class="text-sky-400 font-mono font-bold">100%</span>
+            </div>
+            <input type="range" id="imgOpacitySlider" min="10" max="100" value="100" dir="ltr" class="w-full">
+          </div>
+
+          <!-- Actions: Center and Delete -->
+          <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800">
+            <button id="centerImageBtn" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-750 border border-slate-700 text-xs font-semibold text-slate-200 flex items-center justify-center gap-1.5 transition">
+              <i data-lucide="crosshair" class="w-3.5 h-3.5 text-sky-400"></i>
+              <span>وسط‌چین کردن</span>
+            </button>
+            <button id="deleteActiveImageBtn" class="py-2.5 px-3 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-xs font-semibold text-rose-300 flex items-center justify-center gap-1.5 transition">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              <span>حذف این عکس</span>
+            </button>
           </div>
         </section>
 
@@ -352,6 +464,18 @@
               <span id="letterSpacingVal" class="text-rose-400 font-mono font-bold">0px</span>
             </div>
             <input type="range" id="letterSpacingSlider" min="-5" max="30" value="0" dir="ltr" class="w-full">
+          </div>
+
+          <!-- Text Rotation -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <div class="flex items-center gap-1.5">
+                <span class="font-bold text-slate-300">زاویه چرخش متن (Rotation)</span>
+                <button type="button" id="resetTextRotationBtn" class="px-2 py-0.5 rounded-md bg-slate-800 hover:bg-slate-700 border border-slate-700 text-[10px] text-rose-300 hover:text-white transition">۰° صاف</button>
+              </div>
+              <span id="textRotationVal" class="text-rose-400 font-mono font-bold">0°</span>
+            </div>
+            <input type="range" id="textRotationSlider" min="-180" max="180" value="0" dir="ltr" class="w-full">
           </div>
 
           <!-- Alignment Buttons (Left to Right in physical display) -->
@@ -441,7 +565,7 @@
             </div>
           </div>
 
-          <!-- Glow & Shadow Intensity (New Control) -->
+          <!-- Glow & Shadow Intensity -->
           <div class="space-y-2 pt-1 border-t border-slate-800/80">
             <div class="flex justify-between items-center text-xs">
               <div class="flex items-center gap-1.5">
@@ -456,7 +580,7 @@
             <input type="range" id="shadowBlurSlider" min="0" max="60" value="0" dir="ltr" class="w-full">
           </div>
 
-          <!-- Glow & Shadow Color (New Control) -->
+          <!-- Glow & Shadow Color -->
           <div class="space-y-1.5">
             <div class="flex justify-between items-center text-xs">
               <span class="font-bold text-slate-300">رنگ هاله و درخشش متن</span>
@@ -513,6 +637,7 @@
     </div>
   </main>
 
+  <!-- Notification Toast -->
   <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900/95 border border-slate-700 text-white text-xs px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2 pointer-events-none transition-all duration-300 opacity-0 translate-y-3">
     <i data-lucide="info" class="w-4 h-4 text-rose-400"></i>
     <span id="toastMsg">پیام</span>
@@ -525,10 +650,11 @@
       customBgColor: '#18181b'
     };
 
-    // Array of independent textboxes with unique configurations
-    let textboxes = [
+    // Unified Layers Array (Texts and Images ordered from bottom to top)
+    let layers = [
       {
         id: 'tb_1',
+        type: 'text',
         name: 'متن ۱',
         text: 'گلامون پرپرن ای وای\nیه دیوونه تو باغه',
         direction: 'rtl',
@@ -545,17 +671,25 @@
         highlightColor: '#000000',
         shadowBlur: 0, // 0 = completely flat & clean (no glow)
         shadowColor: '#000000',
+        rotation: 0,
         posX: 540,
         posY: 960,
         bounds: { x: 0, y: 0, w: 0, h: 0 }
       }
     ];
 
-    let activeTextBoxId = 'tb_1';
+    let activeLayerId = 'tb_1';
+
+    function getActiveLayer() {
+      const found = layers.find(l => l.id === activeLayerId);
+      return found || layers[0];
+    }
 
     function getActiveBox() {
-      const found = textboxes.find(b => b.id === activeTextBoxId);
-      return found || textboxes[0];
+      const active = getActiveLayer();
+      if (active && active.type === 'text') return active;
+      const foundText = layers.slice().reverse().find(l => l.type === 'text');
+      return foundText || layers[0];
     }
 
     // Built-in Font Presets (Persian & English)
@@ -696,7 +830,33 @@
     const resetPositionBtn = document.getElementById('resetPositionBtn');
     const addTextBoxBtn = document.getElementById('addTextBoxBtn');
     const addTextBoxHeaderBtn = document.getElementById('addTextBoxHeaderBtn');
+    const addImageBtn = document.getElementById('addImageBtn');
+    const addImageHeaderBtn = document.getElementById('addImageHeaderBtn');
+    const imageFileInput = document.getElementById('imageFileInput');
     const textBoxChipsList = document.getElementById('textBoxChipsList');
+    const tabBtnText = document.getElementById('tabBtnText');
+    const tabBtnImage = document.getElementById('tabBtnImage');
+    const tabBtnFonts = document.getElementById('tabBtnFonts');
+    const activeImageName = document.getElementById('activeImageName');
+    const imgWidthSlider = document.getElementById('imgWidthSlider');
+    const imgWidthVal = document.getElementById('imgWidthVal');
+    const imgRotationSlider = document.getElementById('imgRotationSlider');
+    const imgRotationVal = document.getElementById('imgRotationVal');
+    const resetImgRotationBtn = document.getElementById('resetImgRotationBtn');
+    const imgRadiusSlider = document.getElementById('imgRadiusSlider');
+    const imgRadiusVal = document.getElementById('imgRadiusVal');
+    const imgOpacitySlider = document.getElementById('imgOpacitySlider');
+    const imgOpacityVal = document.getElementById('imgOpacityVal');
+    const textRotationSlider = document.getElementById('textRotationSlider');
+    const textRotationVal = document.getElementById('textRotationVal');
+    const resetTextRotationBtn = document.getElementById('resetTextRotationBtn');
+    const centerImageBtn = document.getElementById('centerImageBtn');
+    const deleteActiveImageBtn = document.getElementById('deleteActiveImageBtn');
+    const replaceImageBtn = document.getElementById('replaceImageBtn');
+    const canvasAddImageBtn = document.getElementById('canvasAddImageBtn');
+    const canvasAddTextBtn = document.getElementById('canvasAddTextBtn');
+    const bringToFrontBtn = document.getElementById('bringToFrontBtn');
+    const sendToBackBtn = document.getElementById('sendToBackBtn');
     const btnRTL = document.getElementById('btnRTL');
     const btnLTR = document.getElementById('btnLTR');
     const toast = document.getElementById('toast');
@@ -715,13 +875,14 @@
     }
 
     function createNewTextBox() {
-      const count = textboxes.length + 1;
-      const offsetIndex = (count - 1) % 6;
-      const newY = Math.min(1600, Math.max(300, 960 + (offsetIndex * 140) * (offsetIndex % 2 === 0 ? 1 : -1)));
+      const textLayersCount = layers.filter(l => l.type === 'text').length + 1;
+      const offsetIndex = (layers.length) % 6;
+      const newY = Math.min(1600, Math.max(300, 960 + (offsetIndex * 130) * (offsetIndex % 2 === 0 ? 1 : -1)));
 
       const newBox = {
         id: `tb_${Date.now()}`,
-        name: `متن ${count}`,
+        type: 'text',
+        name: `متن ${textLayersCount}`,
         text: 'متن جدید',
         direction: 'rtl',
         fontFamily: 'Vazirmatn',
@@ -737,64 +898,152 @@
         highlightColor: '#000000',
         shadowBlur: 0,
         shadowColor: '#000000',
+        rotation: 0,
         posX: 540,
         posY: newY,
         bounds: { x: 0, y: 0, w: 0, h: 0 }
       };
 
-      textboxes.push(newBox);
-      activeTextBoxId = newBox.id;
-      syncUIToActiveBox();
-      renderTextBoxChips();
+      // Added layer comes on top of anything else
+      layers.push(newBox);
+      activeLayerId = newBox.id;
+      switchTab('tab-text');
+      syncUIToActiveLayer();
+      renderLayerChips();
       renderCanvas();
       showToast(`لایه «${newBox.name}» اضافه شد.`);
     }
 
-    function removeTextBox(boxId) {
-      if (textboxes.length <= 1) {
-        showToast('حداقل یک لایه متن باید باقی بماند.');
+    function createNewImageLayer(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const imageLayersCount = layers.filter(l => l.type === 'image').length + 1;
+          const naturalW = img.naturalWidth || 600;
+          const naturalH = img.naturalHeight || 600;
+          const aspect = naturalW / naturalH;
+          const initialWidth = Math.min(650, naturalW);
+
+          const newImg = {
+            id: `img_${Date.now()}`,
+            type: 'image',
+            name: `عکس ${imageLayersCount}`,
+            img: img,
+            imgSrc: e.target.result,
+            width: initialWidth,
+            aspectRatio: aspect,
+            borderRadius: 0,
+            opacity: 100,
+            rotation: 0,
+            posX: 540,
+            posY: 960,
+            bounds: { x: 0, y: 0, w: 0, h: 0 }
+          };
+
+          // Added on top of anything else
+          layers.push(newImg);
+          activeLayerId = newImg.id;
+          switchTab('tab-image');
+          syncUIToActiveLayer();
+          renderLayerChips();
+          renderCanvas();
+          showToast(`عکس با موفقیت اضافه شد.`);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeLayer(layerId) {
+      if (layers.length <= 1) {
+        showToast('حداقل یک لایه باید باقی بماند.');
         return;
       }
-      const idx = textboxes.findIndex(b => b.id === boxId);
+      const idx = layers.findIndex(l => l.id === layerId);
       if (idx === -1) return;
 
-      const removed = textboxes.splice(idx, 1)[0];
-      if (activeTextBoxId === boxId) {
-        activeTextBoxId = textboxes[Math.max(0, idx - 1)].id;
+      const removed = layers.splice(idx, 1)[0];
+      if (activeLayerId === layerId) {
+        activeLayerId = layers[Math.max(0, idx - 1)].id;
       }
-      syncUIToActiveBox();
-      renderTextBoxChips();
+      syncUIToActiveLayer();
+      renderLayerChips();
       renderCanvas();
       showToast(`لایه «${removed.name}» حذف شد.`);
     }
 
-    function selectTextBox(boxId) {
-      activeTextBoxId = boxId;
-      syncUIToActiveBox();
-      renderTextBoxChips();
+    function selectLayer(layerId) {
+      activeLayerId = layerId;
+      const current = getActiveLayer();
+      if (current.type === 'image') {
+        switchTab('tab-image');
+      } else {
+        if (tabBtnImage && !tabBtnImage.classList.contains('hidden') && tabBtnImage.classList.contains('active')) {
+          switchTab('tab-text');
+        }
+      }
+      syncUIToActiveLayer();
+      renderLayerChips();
       renderFontsList();
       renderCanvas();
     }
 
-    function renderTextBoxChips() {
+    function switchTab(tabId) {
+      document.querySelectorAll('.catTabBtn').forEach(b => {
+        b.classList.remove('active', 'text-rose-400', 'border-rose-500', 'text-sky-400', 'border-sky-500');
+        b.classList.add('text-slate-400', 'border-transparent');
+      });
+      const activeBtn = document.querySelector(`.catTabBtn[data-tab="${tabId}"]`);
+      if (activeBtn) {
+        if (tabId === 'tab-image') {
+          activeBtn.classList.add('active', 'text-sky-400', 'border-sky-500');
+        } else {
+          activeBtn.classList.add('active', 'text-rose-400', 'border-rose-500');
+        }
+        activeBtn.classList.remove('text-slate-400', 'border-transparent');
+      }
+
+      document.querySelectorAll('.tab-content').forEach(section => {
+        section.classList.add('hidden');
+      });
+      const activeSection = document.getElementById(tabId);
+      if (activeSection) {
+        activeSection.classList.remove('hidden');
+      }
+
+      if (tabContentContainer && tabContentContainer.classList.contains('hidden')) {
+        tabContentContainer.classList.remove('hidden');
+        if (drawerToggleIcon) drawerToggleIcon.setAttribute('data-lucide', 'chevron-down');
+        if (window.lucide) lucide.createIcons();
+      }
+    }
+
+    function renderLayerChips() {
       if (!textBoxChipsList) return;
       textBoxChipsList.innerHTML = '';
 
-      textboxes.forEach((box) => {
-        const isActive = box.id === activeTextBoxId;
+      layers.forEach((layer) => {
+        const isActive = layer.id === activeLayerId;
         const chip = document.createElement('div');
+        const isImage = layer.type === 'image';
+
         chip.className = `shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs cursor-pointer transition select-none ${
           isActive 
-            ? 'bg-rose-500/20 border-rose-500 text-rose-200 font-bold shadow-sm' 
+            ? (isImage ? 'bg-sky-500/20 border-sky-500 text-sky-200 font-bold shadow-sm' : 'bg-rose-500/20 border-rose-500 text-rose-200 font-bold shadow-sm')
             : 'bg-slate-900 border-slate-700 text-slate-400 hover:border-slate-600 hover:text-slate-200'
         }`;
 
-        const previewText = box.text.trim().replace(/\n/g, ' ').slice(0, 14) || box.name;
+        let previewText = layer.name;
+        if (!isImage) {
+          previewText = layer.text.trim().replace(/\n/g, ' ').slice(0, 14) || layer.name;
+        }
 
         chip.innerHTML = `
-          <i data-lucide="type" class="w-3 h-3 ${isActive ? 'text-rose-400' : 'text-slate-500'}"></i>
+          <i data-lucide="${isImage ? 'image' : 'type'}" class="w-3 h-3 ${isActive ? (isImage ? 'text-sky-400' : 'text-rose-400') : 'text-slate-500'}"></i>
           <span class="truncate max-w-[100px]">${previewText}</span>
-          ${textboxes.length > 1 ? `
+          ${layers.length > 1 ? `
             <button class="delete-chip-btn p-0.5 ml-1 text-slate-500 hover:text-rose-400 rounded transition" title="حذف این لایه">
               <i data-lucide="x" class="w-3 h-3"></i>
             </button>
@@ -803,14 +1052,14 @@
 
         chip.addEventListener('click', (e) => {
           if (e.target.closest('.delete-chip-btn')) return;
-          selectTextBox(box.id);
+          selectLayer(layer.id);
         });
 
         const delBtn = chip.querySelector('.delete-chip-btn');
         if (delBtn) {
           delBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            removeTextBox(box.id);
+            removeLayer(layer.id);
           });
         }
 
@@ -820,11 +1069,43 @@
       if (window.lucide) lucide.createIcons();
     }
 
-    function syncUIToActiveBox() {
-      const box = getActiveBox();
-      if (!box) return;
+    function syncUIToActiveLayer() {
+      const active = getActiveLayer();
+      if (!active) return;
 
-      // 1. Text input & direction
+      if (active.type === 'image') {
+        tabBtnImage?.classList.remove('hidden');
+        if (activeImageName) activeImageName.textContent = active.name;
+        if (imgWidthSlider) {
+          imgWidthSlider.value = active.width;
+          updateSliderTrack(imgWidthSlider);
+        }
+        if (imgWidthVal) imgWidthVal.textContent = `${active.width}px`;
+
+        if (imgRotationSlider) {
+          imgRotationSlider.value = active.rotation || 0;
+          updateSliderTrack(imgRotationSlider);
+        }
+        if (imgRotationVal) imgRotationVal.textContent = `${active.rotation || 0}°`;
+
+        if (imgRadiusSlider) {
+          imgRadiusSlider.value = active.borderRadius;
+          updateSliderTrack(imgRadiusSlider);
+        }
+        if (imgRadiusVal) imgRadiusVal.textContent = `${active.borderRadius}px`;
+
+        if (imgOpacitySlider) {
+          imgOpacitySlider.value = active.opacity;
+          updateSliderTrack(imgOpacitySlider);
+        }
+        if (imgOpacityVal) imgOpacityVal.textContent = `${active.opacity}%`;
+        return;
+      } else {
+        tabBtnImage?.classList.add('hidden');
+      }
+
+      // Sync Text Layer properties
+      const box = active;
       if (textInput) {
         textInput.value = box.text;
         textInput.dir = box.direction;
@@ -839,7 +1120,6 @@
         }
       }
 
-      // 2. Sliders
       if (fontSizeSlider) {
         fontSizeSlider.value = box.fontSize;
         updateSliderTrack(fontSizeSlider);
@@ -864,7 +1144,12 @@
       }
       if (letterSpacingVal) letterSpacingVal.textContent = `${box.letterSpacing}px`;
 
-      // 3. Align buttons
+      if (textRotationSlider) {
+        textRotationSlider.value = box.rotation || 0;
+        updateSliderTrack(textRotationSlider);
+      }
+      if (textRotationVal) textRotationVal.textContent = `${box.rotation || 0}°`;
+
       document.querySelectorAll('.align-btn').forEach(b => {
         if (b.dataset.align === box.textAlign) {
           b.className = 'align-btn p-2 rounded-xl bg-rose-500/20 border-2 border-rose-500 text-rose-300 flex items-center justify-center gap-1.5 text-xs font-bold transition';
@@ -873,7 +1158,6 @@
         }
       });
 
-      // 4. Weight buttons
       document.querySelectorAll('.weight-btn').forEach(b => {
         if (b.dataset.weight === box.fontWeight) {
           b.className = 'weight-btn p-2 rounded-xl bg-rose-500/20 border-2 border-rose-500 text-rose-300 text-xs font-bold transition';
@@ -882,7 +1166,6 @@
         }
       });
 
-      // 5. Highlight mode
       document.querySelectorAll('.highlight-btn').forEach(b => {
         if (b.dataset.mode === box.highlightMode) {
           b.classList.add('border-2', 'border-rose-500', 'bg-rose-500/20', 'text-rose-200', 'font-bold');
@@ -893,11 +1176,9 @@
         }
       });
 
-      // 6. Colors
       if (textColorPicker) textColorPicker.value = box.textColor;
       if (highlightColorPicker) highlightColorPicker.value = box.highlightColor;
 
-      // 7. Glow & Shadow
       if (shadowBlurSlider) {
         shadowBlurSlider.value = box.shadowBlur || 0;
         updateSliderTrack(shadowBlurSlider);
@@ -1049,115 +1330,160 @@
         ctx.fillRect(0, 0, 1080, 1920);
       }
 
-      // 2. Render Each Text Box in Order
-      textboxes.forEach((box) => {
-        ctx.save();
-        ctx.direction = box.direction;
-        ctx.letterSpacing = `${box.letterSpacing}px`;
-        ctx.font = `${box.fontWeight} ${box.fontSize}px "${box.fontFamily}", system-ui, sans-serif`;
-        ctx.textAlign = box.textAlign;
-        ctx.textBaseline = 'middle';
+      // 2. Render Each Layer in Exact Addition Order (Bottom to Top)
+      layers.forEach((layer) => {
+        if (layer.type === 'image') {
+          // Render Image Layer
+          const imgH = layer.width / (layer.aspectRatio || 1);
+          const imgX = layer.posX - (layer.width / 2);
+          const imgY = layer.posY - (imgH / 2);
 
-        const lines = wrapText(ctx, box.text, box.maxWidth);
-        const computedLineHeight = box.fontSize * box.lineHeight;
-        const totalBlockHeight = lines.length * computedLineHeight;
-        const startY = box.posY - (totalBlockHeight / 2) + (computedLineHeight / 2);
+          layer.bounds = {
+            x: imgX,
+            y: imgY,
+            w: layer.width,
+            h: imgH
+          };
 
-        let maxLineWidth = 0;
-        const lineMetrics = lines.map(line => {
-          const m = ctx.measureText(line);
-          if (m.width > maxLineWidth) maxLineWidth = m.width;
-          return { text: line, width: m.width };
-        });
-
-        // Store bounding box for hit-testing and dragging
-        const padX = box.fontSize * 0.45;
-        const padY = box.fontSize * 0.22;
-        box.bounds = {
-          x: box.posX - (maxLineWidth / 2) - padX,
-          y: box.posY - (totalBlockHeight / 2) - padY,
-          w: maxLineWidth + (padX * 2),
-          h: totalBlockHeight + (padY * 2)
-        };
-
-        const getLineDrawX = (lineWidth) => {
-          if (box.textAlign === 'right') {
-            return box.posX + (maxLineWidth / 2);
-          } else if (box.textAlign === 'left') {
-            return box.posX - (maxLineWidth / 2);
+          ctx.save();
+          // Translate to center and rotate
+          ctx.translate(layer.posX, layer.posY);
+          if (layer.rotation) {
+            ctx.rotate((layer.rotation * Math.PI) / 180);
           }
-          return box.posX;
-        };
+          ctx.globalAlpha = (layer.opacity !== undefined ? layer.opacity : 100) / 100;
 
-        // Render Highlights
-        const pillPadX = box.fontSize * 0.45;
-        const pillPadY = box.fontSize * 0.22;
-        const pillRadius = box.fontSize * 0.28;
+          const localX = -layer.width / 2;
+          const localY = -imgH / 2;
 
-        lines.forEach((line, index) => {
-          if (!line.trim()) return;
-          const currentY = startY + (index * computedLineHeight);
-          const lineWidth = lineMetrics[index].width;
-          const drawX = getLineDrawX(lineWidth);
-
-          let pillLeft = drawX - (lineWidth / 2);
-          if (box.textAlign === 'right') pillLeft = drawX - lineWidth;
-          if (box.textAlign === 'left') pillLeft = drawX;
-
-          const rectX = pillLeft - pillPadX;
-          const rectY = currentY - (computedLineHeight / 2) + (computedLineHeight - box.fontSize) / 2 - pillPadY;
-          const rectW = lineWidth + (pillPadX * 2);
-          const rectH = box.fontSize + (pillPadY * 2);
-
-          if (box.highlightMode === 'solid') {
-            ctx.fillStyle = box.highlightColor;
-            drawRoundedRect(ctx, rectX, rectY, rectW, rectH, pillRadius);
-            ctx.fill();
-          } else if (box.highlightMode === 'semi') {
-            ctx.save();
-            ctx.globalAlpha = 0.65;
-            ctx.fillStyle = box.highlightColor;
-            drawRoundedRect(ctx, rectX, rectY, rectW, rectH, pillRadius);
-            ctx.fill();
-            ctx.restore();
-          } else if (box.highlightMode === 'stroke') {
-            ctx.strokeStyle = box.highlightColor;
-            ctx.lineWidth = Math.max(3, box.fontSize * 0.05);
-            drawRoundedRect(ctx, rectX, rectY, rectW, rectH, pillRadius);
-            ctx.stroke();
+          if (layer.borderRadius && layer.borderRadius > 0) {
+            const rad = Math.min(layer.borderRadius, Math.min(layer.width, imgH) / 2);
+            drawRoundedRect(ctx, localX, localY, layer.width, imgH, rad);
+            ctx.clip();
           }
-        });
 
-        // Draw Text
-        lines.forEach((line, index) => {
-          if (!line.trim()) return;
-          const currentY = startY + (index * computedLineHeight);
-          const lineWidth = lineMetrics[index].width;
-          const drawX = getLineDrawX(lineWidth);
-
-          const sBlur = box.shadowBlur !== undefined ? box.shadowBlur : 0;
-          if (sBlur > 0) {
-            ctx.save();
-            ctx.shadowColor = box.shadowColor || '#000000';
-            ctx.shadowBlur = sBlur;
-            ctx.shadowOffsetX = 0;
-            ctx.shadowOffsetY = 0;
-            ctx.fillStyle = box.textColor;
-            ctx.fillText(line, drawX, currentY);
-            ctx.restore();
-          } else {
-            ctx.fillStyle = box.textColor;
-            ctx.fillText(line, drawX, currentY);
+          if (layer.img && layer.img.complete) {
+            ctx.drawImage(layer.img, localX, localY, layer.width, imgH);
           }
-        });
+          ctx.restore();
 
-        ctx.restore();
+        } else if (layer.type === 'text') {
+          // Render Text Layer
+          const box = layer;
+          ctx.save();
+          ctx.direction = box.direction;
+          ctx.letterSpacing = `${box.letterSpacing}px`;
+          ctx.font = `${box.fontWeight} ${box.fontSize}px "${box.fontFamily}", system-ui, sans-serif`;
+          ctx.textAlign = box.textAlign;
+          ctx.textBaseline = 'middle';
+
+          const lines = wrapText(ctx, box.text, box.maxWidth);
+          const computedLineHeight = box.fontSize * box.lineHeight;
+          const totalBlockHeight = lines.length * computedLineHeight;
+
+          let maxLineWidth = 0;
+          const lineMetrics = lines.map(line => {
+            const m = ctx.measureText(line);
+            if (m.width > maxLineWidth) maxLineWidth = m.width;
+            return { text: line, width: m.width };
+          });
+
+          const padX = box.fontSize * 0.45;
+          const padY = box.fontSize * 0.22;
+          box.bounds = {
+            x: box.posX - (maxLineWidth / 2) - padX,
+            y: box.posY - (totalBlockHeight / 2) - padY,
+            w: maxLineWidth + (padX * 2),
+            h: totalBlockHeight + (padY * 2)
+          };
+
+          // Translate to text center and apply rotation
+          ctx.translate(box.posX, box.posY);
+          if (box.rotation) {
+            ctx.rotate((box.rotation * Math.PI) / 180);
+          }
+
+          const localStartY = -(totalBlockHeight / 2) + (computedLineHeight / 2);
+
+          const getLineDrawX = (lineWidth) => {
+            if (box.textAlign === 'right') {
+              return (maxLineWidth / 2);
+            } else if (box.textAlign === 'left') {
+              return -(maxLineWidth / 2);
+            }
+            return 0;
+          };
+
+          // Render Highlights
+          const pillPadX = box.fontSize * 0.45;
+          const pillPadY = box.fontSize * 0.22;
+          const pillRadius = box.fontSize * 0.28;
+
+          lines.forEach((line, index) => {
+            if (!line.trim()) return;
+            const currentY = localStartY + (index * computedLineHeight);
+            const lineWidth = lineMetrics[index].width;
+            const drawX = getLineDrawX(lineWidth);
+
+            let pillLeft = drawX - (lineWidth / 2);
+            if (box.textAlign === 'right') pillLeft = drawX - lineWidth;
+            if (box.textAlign === 'left') pillLeft = drawX;
+
+            const rectX = pillLeft - pillPadX;
+            const rectY = currentY - (computedLineHeight / 2) + (computedLineHeight - box.fontSize) / 2 - pillPadY;
+            const rectW = lineWidth + (pillPadX * 2);
+            const rectH = box.fontSize + (pillPadY * 2);
+
+            if (box.highlightMode === 'solid') {
+              ctx.fillStyle = box.highlightColor;
+              drawRoundedRect(ctx, rectX, rectY, rectW, rectH, pillRadius);
+              ctx.fill();
+            } else if (box.highlightMode === 'semi') {
+              ctx.save();
+              ctx.globalAlpha = 0.65;
+              ctx.fillStyle = box.highlightColor;
+              drawRoundedRect(ctx, rectX, rectY, rectW, rectH, pillRadius);
+              ctx.fill();
+              ctx.restore();
+            } else if (box.highlightMode === 'stroke') {
+              ctx.strokeStyle = box.highlightColor;
+              ctx.lineWidth = Math.max(3, box.fontSize * 0.05);
+              drawRoundedRect(ctx, rectX, rectY, rectW, rectH, pillRadius);
+              ctx.stroke();
+            }
+          });
+
+          // Draw Text
+          lines.forEach((line, index) => {
+            if (!line.trim()) return;
+            const currentY = localStartY + (index * computedLineHeight);
+            const lineWidth = lineMetrics[index].width;
+            const drawX = getLineDrawX(lineWidth);
+
+            const sBlur = box.shadowBlur !== undefined ? box.shadowBlur : 0;
+            if (sBlur > 0) {
+              ctx.save();
+              ctx.shadowColor = box.shadowColor || '#000000';
+              ctx.shadowBlur = sBlur;
+              ctx.shadowOffsetX = 0;
+              ctx.shadowOffsetY = 0;
+              ctx.fillStyle = box.textColor;
+              ctx.fillText(line, drawX, currentY);
+              ctx.restore();
+            } else {
+              ctx.fillStyle = box.textColor;
+              ctx.fillText(line, drawX, currentY);
+            }
+          });
+
+          ctx.restore();
+        }
       });
 
-      // Update Selection Box for the active textbox
-      const active = getActiveBox();
+      // Update Selection Box for the active layer
+      const active = getActiveLayer();
       if (active) {
-        updateSelectionBox(active.bounds.w, active.bounds.h, active.posX, active.posY);
+        updateSelectionBox(active.bounds.w, active.bounds.h, active.posX, active.posY, active.rotation || 0);
       }
     }
 
@@ -1175,7 +1501,7 @@
       ctx.closePath();
     }
 
-    function updateSelectionBox(boxW, boxH, posX, posY) {
+    function updateSelectionBox(boxW, boxH, posX, posY, rotation = 0) {
       if (!selectionBox || !canvas) return;
       const rect = canvas.getBoundingClientRect();
       const scaleX = rect.width / 1080;
@@ -1191,6 +1517,7 @@
       selectionBox.style.top = `${boxTop}px`;
       selectionBox.style.width = `${width}px`;
       selectionBox.style.height = `${height}px`;
+      selectionBox.style.transform = `rotate(${rotation}deg)`;
       selectionBox.classList.remove('hidden');
     }
 
@@ -1200,7 +1527,7 @@
     let initialPosX = 0;
     let initialPosY = 0;
 
-    function findHitTextBox(clientX, clientY) {
+    function findHitLayer(clientX, clientY) {
       if (!canvas) return null;
       const rect = canvas.getBoundingClientRect();
       const scaleX = 1080 / rect.width;
@@ -1209,22 +1536,38 @@
       const cX = (clientX - rect.left) * scaleX;
       const cY = (clientY - rect.top) * scaleY;
 
-      for (let i = textboxes.length - 1; i >= 0; i--) {
-        const b = textboxes[i].bounds;
-        if (cX >= b.x && cX <= b.x + b.w && cY >= b.y && cY <= b.y + b.h) {
-          return textboxes[i];
+      // Iterate backwards from top layer down to bottom layer
+      for (let i = layers.length - 1; i >= 0; i--) {
+        const layer = layers[i];
+        const b = layer.bounds;
+        const rot = layer.rotation || 0;
+
+        let testX = cX;
+        let testY = cY;
+
+        // Un-rotate point around layer center if rotated
+        if (rot !== 0) {
+          const rad = -rot * Math.PI / 180;
+          const dx = cX - layer.posX;
+          const dy = cY - layer.posY;
+          testX = dx * Math.cos(rad) - dy * Math.sin(rad) + layer.posX;
+          testY = dx * Math.sin(rad) + dy * Math.cos(rad) + layer.posY;
+        }
+
+        if (testX >= b.x && testX <= b.x + b.w && testY >= b.y && testY <= b.y + b.h) {
+          return layer;
         }
       }
       return null;
     }
 
     function startDrag(clientX, clientY) {
-      const hitBox = findHitTextBox(clientX, clientY);
-      if (hitBox && hitBox.id !== activeTextBoxId) {
-        selectTextBox(hitBox.id);
+      const hit = findHitLayer(clientX, clientY);
+      if (hit && hit.id !== activeLayerId) {
+        selectLayer(hit.id);
       }
 
-      const active = getActiveBox();
+      const active = getActiveLayer();
       if (!active) return;
 
       isDragging = true;
@@ -1237,7 +1580,7 @@
 
     function moveDrag(clientX, clientY) {
       if (!isDragging || !canvas) return;
-      const active = getActiveBox();
+      const active = getActiveLayer();
       if (!active) return;
 
       const rect = canvas.getBoundingClientRect();
@@ -1298,33 +1641,146 @@
 
     addTextBoxBtn?.addEventListener('click', createNewTextBox);
     addTextBoxHeaderBtn?.addEventListener('click', createNewTextBox);
+    canvasAddTextBtn?.addEventListener('click', createNewTextBox);
+
+    // Image Upload triggers
+    addImageBtn?.addEventListener('click', () => imageFileInput?.click());
+    addImageHeaderBtn?.addEventListener('click', () => imageFileInput?.click());
+    canvasAddImageBtn?.addEventListener('click', () => imageFileInput?.click());
+    replaceImageBtn?.addEventListener('click', () => imageFileInput?.click());
+
+    imageFileInput?.addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const active = getActiveLayer();
+      if (active && active.type === 'image' && e.target.dataset.replaceMode === 'true') {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = new Image();
+          img.onload = () => {
+            active.img = img;
+            active.imgSrc = ev.target.result;
+            active.aspectRatio = (img.naturalWidth || 1) / (img.naturalHeight || 1);
+            renderCanvas();
+            showToast('تصویر جایگزین شد.');
+          };
+          img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+        delete e.target.dataset.replaceMode;
+      } else {
+        createNewImageLayer(file);
+      }
+      e.target.value = '';
+    });
+
+    replaceImageBtn?.addEventListener('click', () => {
+      if (imageFileInput) {
+        imageFileInput.dataset.replaceMode = 'true';
+        imageFileInput.click();
+      }
+    });
+
+    bringToFrontBtn?.addEventListener('click', () => {
+      const idx = layers.findIndex(l => l.id === activeLayerId);
+      if (idx !== -1 && idx < layers.length - 1) {
+        const [layer] = layers.splice(idx, 1);
+        layers.push(layer);
+        renderLayerChips();
+        renderCanvas();
+        showToast('لایه به بالاترین سطح منتقل شد.');
+      }
+    });
+
+    sendToBackBtn?.addEventListener('click', () => {
+      const idx = layers.findIndex(l => l.id === activeLayerId);
+      if (idx > 0) {
+        const [layer] = layers.splice(idx, 1);
+        layers.unshift(layer);
+        renderLayerChips();
+        renderCanvas();
+        showToast('لایه به پایین‌ترین سطح منتقل شد.');
+      }
+    });
+
+    // Image Sliders Listeners
+    imgWidthSlider?.addEventListener('input', (e) => {
+      const active = getActiveLayer();
+      if (active && active.type === 'image') {
+        active.width = parseInt(e.target.value, 10);
+        if (imgWidthVal) imgWidthVal.textContent = `${active.width}px`;
+        updateSliderTrack(e.target);
+        renderCanvas();
+      }
+    });
+
+    imgRotationSlider?.addEventListener('input', (e) => {
+      const active = getActiveLayer();
+      if (active && active.type === 'image') {
+        active.rotation = parseInt(e.target.value, 10);
+        if (imgRotationVal) imgRotationVal.textContent = `${active.rotation}°`;
+        updateSliderTrack(e.target);
+        renderCanvas();
+      }
+    });
+
+    resetImgRotationBtn?.addEventListener('click', () => {
+      const active = getActiveLayer();
+      if (active && active.type === 'image') {
+        active.rotation = 0;
+        if (imgRotationSlider) {
+          imgRotationSlider.value = 0;
+          updateSliderTrack(imgRotationSlider);
+        }
+        if (imgRotationVal) imgRotationVal.textContent = '0°';
+        renderCanvas();
+        showToast('زاویه تصویر به حالت افقی بازگردانده شد.');
+      }
+    });
+
+    imgRadiusSlider?.addEventListener('input', (e) => {
+      const active = getActiveLayer();
+      if (active && active.type === 'image') {
+        active.borderRadius = parseInt(e.target.value, 10);
+        if (imgRadiusVal) imgRadiusVal.textContent = `${active.borderRadius}px`;
+        updateSliderTrack(e.target);
+        renderCanvas();
+      }
+    });
+
+    imgOpacitySlider?.addEventListener('input', (e) => {
+      const active = getActiveLayer();
+      if (active && active.type === 'image') {
+        active.opacity = parseInt(e.target.value, 10);
+        if (imgOpacityVal) imgOpacityVal.textContent = `${active.opacity}%`;
+        updateSliderTrack(e.target);
+        renderCanvas();
+      }
+    });
+
+    centerImageBtn?.addEventListener('click', () => {
+      const active = getActiveLayer();
+      if (active) {
+        active.posX = 540;
+        active.posY = 960;
+        renderCanvas();
+        showToast('تصویر در مرکز بوم قرار گرفت.');
+      }
+    });
+
+    deleteActiveImageBtn?.addEventListener('click', () => {
+      const active = getActiveLayer();
+      if (active && active.type === 'image') {
+        removeLayer(active.id);
+      }
+    });
 
     // Navigation Category Tabs Switcher
     document.querySelectorAll('.catTabBtn').forEach(btn => {
       btn.addEventListener('click', () => {
         const targetTab = btn.getAttribute('data-tab');
-        
-        document.querySelectorAll('.catTabBtn').forEach(b => {
-          b.classList.remove('active', 'text-rose-400', 'border-rose-500');
-          b.classList.add('text-slate-400', 'border-transparent');
-        });
-        btn.classList.add('active', 'text-rose-400', 'border-rose-500');
-        btn.classList.remove('text-slate-400', 'border-transparent');
-
-        document.querySelectorAll('.tab-content').forEach(section => {
-          section.classList.add('hidden');
-        });
-        const activeSection = document.getElementById(targetTab);
-        if (activeSection) {
-          activeSection.classList.remove('hidden');
-        }
-
-        // If collapsed on mobile, expand when tapping tab
-        if (tabContentContainer && tabContentContainer.classList.contains('hidden')) {
-          tabContentContainer.classList.remove('hidden');
-          if (drawerToggleIcon) drawerToggleIcon.setAttribute('data-lucide', 'chevron-down');
-          if (window.lucide) lucide.createIcons();
-        }
+        switchTab(targetTab);
       });
     });
 
@@ -1412,7 +1868,7 @@
     textInput?.addEventListener('input', (e) => {
       const box = getActiveBox();
       box.text = e.target.value;
-      renderTextBoxChips();
+      renderLayerChips();
       renderCanvas();
     });
 
@@ -1422,7 +1878,7 @@
         const box = getActiveBox();
         box.text = txt;
         if (textInput) textInput.value = txt;
-        renderTextBoxChips();
+        renderLayerChips();
         renderCanvas();
       });
     });
@@ -1475,6 +1931,26 @@
       if (letterSpacingVal) letterSpacingVal.textContent = `${box.letterSpacing}px`;
       updateSliderTrack(e.target);
       renderCanvas();
+    });
+
+    textRotationSlider?.addEventListener('input', (e) => {
+      const box = getActiveBox();
+      box.rotation = parseInt(e.target.value, 10);
+      if (textRotationVal) textRotationVal.textContent = `${box.rotation}°`;
+      updateSliderTrack(e.target);
+      renderCanvas();
+    });
+
+    resetTextRotationBtn?.addEventListener('click', () => {
+      const box = getActiveBox();
+      box.rotation = 0;
+      if (textRotationSlider) {
+        textRotationSlider.value = 0;
+        updateSliderTrack(textRotationSlider);
+      }
+      if (textRotationVal) textRotationVal.textContent = '0°';
+      renderCanvas();
+      showToast('زاویه متن به حالت افقی بازگردانده شد.');
     });
 
     document.querySelectorAll('.align-btn').forEach(btn => {
@@ -1568,7 +2044,6 @@
         const color = btn.dataset.color;
         box.shadowColor = color;
         if (shadowColorPicker) shadowColorPicker.value = color;
-        // If blur is 0, give it a subtle 15px glow so the user sees the color immediately
         if (!box.shadowBlur || box.shadowBlur === 0) {
           box.shadowBlur = 15;
           if (shadowBlurSlider) {
@@ -1615,11 +2090,13 @@
     });
 
     resetPositionBtn?.addEventListener('click', () => {
-      const box = getActiveBox();
-      box.posX = 540;
-      box.posY = 960;
-      renderCanvas();
-      showToast('موقعیت متن در مرکز بوم قرار گرفت.');
+      const active = getActiveLayer();
+      if (active) {
+        active.posX = 540;
+        active.posY = 960;
+        renderCanvas();
+        showToast('موقعیت در مرکز بوم قرار گرفت.');
+      }
     });
 
     downloadBtn?.addEventListener('click', () => {
@@ -1655,11 +2132,11 @@
     });
 
     window.addEventListener('DOMContentLoaded', async () => {
-      syncUIToActiveBox();
-      renderTextBoxChips();
+      syncUIToActiveLayer();
+      renderLayerChips();
       if (window.lucide) lucide.createIcons();
       renderFontsList();
-      [fontSizeSlider, boxWidthSlider, lineHeightSlider, letterSpacingSlider, shadowBlurSlider].forEach(updateSliderTrack);
+      [fontSizeSlider, boxWidthSlider, lineHeightSlider, letterSpacingSlider, textRotationSlider, shadowBlurSlider, imgWidthSlider, imgRotationSlider, imgRadiusSlider, imgOpacitySlider].forEach(updateSliderTrack);
       await loadSavedCustomFonts();
       await document.fonts.ready;
       renderCanvas();
