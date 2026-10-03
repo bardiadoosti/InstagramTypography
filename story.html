@@ -607,6 +607,11 @@
                 <span>بدون بک‌گراند (شفاف PNG)</span>
                 <span class="text-[10px] text-slate-400 font-normal">مناسب استیکر استوری اینستاگرام</span>
               </button>
+              <button class="bg-mode-btn p-3 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-500 text-xs flex flex-col items-center justify-center gap-1 transition" data-bg="gradient">
+                <i data-lucide="sparkles" class="w-4 h-4 text-rose-400"></i>
+                <span class="font-bold">گرادیانت (طیف رنگی)</span>
+                <span class="text-[10px] text-slate-400 font-normal">طیف‌های مدرن و اختصاصی</span>
+              </button>
               <button class="bg-mode-btn p-3 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-500 text-xs flex flex-col items-center justify-center gap-1 transition" data-bg="dark">
                 <i data-lucide="moon" class="w-4 h-4"></i>
                 <span>تیره مات (مشکی)</span>
@@ -617,11 +622,119 @@
                 <span>روشن (سفید یکدست)</span>
                 <span class="text-[10px] text-slate-400 font-normal">کلاسیک و مینیمال</span>
               </button>
-              <button class="bg-mode-btn p-3 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-500 text-xs flex flex-col items-center justify-center gap-1 transition" data-bg="custom">
+              <button class="bg-mode-btn col-span-2 p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-500 text-xs flex items-center justify-center gap-2 transition" data-bg="custom">
                 <i data-lucide="pipette" class="w-4 h-4"></i>
-                <span>رنگ دلخواه</span>
-                <span class="text-[10px] text-slate-400 font-normal">انتخاب پالت شخصی</span>
+                <span class="font-bold">تک‌رنگ مات دلخواه</span>
+                <span class="text-[10px] text-slate-400 font-normal">(انتخاب کد رنگ یکدست)</span>
               </button>
+            </div>
+          </div>
+
+          <!-- Gradient Controls Section -->
+          <div id="gradientBgWrapper" class="hidden space-y-4 p-3.5 rounded-2xl bg-slate-950 border border-slate-800">
+            <!-- Ready-to-Pick Preset Gradients -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-1.5 text-xs font-bold text-slate-200">
+                  <i data-lucide="palette" class="w-3.5 h-3.5 text-rose-400"></i>
+                  <span>طیف‌های آماده اینستاگرام (Presets)</span>
+                </div>
+                <span class="text-[10px] text-slate-400">یک‌کلیک برای اعمال</span>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-xs" id="gradientPresetsContainer">
+                <button class="grad-preset-btn p-2 rounded-xl border border-slate-700/80 hover:border-rose-500/60 bg-slate-900 flex items-center gap-2 transition"
+                  data-c1="#833ab4" data-c2="#fd1d1d" data-c3="#fcb045" data-dir="diagonal-1">
+                  <span class="w-6 h-6 rounded-lg shrink-0 shadow-sm" style="background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045)"></span>
+                  <span class="text-[11px] font-semibold text-slate-300 truncate">کلاسیک اینستاگرام</span>
+                </button>
+                <button class="grad-preset-btn p-2 rounded-xl border border-slate-700/80 hover:border-rose-500/60 bg-slate-900 flex items-center gap-2 transition"
+                  data-c1="#f12711" data-c2="#f5af19" data-dir="to-bottom">
+                  <span class="w-6 h-6 rounded-lg shrink-0 shadow-sm" style="background: linear-gradient(to bottom, #f12711, #f5af19)"></span>
+                  <span class="text-[11px] font-semibold text-slate-300 truncate">غروب طلایی (Sunset)</span>
+                </button>
+                <button class="grad-preset-btn p-2 rounded-xl border border-slate-700/80 hover:border-rose-500/60 bg-slate-900 flex items-center gap-2 transition"
+                  data-c1="#0f2027" data-c2="#203a43" data-c3="#2c5364" data-dir="to-bottom">
+                  <span class="w-6 h-6 rounded-lg shrink-0 shadow-sm" style="background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364)"></span>
+                  <span class="text-[11px] font-semibold text-slate-300 truncate">مخمل شب (Midnight)</span>
+                </button>
+                <button class="grad-preset-btn p-2 rounded-xl border border-slate-700/80 hover:border-rose-500/60 bg-slate-900 flex items-center gap-2 transition"
+                  data-c1="#111827" data-c2="#312e81" data-dir="diagonal-1">
+                  <span class="w-6 h-6 rounded-lg shrink-0 shadow-sm" style="background: linear-gradient(135deg, #111827, #312e81)"></span>
+                  <span class="text-[11px] font-semibold text-slate-300 truncate">دارک لوکس سرمه‌ای</span>
+                </button>
+                <button class="grad-preset-btn p-2 rounded-xl border border-slate-700/80 hover:border-rose-500/60 bg-slate-900 flex items-center gap-2 transition"
+                  data-c1="#00f2fe" data-c2="#4facfe" data-dir="to-bottom">
+                  <span class="w-6 h-6 rounded-lg shrink-0 shadow-sm" style="background: linear-gradient(to bottom, #00f2fe, #4facfe)"></span>
+                  <span class="text-[11px] font-semibold text-slate-300 truncate">نئون سایبر فیروزه‌ای</span>
+                </button>
+                <button class="grad-preset-btn p-2 rounded-xl border border-slate-700/80 hover:border-rose-500/60 bg-slate-900 flex items-center gap-2 transition"
+                  data-c1="#eb3349" data-c2="#f45c43" data-dir="diagonal-1">
+                  <span class="w-6 h-6 rounded-lg shrink-0 shadow-sm" style="background: linear-gradient(135deg, #eb3349, #f45c43)"></span>
+                  <span class="text-[11px] font-semibold text-slate-300 truncate">یاقوتی رمانتیک</span>
+                </button>
+                <button class="grad-preset-btn p-2 rounded-xl border border-slate-700/80 hover:border-rose-500/60 bg-slate-900 flex items-center gap-2 transition"
+                  data-c1="#0ba360" data-c2="#3cba92" data-dir="to-bottom">
+                  <span class="w-6 h-6 rounded-lg shrink-0 shadow-sm" style="background: linear-gradient(to bottom, #0ba360, #3cba92)"></span>
+                  <span class="text-[11px] font-semibold text-slate-300 truncate">زمردی آرامش‌بخش</span>
+                </button>
+                <button class="grad-preset-btn p-2 rounded-xl border border-slate-700/80 hover:border-rose-500/60 bg-slate-900 flex items-center gap-2 transition"
+                  data-c1="#ff9a9e" data-c2="#fecfef" data-dir="to-bottom">
+                  <span class="w-6 h-6 rounded-lg shrink-0 shadow-sm" style="background: linear-gradient(to bottom, #ff9a9e, #fecfef)"></span>
+                  <span class="text-[11px] font-semibold text-slate-300 truncate">پاستلی ملایم (Peach)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Custom Gradient Builder -->
+            <div class="space-y-3 pt-3 border-t border-slate-800">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-200">سازنده طیف اختصاصی (Custom Builder)</span>
+                <button type="button" id="reverseGradBtn" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-[10px] text-rose-300 flex items-center gap-1 transition" title="جابه‌جایی رنگ ۱ و ۲">
+                  <i data-lucide="arrow-left-right" class="w-3 h-3"></i>
+                  <span>معکوس رنگ‌ها</span>
+                </button>
+              </div>
+
+              <!-- Color Pickers 1 and 2 -->
+              <div class="grid grid-cols-2 gap-2">
+                <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                  <div>
+                    <span class="text-[11px] font-bold text-slate-300 block">رنگ شروع (۱)</span>
+                    <span id="gradColor1Hex" class="text-[10px] text-slate-500 font-mono">#833ab4</span>
+                  </div>
+                  <input type="color" id="gradColor1Picker" value="#833ab4" class="w-7 h-7 rounded-lg cursor-pointer bg-transparent border-0">
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                  <div>
+                    <span class="text-[11px] font-bold text-slate-300 block">رنگ پایان (۲)</span>
+                    <span id="gradColor2Hex" class="text-[10px] text-slate-500 font-mono">#fd1d1d</span>
+                  </div>
+                  <input type="color" id="gradColor2Picker" value="#fd1d1d" class="w-7 h-7 rounded-lg cursor-pointer bg-transparent border-0">
+                </div>
+              </div>
+
+              <!-- Gradient Direction -->
+              <div class="space-y-1.5">
+                <span class="text-[11px] font-semibold text-slate-400">زاویه و جهت گرادیانت:</span>
+                <div class="grid grid-cols-4 gap-1.5" id="gradDirectionBtns">
+                  <button class="grad-dir-btn active py-1.5 px-2 rounded-lg bg-rose-500/20 border border-rose-500 text-rose-300 text-[10px] font-bold transition flex flex-col items-center gap-0.5" data-dir="to-bottom">
+                    <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
+                    <span>عمودی</span>
+                  </button>
+                  <button class="grad-dir-btn py-1.5 px-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 text-[10px] transition flex flex-col items-center gap-0.5" data-dir="to-right">
+                    <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                    <span>افقی</span>
+                  </button>
+                  <button class="grad-dir-btn py-1.5 px-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 text-[10px] transition flex flex-col items-center gap-0.5" data-dir="diagonal-1">
+                    <i data-lucide="arrow-down-left" class="w-3.5 h-3.5"></i>
+                    <span>مورب</span>
+                  </button>
+                  <button class="grad-dir-btn py-1.5 px-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 text-[10px] transition flex flex-col items-center gap-0.5" data-dir="radial">
+                    <i data-lucide="circle-dot" class="w-3.5 h-3.5"></i>
+                    <span>مرکزی</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -646,8 +759,16 @@
   <script>
     // Global Canvas Background State
     const globalState = {
-      bgMode: 'transparent', // transparent, dark, light, custom
-      customBgColor: '#18181b'
+      bgMode: 'transparent', // transparent, dark, light, custom, gradient
+      customBgColor: '#18181b',
+      gradientColor1: '#833ab4',
+      gradientColor2: '#fd1d1d',
+      gradientDirection: 'to-bottom',
+      gradientStops: [
+        { offset: 0, color: '#833ab4' },
+        { offset: 0.5, color: '#fd1d1d' },
+        { offset: 1, color: '#fcb045' }
+      ]
     };
 
     // Unified Layers Array (Texts and Images ordered from bottom to top)
@@ -823,6 +944,12 @@
     const disableShadowBtn = document.getElementById('disableShadowBtn');
     const customBgColorWrapper = document.getElementById('customBgColorWrapper');
     const customBgColorPicker = document.getElementById('customBgColorPicker');
+    const gradientBgWrapper = document.getElementById('gradientBgWrapper');
+    const gradColor1Picker = document.getElementById('gradColor1Picker');
+    const gradColor2Picker = document.getElementById('gradColor2Picker');
+    const gradColor1Hex = document.getElementById('gradColor1Hex');
+    const gradColor2Hex = document.getElementById('gradColor2Hex');
+    const reverseGradBtn = document.getElementById('reverseGradBtn');
 
     const fontsList = document.getElementById('fontsList');
     const fontFileInput = document.getElementById('fontFileInput');
@@ -1327,6 +1454,34 @@
         ctx.fillRect(0, 0, 1080, 1920);
       } else if (globalState.bgMode === 'custom') {
         ctx.fillStyle = globalState.customBgColor;
+        ctx.fillRect(0, 0, 1080, 1920);
+      } else if (globalState.bgMode === 'gradient') {
+        let grad;
+        const dir = globalState.gradientDirection || 'to-bottom';
+        if (dir === 'to-bottom') {
+          grad = ctx.createLinearGradient(0, 0, 0, 1920);
+        } else if (dir === 'to-right') {
+          grad = ctx.createLinearGradient(0, 0, 1080, 0);
+        } else if (dir === 'diagonal-1') {
+          grad = ctx.createLinearGradient(0, 0, 1080, 1920);
+        } else if (dir === 'radial') {
+          grad = ctx.createRadialGradient(540, 960, 40, 540, 960, 1150);
+        } else {
+          grad = ctx.createLinearGradient(0, 0, 0, 1920);
+        }
+
+        const stops = globalState.gradientStops && globalState.gradientStops.length > 0 
+          ? globalState.gradientStops 
+          : [
+              { offset: 0, color: globalState.gradientColor1 || '#833ab4' },
+              { offset: 1, color: globalState.gradientColor2 || '#fd1d1d' }
+            ];
+
+        stops.forEach(s => {
+          grad.addColorStop(s.offset, s.color);
+        });
+
+        ctx.fillStyle = grad;
         ctx.fillRect(0, 0, 1080, 1920);
       }
 
@@ -2077,8 +2232,13 @@
 
         if (globalState.bgMode === 'custom') {
           customBgColorWrapper?.classList.remove('hidden');
+          gradientBgWrapper?.classList.add('hidden');
+        } else if (globalState.bgMode === 'gradient') {
+          gradientBgWrapper?.classList.remove('hidden');
+          customBgColorWrapper?.classList.add('hidden');
         } else {
           customBgColorWrapper?.classList.add('hidden');
+          gradientBgWrapper?.classList.add('hidden');
         }
         renderCanvas();
       });
@@ -2087,6 +2247,111 @@
     customBgColorPicker?.addEventListener('input', (e) => {
       globalState.customBgColor = e.target.value;
       renderCanvas();
+    });
+
+    // Gradient Preset Buttons
+    document.querySelectorAll('.grad-preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const c1 = btn.dataset.c1;
+        const c2 = btn.dataset.c2;
+        const c3 = btn.dataset.c3;
+        const dir = btn.dataset.dir || 'to-bottom';
+
+        globalState.gradientColor1 = c1;
+        globalState.gradientColor2 = c2;
+        globalState.gradientDirection = dir;
+
+        if (c3) {
+          globalState.gradientStops = [
+            { offset: 0, color: c1 },
+            { offset: 0.5, color: c2 },
+            { offset: 1, color: c3 }
+          ];
+        } else {
+          globalState.gradientStops = [
+            { offset: 0, color: c1 },
+            { offset: 1, color: c2 }
+          ];
+        }
+
+        if (gradColor1Picker) gradColor1Picker.value = c1;
+        if (gradColor2Picker) gradColor2Picker.value = c2;
+        if (gradColor1Hex) gradColor1Hex.textContent = c1;
+        if (gradColor2Hex) gradColor2Hex.textContent = c2;
+
+        document.querySelectorAll('.grad-dir-btn').forEach(dBtn => {
+          if (dBtn.dataset.dir === dir) {
+            dBtn.className = 'grad-dir-btn active py-1.5 px-2 rounded-lg bg-rose-500/20 border border-rose-500 text-rose-300 text-[10px] font-bold transition flex flex-col items-center gap-0.5';
+          } else {
+            dBtn.className = 'grad-dir-btn py-1.5 px-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 text-[10px] transition flex flex-col items-center gap-0.5';
+          }
+        });
+
+        renderCanvas();
+        showToast('طیف رنگی آماده اعمال شد.');
+      });
+    });
+
+    // Custom Gradient Pickers
+    gradColor1Picker?.addEventListener('input', (e) => {
+      const color = e.target.value;
+      globalState.gradientColor1 = color;
+      if (gradColor1Hex) gradColor1Hex.textContent = color;
+      globalState.gradientStops = [
+        { offset: 0, color: color },
+        { offset: 1, color: globalState.gradientColor2 }
+      ];
+      renderCanvas();
+    });
+
+    gradColor2Picker?.addEventListener('input', (e) => {
+      const color = e.target.value;
+      globalState.gradientColor2 = color;
+      if (gradColor2Hex) gradColor2Hex.textContent = color;
+      globalState.gradientStops = [
+        { offset: 0, color: globalState.gradientColor1 },
+        { offset: 1, color: color }
+      ];
+      renderCanvas();
+    });
+
+    // Reverse Gradient Colors
+    reverseGradBtn?.addEventListener('click', () => {
+      const temp = globalState.gradientColor1;
+      globalState.gradientColor1 = globalState.gradientColor2;
+      globalState.gradientColor2 = temp;
+
+      if (gradColor1Picker) gradColor1Picker.value = globalState.gradientColor1;
+      if (gradColor2Picker) gradColor2Picker.value = globalState.gradientColor2;
+      if (gradColor1Hex) gradColor1Hex.textContent = globalState.gradientColor1;
+      if (gradColor2Hex) gradColor2Hex.textContent = globalState.gradientColor2;
+
+      if (globalState.gradientStops && globalState.gradientStops.length > 2) {
+        globalState.gradientStops.reverse().forEach((s, idx, arr) => {
+          s.offset = idx / (arr.length - 1);
+        });
+      } else {
+        globalState.gradientStops = [
+          { offset: 0, color: globalState.gradientColor1 },
+          { offset: 1, color: globalState.gradientColor2 }
+        ];
+      }
+
+      renderCanvas();
+      showToast('جهت رنگ‌های گرادیانت معکوس شد.');
+    });
+
+    // Gradient Direction Buttons
+    document.querySelectorAll('.grad-dir-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dir = btn.dataset.dir;
+        globalState.gradientDirection = dir;
+        document.querySelectorAll('.grad-dir-btn').forEach(b => {
+          b.className = 'grad-dir-btn py-1.5 px-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 text-[10px] transition flex flex-col items-center gap-0.5';
+        });
+        btn.className = 'grad-dir-btn active py-1.5 px-2 rounded-lg bg-rose-500/20 border border-rose-500 text-rose-300 text-[10px] font-bold transition flex flex-col items-center gap-0.5';
+        renderCanvas();
+      });
     });
 
     resetPositionBtn?.addEventListener('click', () => {
