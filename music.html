@@ -28,7 +28,7 @@
     gtag('js', new Date());
 
     gtag('config', 'G-ET2E85YRK6');
-  </script>  
+  </script>
 
   <style>
     :root {
@@ -336,17 +336,53 @@
     }
 
     @media (max-width: 900px) {
-      .workspace {
-        grid-template-columns: 1fr;
-        height: auto;
-        overflow: visible;
+      body {
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
       }
-      .sidebar {
-        border-left: none;
+      header {
+        padding: 10px 16px;
+        flex-shrink: 0;
+      }
+      header h1 {
+        font-size: 0.98rem;
+      }
+      header a {
+        font-size: 0.8rem;
+      }
+      .workspace {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 45px);
+        height: calc(100dvh - 45px);
+        overflow: hidden;
+      }
+      .preview-pane {
+        order: 1;
+        flex: 0 0 42vh;
+        height: 42vh;
+        padding: 10px 12px 8px;
         border-bottom: 1px solid var(--border);
+        z-index: 10;
       }
       .canvas-wrapper {
-        height: 70vh;
+        height: calc(100% - 22px);
+        max-height: 100%;
+        border-radius: 12px;
+      }
+      .status-badge {
+        margin-top: 6px;
+        font-size: 0.75rem;
+      }
+      .sidebar {
+        order: 2;
+        flex: 1 1 auto;
+        border-left: none;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 16px 16px 32px;
+        gap: 16px;
       }
     }
   </style>
