@@ -1,10 +1,10 @@
-const test = require('node:test');
-const assert = require('node:assert/strict');
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import test from 'node:test';
+import assert from 'node:assert/strict';
 
 function getToPersianDigits() {
-  const htmlPath = path.join(__dirname, '..', 'slides.html');
+  const htmlPath = path.resolve('slides.html');
   const htmlContent = fs.readFileSync(htmlPath, 'utf8');
   const match = htmlContent.match(/function toPersianDigits\s*\([^)]*\)\s*\{[\s\S]*?\n    \}/);
   if (!match) {
