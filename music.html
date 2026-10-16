@@ -1698,8 +1698,15 @@
       const vinylCenterX = 665;
       const vinylCenterY = sleeveY + sleeveSize / 2;
 
+      drawVinylDisc(vinylCenterX, vinylCenterY, vinylRadius, angle, labelRatio);
+      drawTonearm(890, 520, 775, 815);
+      drawVinylSleeve(sleeveX, sleeveY, sleeveSize);
+      drawVinylTitleAndArtist(title, artist);
+    }
+
+    function drawVinylDisc(centerX, centerY, vinylRadius, angle, labelRatio) {
       ctx.save();
-      ctx.translate(vinylCenterX, vinylCenterY);
+      ctx.translate(centerX, centerY);
 
       ctx.save();
       ctx.beginPath();
@@ -1773,9 +1780,9 @@
       ctx.stroke();
 
       ctx.restore();
+    }
 
-      drawTonearm(890, 520, 775, 815);
-
+    function drawVinylSleeve(sleeveX, sleeveY, sleeveSize) {
       ctx.save();
       ctx.shadowColor = 'rgba(0, 0, 0, 0.65)';
       ctx.shadowBlur = 45;
@@ -1799,7 +1806,9 @@
       ctx.lineWidth = 2;
       ctx.stroke();
       ctx.restore();
+    }
 
+    function drawVinylTitleAndArtist(title, artist) {
       ctx.save();
       ctx.textAlign = 'center';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.65)';
