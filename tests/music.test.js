@@ -1,10 +1,10 @@
-const { test, describe } = require('node:test');
-const assert = require('node:assert/strict');
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import { test, describe } from 'node:test';
+import assert from 'node:assert/strict';
 
 // Read music.html
-const htmlContent = fs.readFileSync(path.join(__dirname, '../music.html'), 'utf8');
+const htmlContent = fs.readFileSync(path.resolve('music.html'), 'utf8');
 
 // Extract formatTime function from music.html
 const formatTimeMatch = htmlContent.match(/function formatTime\(totalSeconds\) \{[\s\S]*?\n    \}/);
