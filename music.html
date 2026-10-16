@@ -1412,13 +1412,7 @@
     }
 
     // 4. CYBERPUNK NEON THEME (Glowing Synthwave Grid & Laser Equalizer)
-    function renderNeonPlayer(title, artist, currentSongSec, totalSongSec, progress, elapsedSec) {
-      const cardW = 880;
-      const cardH = 1280;
-      const cardX = (1080 - cardW) / 2;
-      const cardY = (1920 - cardH) / 2;
-
-      // Dark Synthwave Card with Neon Outer Glow
+    function drawNeonCard(cardX, cardY, cardW, cardH) {
       ctx.save();
       roundRect(ctx, cardX, cardY, cardW, cardH, 36);
       ctx.fillStyle = 'rgba(9, 10, 20, 0.88)';
@@ -1434,12 +1428,9 @@
       ctx.lineWidth = 4;
       ctx.stroke();
       ctx.restore();
+    }
 
-      // Cover Artwork with Magenta Glow
-      const artSize = 680;
-      const artX = (1080 - artSize) / 2;
-      const artY = cardY + 75;
-
+    function drawNeonCover(artX, artY, artSize) {
       ctx.save();
       ctx.shadowColor = '#ff007f';
       ctx.shadowBlur = 35;
@@ -1454,9 +1445,9 @@
       ctx.lineWidth = 3;
       ctx.stroke();
       ctx.restore();
+    }
 
-      // Animated Neon Equalizer Bars under Cover
-      const eqY = artY + artSize + 44;
+    function drawNeonEqualizer(eqY, elapsedSec) {
       const barCount = 29;
       const eqWidth = 560;
       const startEqX = (1080 - eqWidth) / 2;
@@ -1472,29 +1463,26 @@
         ctx.fill();
       }
       ctx.restore();
+    }
 
-      // Glowing Title & Artist
+    function drawNeonTrackInfo(title, artist, titleY, artistY) {
       ctx.save();
       ctx.textAlign = 'center';
       ctx.fillStyle = '#ffffff';
       ctx.shadowColor = '#00f5d4';
       ctx.shadowBlur = 18;
       ctx.font = '700 46px "Vazirmatn", "Inter", sans-serif';
-      ctx.fillText(title, 540, artY + artSize + 120);
+      ctx.fillText(title, 540, titleY);
 
       ctx.fillStyle = '#ff70a6';
       ctx.shadowColor = '#ff007f';
       ctx.shadowBlur = 12;
       ctx.font = '500 32px "Vazirmatn", "Inter", sans-serif';
-      ctx.fillText(artist, 540, artY + artSize + 172);
+      ctx.fillText(artist, 540, artistY);
       ctx.restore();
+    }
 
-      // Laser Scrubber Bar
-      const barW = 720;
-      const barH = 10;
-      const barX = (1080 - barW) / 2;
-      const barY = artY + artSize + 230;
-
+    function drawNeonScrubber(barX, barY, barW, barH, progress, currentSongSec, totalSongSec) {
       ctx.save();
       roundRect(ctx, barX, barY, barW, barH, 5);
       ctx.fillStyle = 'rgba(255, 255, 255, 0.14)';
@@ -1530,9 +1518,9 @@
       ctx.textAlign = 'right';
       ctx.fillText(formatTime(totalSongSec), barX + barW, barY + 46);
       ctx.restore();
+    }
 
-      // Neon Ring Controls
-      const controlsY = barY + 130;
+    function drawNeonControls(controlsY) {
       ctx.save();
       ctx.beginPath();
       ctx.arc(540, controlsY, 52, 0, Math.PI * 2);
@@ -1544,6 +1532,36 @@
       ctx.restore();
 
       drawTransportControls(540, controlsY, 'neon', '#ffffff', '#ffffff');
+    }
+
+    function renderNeonPlayer(title, artist, currentSongSec, totalSongSec, progress, elapsedSec) {
+      const cardW = 880;
+      const cardH = 1280;
+      const cardX = (1080 - cardW) / 2;
+      const cardY = (1920 - cardH) / 2;
+
+      drawNeonCard(cardX, cardY, cardW, cardH);
+
+      const artSize = 680;
+      const artX = (1080 - artSize) / 2;
+      const artY = cardY + 75;
+
+      drawNeonCover(artX, artY, artSize);
+
+      const eqY = artY + artSize + 44;
+      drawNeonEqualizer(eqY, elapsedSec);
+
+      drawNeonTrackInfo(title, artist, artY + artSize + 120, artY + artSize + 172);
+
+      const barW = 720;
+      const barH = 10;
+      const barX = (1080 - barW) / 2;
+      const barY = artY + artSize + 230;
+
+      drawNeonScrubber(barX, barY, barW, barH, progress, currentSongSec, totalSongSec);
+
+      const controlsY = barY + 130;
+      drawNeonControls(controlsY);
     }
 
     // 5. POLAROID GALLERY FRAME THEME
