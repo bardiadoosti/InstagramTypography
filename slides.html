@@ -1162,10 +1162,16 @@ Save this post for your next study or deep work session. Let us know your though
         }`;
 
         const snippet = slideText.substring(0, 25);
-        thumb.innerHTML = `
-          <span class="absolute top-0.5 right-0.5 text-[8px] px-1 rounded bg-black/70 text-pink-400 font-bold">${toPersianDigits(idx + 1)}</span>
-          <span class="line-clamp-2 px-1 text-center opacity-80">${escapeHtml(snippet)}...</span>
-        `;
+        const badgeSpan = document.createElement('span');
+        badgeSpan.className = 'absolute top-0.5 right-0.5 text-[8px] px-1 rounded bg-black/70 text-pink-400 font-bold';
+        badgeSpan.textContent = toPersianDigits(idx + 1);
+
+        const textSpan = document.createElement('span');
+        textSpan.className = 'line-clamp-2 px-1 text-center opacity-80';
+        textSpan.textContent = `${snippet}...`;
+
+        thumb.appendChild(badgeSpan);
+        thumb.appendChild(textSpan);
 
         thumb.onclick = () => {
           state.currentSlideIdx = idx;
@@ -1572,16 +1578,32 @@ Save this post for your next study or deep work session. Let us know your though
           i === state.currentSlideIdx ? 'border-pink-500 ring-2 ring-pink-500/40' : 'border-slate-800'
         }`;
 
-        card.innerHTML = `
-          <div class="flex items-center justify-between text-xs text-slate-400">
-            <span class="px-1.5 py-0.5 rounded bg-pink-500/20 text-pink-400 font-mono font-bold">#${toPersianDigits(i + 1)}</span>
-            <span class="font-mono text-[11px]">${state.aspectRatio}</span>
-          </div>
-          <p class="text-xs text-slate-200 line-clamp-5 leading-relaxed my-auto font-vazir" dir="${state.direction === 'rtl' ? 'rtl' : 'ltr'}">
-            ${escapeHtml(text)}
-          </p>
-          <div class="text-[10px] text-slate-500 text-left">برای مشاهده کلیک کنید</div>
-        `;
+        const topHeader = document.createElement('div');
+        topHeader.className = 'flex items-center justify-between text-xs text-slate-400';
+
+        const numSpan = document.createElement('span');
+        numSpan.className = 'px-1.5 py-0.5 rounded bg-pink-500/20 text-pink-400 font-mono font-bold';
+        numSpan.textContent = `#${toPersianDigits(i + 1)}`;
+
+        const aspectSpan = document.createElement('span');
+        aspectSpan.className = 'font-mono text-[11px]';
+        aspectSpan.textContent = state.aspectRatio;
+
+        topHeader.appendChild(numSpan);
+        topHeader.appendChild(aspectSpan);
+
+        const pText = document.createElement('p');
+        pText.className = 'text-xs text-slate-200 line-clamp-5 leading-relaxed my-auto font-vazir';
+        pText.dir = state.direction === 'rtl' ? 'rtl' : 'ltr';
+        pText.textContent = text;
+
+        const bottomLabel = document.createElement('div');
+        bottomLabel.className = 'text-[10px] text-slate-500 text-left';
+        bottomLabel.textContent = 'برای مشاهده کلیک کنید';
+
+        card.appendChild(topHeader);
+        card.appendChild(pText);
+        card.appendChild(bottomLabel);
 
         card.onclick = () => {
           state.currentSlideIdx = i;
