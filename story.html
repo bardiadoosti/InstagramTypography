@@ -864,15 +864,21 @@
           const req = store.getAll();
           req.onsuccess = async () => {
             const fonts = req.result || [];
-            for (const f of fonts) {
-              try {
-                const fontFace = new FontFace(f.family, f.buffer);
-                await fontFace.load();
-                document.fonts.add(fontFace);
-                customFonts.push(f);
-              } catch (err) {
-                console.warn('Failed restoring font:', f.name, err);
-              }
+            const loadedFonts = await Promise.all(
+              fonts.map(async (f) => {
+                try {
+                  const fontFace = new FontFace(f.family, f.buffer);
+                  await fontFace.load();
+                  document.fonts.add(fontFace);
+                  return f;
+                } catch (err) {
+                  console.warn('Failed restoring font:', f.name, err);
+                  return null;
+                }
+              })
+            );
+            for (const f of loadedFonts) {
+              if (f) customFonts.push(f);
             }
             renderFontsList();
             renderCanvas();
