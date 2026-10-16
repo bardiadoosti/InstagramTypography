@@ -944,6 +944,108 @@ Save this post for your next study or deep work session. Let us know your though
       }
     }
 
+    function renderSlideDimensions(masterSlide, effectiveDir) {
+      let baseWidth = 1080;
+      let baseHeight = 1350;
+      if (state.aspectRatio === '1:1') {
+        baseHeight = 1080;
+      } else if (state.aspectRatio === '9:16') {
+        baseHeight = 1920;
+      }
+      masterSlide.style.width = `${baseWidth}px`;
+      masterSlide.style.height = `${baseHeight}px`;
+      masterSlide.dir = effectiveDir;
+    }
+
+    function renderSlideText(textContentEl, slideBodyEl, slideContent, effectiveDir) {
+      textContentEl.style.direction = effectiveDir;
+      textContentEl.style.fontFamily = `"${state.fontFamily}", sans-serif`;
+      textContentEl.style.fontSize = `${state.fontSize}px`;
+      textContentEl.style.lineHeight = state.lineHeight;
+      textContentEl.style.fontWeight = state.fontWeight;
+      textContentEl.style.textAlign = state.textAlign;
+      textContentEl.style.color = state.textColor;
+      textContentEl.style.textShadow = state.hasTextShadow ? '0 2px 10px rgba(0,0,0,0.6)' : 'none';
+      textContentEl.innerText = slideContent;
+
+      slideBodyEl.style.paddingLeft = `${state.padding}px`;
+      slideBodyEl.style.paddingRight = `${state.padding}px`;
+      if (state.verticalAlign === 'top') {
+        slideBodyEl.style.justifyContent = 'flex-start';
+      } else if (state.verticalAlign === 'bottom') {
+        slideBodyEl.style.justifyContent = 'flex-end';
+      } else {
+        slideBodyEl.style.justifyContent = 'center';
+      }
+    }
+
+    function renderSlideBackground(bgLayer, bgImageLayer, overlayLayer) {
+      if (state.uploadedBgImage) {
+        bgLayer.style.display = 'none';
+        bgImageLayer.classList.remove('hidden');
+        bgImageLayer.style.backgroundImage = `url("${state.uploadedBgImage}")`;
+        bgImageLayer.style.filter = `blur(${state.bgBlur}px)`;
+        
+        overlayLayer.classList.remove('hidden');
+        overlayLayer.style.backgroundColor = `rgba(0, 0, 0, ${state.bgOverlay / 100})`;
+      } else {
+        bgLayer.style.display = 'block';
+        bgImageLayer.classList.add('hidden');
+        overlayLayer.classList.add('hidden');
+        bgLayer.style.background = state.bgValue;
+      }
+    }
+
+    function renderSlideWatermark(watermarkEl, watermarkDotEl, watermarkTextEl) {
+      if (state.showWatermark && state.watermarkText.trim()) {
+        watermarkEl.style.display = 'flex';
+        watermarkEl.dir = 'ltr';
+        watermarkEl.style.direction = 'ltr';
+        watermarkEl.style.unicodeBidi = 'isolate';
+        watermarkEl.style.color = state.footerTextColor;
+        watermarkDotEl.style.backgroundColor = state.nextIconColor;
+        watermarkTextEl.dir = 'ltr';
+        watermarkTextEl.style.direction = 'ltr';
+        watermarkTextEl.style.unicodeBidi = 'isolate';
+        watermarkTextEl.textContent = state.watermarkText;
+      } else {
+        watermarkEl.style.display = 'none';
+      }
+    }
+
+    function renderSlideNextIcon(nextIconEl, isLastSlide) {
+      if (state.showNextEmoji && !(state.hideNextOnLastSlide && isLastSlide)) {
+        nextIconEl.style.display = 'block';
+        nextIconEl.style.color = state.nextIconColor;
+        nextIconEl.style.direction = 'ltr';
+        nextIconEl.style.unicodeBidi = 'isolate';
+        nextIconEl.textContent = state.nextEmoji;
+      } else {
+        nextIconEl.style.display = 'none';
+      }
+    }
+
+    function renderSlideCounter(topCounterEl, bottomCounterEl, current, total, effectiveDir) {
+      const formattedCounter = formatCounterText(current, total, effectiveDir);
+
+      if (state.showPageCounter) {
+        if (state.counterPosition === 'top') {
+          topCounterEl.style.display = 'block';
+          topCounterEl.style.color = state.footerTextColor;
+          topCounterEl.textContent = formattedCounter;
+          bottomCounterEl.style.display = 'none';
+        } else {
+          topCounterEl.style.display = 'none';
+          bottomCounterEl.style.display = 'block';
+          bottomCounterEl.style.color = state.footerTextColor;
+          bottomCounterEl.textContent = formattedCounter;
+        }
+      } else {
+        topCounterEl.style.display = 'none';
+        bottomCounterEl.style.display = 'none';
+      }
+    }
+
     // رندر کردن اسلاید فعال
     function renderCurrentSlide() {
       if (state.slides.length === 0) parseSlides();
@@ -974,99 +1076,14 @@ Save this post for your next study or deep work session. Let us know your though
       const topCounterEl = document.getElementById('slideTopCounter');
       const bottomCounterEl = document.getElementById('slideBottomCounter');
 
-      let baseWidth = 1080;
-      let baseHeight = 1350;
-      if (state.aspectRatio === '1:1') {
-        baseHeight = 1080;
-      } else if (state.aspectRatio === '9:16') {
-        baseHeight = 1920;
-      }
-      masterSlide.style.width = `${baseWidth}px`;
-      masterSlide.style.height = `${baseHeight}px`;
+      renderSlideDimensions(masterSlide, effectiveDir);
+      renderSlideText(textContentEl, slideBodyEl, slideContent, effectiveDir);
+      renderSlideBackground(bgLayer, bgImageLayer, overlayLayer);
+      renderSlideWatermark(watermarkEl, watermarkDotEl, watermarkTextEl);
 
-      masterSlide.dir = effectiveDir;
-      textContentEl.style.direction = effectiveDir;
-      textContentEl.style.fontFamily = `"${state.fontFamily}", sans-serif`;
-      textContentEl.style.fontSize = `${state.fontSize}px`;
-      textContentEl.style.lineHeight = state.lineHeight;
-      textContentEl.style.fontWeight = state.fontWeight;
-      textContentEl.style.textAlign = state.textAlign;
-      textContentEl.style.color = state.textColor;
-      textContentEl.style.textShadow = state.hasTextShadow ? '0 2px 10px rgba(0,0,0,0.6)' : 'none';
-      textContentEl.innerText = slideContent;
-
-      slideBodyEl.style.paddingLeft = `${state.padding}px`;
-      slideBodyEl.style.paddingRight = `${state.padding}px`;
-      if (state.verticalAlign === 'top') {
-        slideBodyEl.style.justifyContent = 'flex-start';
-      } else if (state.verticalAlign === 'bottom') {
-        slideBodyEl.style.justifyContent = 'flex-end';
-      } else {
-        slideBodyEl.style.justifyContent = 'center';
-      }
-
-      if (state.uploadedBgImage) {
-        bgLayer.style.display = 'none';
-        bgImageLayer.classList.remove('hidden');
-        bgImageLayer.style.backgroundImage = `url("${state.uploadedBgImage}")`;
-        bgImageLayer.style.filter = `blur(${state.bgBlur}px)`;
-        
-        overlayLayer.classList.remove('hidden');
-        overlayLayer.style.backgroundColor = `rgba(0, 0, 0, ${state.bgOverlay / 100})`;
-      } else {
-        bgLayer.style.display = 'block';
-        bgImageLayer.classList.add('hidden');
-        overlayLayer.classList.add('hidden');
-        bgLayer.style.background = state.bgValue;
-      }
-
-      // واترمارک و آیدی همیشه با جهت LTR ایزوله می‌شود
-      if (state.showWatermark && state.watermarkText.trim()) {
-        watermarkEl.style.display = 'flex';
-        watermarkEl.dir = 'ltr';
-        watermarkEl.style.direction = 'ltr';
-        watermarkEl.style.unicodeBidi = 'isolate';
-        watermarkEl.style.color = state.footerTextColor;
-        watermarkDotEl.style.backgroundColor = state.nextIconColor;
-        watermarkTextEl.dir = 'ltr';
-        watermarkTextEl.style.direction = 'ltr';
-        watermarkTextEl.style.unicodeBidi = 'isolate';
-        watermarkTextEl.textContent = state.watermarkText;
-      } else {
-        watermarkEl.style.display = 'none';
-      }
-
-      // نشانگر ورق زدن
       const isLastSlide = (state.currentSlideIdx === total - 1);
-      if (state.showNextEmoji && !(state.hideNextOnLastSlide && isLastSlide)) {
-        nextIconEl.style.display = 'block';
-        nextIconEl.style.color = state.nextIconColor;
-        nextIconEl.style.direction = 'ltr';
-        nextIconEl.style.unicodeBidi = 'isolate';
-        nextIconEl.textContent = state.nextEmoji;
-      } else {
-        nextIconEl.style.display = 'none';
-      }
-
-      // شماره صفحه
-      const formattedCounter = formatCounterText(current, total, effectiveDir);
-
-      if (state.showPageCounter) {
-        if (state.counterPosition === 'top') {
-          topCounterEl.style.display = 'block';
-          topCounterEl.style.color = state.footerTextColor;
-          topCounterEl.textContent = formattedCounter;
-          bottomCounterEl.style.display = 'none';
-        } else {
-          topCounterEl.style.display = 'none';
-          bottomCounterEl.style.display = 'block';
-          bottomCounterEl.style.color = state.footerTextColor;
-          bottomCounterEl.textContent = formattedCounter;
-        }
-      } else {
-        topCounterEl.style.display = 'none';
-        bottomCounterEl.style.display = 'none';
-      }
+      renderSlideNextIcon(nextIconEl, isLastSlide);
+      renderSlideCounter(topCounterEl, bottomCounterEl, current, total, effectiveDir);
     }
 
     function formatCounterText(cur, tot, dir) {
