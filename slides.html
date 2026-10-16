@@ -756,6 +756,17 @@ Small, deliberate actions taken every single day compound exponentially into mas
 
 Save this post for your next study or deep work session. Let us know your thoughts in the comments! 🚀`;
 
+    // امن‌سازی کاراکترهای ویژه جهت جلوگیری از XSS
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     // تبدیل اعداد انگلیسی به فارسی
     function toPersianDigits(str) {
       if (str === null || str === undefined) return '';
@@ -1153,7 +1164,7 @@ Save this post for your next study or deep work session. Let us know your though
         const snippet = slideText.substring(0, 25);
         thumb.innerHTML = `
           <span class="absolute top-0.5 right-0.5 text-[8px] px-1 rounded bg-black/70 text-pink-400 font-bold">${toPersianDigits(idx + 1)}</span>
-          <span class="line-clamp-2 px-1 text-center opacity-80">${snippet}...</span>
+          <span class="line-clamp-2 px-1 text-center opacity-80">${escapeHtml(snippet)}...</span>
         `;
 
         thumb.onclick = () => {
@@ -1567,7 +1578,7 @@ Save this post for your next study or deep work session. Let us know your though
             <span class="font-mono text-[11px]">${state.aspectRatio}</span>
           </div>
           <p class="text-xs text-slate-200 line-clamp-5 leading-relaxed my-auto font-vazir" dir="${state.direction === 'rtl' ? 'rtl' : 'ltr'}">
-            ${text}
+            ${escapeHtml(text)}
           </p>
           <div class="text-[10px] text-slate-500 text-left">برای مشاهده کلیک کنید</div>
         `;
