@@ -1123,13 +1123,7 @@
       drawTransportControls(540, barY + 125, 'minimal', '#ffffff', '#000000');
     }
 
-    // 2. CARTOON / NEO-BRUTALISM POP-ART THEME
-    function renderCartoonPlayer(title, artist, currentSongSec, totalSongSec, progress, elapsedSec) {
-      const cardW = 860;
-      const cardH = 1280;
-      const cardX = (1080 - cardW) / 2;
-      const cardY = (1920 - cardH) / 2;
-
+    function drawCartoonCardBackground(cardX, cardY, cardW, cardH) {
       // Hard Offset Comic Shadow
       ctx.save();
       roundRect(ctx, cardX + 20, cardY + 20, cardW, cardH, 44);
@@ -1158,12 +1152,10 @@
         ctx.stroke();
       }
       ctx.restore();
+    }
 
+    function drawCartoonArtwork(artX, artY, artSize, elapsedSec) {
       // Cover Art with Bold Black Outline & Hard Shadow
-      const artSize = 680;
-      const artX = (1080 - artSize) / 2;
-      const artY = cardY + 95;
-
       ctx.save();
       roundRect(ctx, artX + 12, artY + 12, artSize, artSize, 28);
       ctx.fillStyle = '#111111';
@@ -1198,25 +1190,22 @@
       ctx.textBaseline = 'middle';
       ctx.fillText('★ NOW PLAYING', 0, 2);
       ctx.restore();
+    }
 
-      // Bold Cartoon Title & Artist
+    function drawCartoonTrackInfo(title, artist, titleY) {
       ctx.save();
       ctx.textAlign = 'center';
       ctx.fillStyle = '#111111';
       ctx.font = '700 48px "Vazirmatn", "Inter", sans-serif';
-      ctx.fillText(title, 540, artY + artSize + 92);
+      ctx.fillText(title, 540, titleY);
 
       ctx.fillStyle = '#6b21a8';
       ctx.font = '600 32px "Vazirmatn", "Inter", sans-serif';
-      ctx.fillText(artist, 540, artY + artSize + 146);
+      ctx.fillText(artist, 540, titleY + 54);
       ctx.restore();
+    }
 
-      // Chunky Cartoon Progress Bar
-      const barW = 700;
-      const barH = 30;
-      const barX = (1080 - barW) / 2;
-      const barY = artY + artSize + 198;
-
+    function drawCartoonProgressBar(barX, barY, barW, barH, progress, currentSongSec, totalSongSec) {
       ctx.save();
       roundRect(ctx, barX, barY, barW, barH, 15);
       ctx.fillStyle = '#ffffff';
@@ -1253,9 +1242,9 @@
       ctx.textAlign = 'right';
       ctx.fillText(formatTime(totalSongSec), barX + barW, barY + 66);
       ctx.restore();
+    }
 
-      // Cartoon Button Controls
-      const cy = barY + 145;
+    function drawCartoonTransportControls(cy) {
       const btnConfigs = [
         { x: 540 - 165, r: 44, bg: '#38bdf8' },
         { x: 540, r: 58, bg: '#ffca3a' },
@@ -1279,6 +1268,31 @@
       });
 
       drawTransportControls(540, cy, 'cartoon', '#111111', '#111111');
+    }
+
+    // 2. CARTOON / NEO-BRUTALISM POP-ART THEME
+    function renderCartoonPlayer(title, artist, currentSongSec, totalSongSec, progress, elapsedSec) {
+      const cardW = 860;
+      const cardH = 1280;
+      const cardX = (1080 - cardW) / 2;
+      const cardY = (1920 - cardH) / 2;
+
+      drawCartoonCardBackground(cardX, cardY, cardW, cardH);
+
+      const artSize = 680;
+      const artX = (1080 - artSize) / 2;
+      const artY = cardY + 95;
+
+      drawCartoonArtwork(artX, artY, artSize, elapsedSec);
+      drawCartoonTrackInfo(title, artist, artY + artSize + 92);
+
+      const barW = 700;
+      const barH = 30;
+      const barX = (1080 - barW) / 2;
+      const barY = artY + artSize + 198;
+
+      drawCartoonProgressBar(barX, barY, barW, barH, progress, currentSongSec, totalSongSec);
+      drawCartoonTransportControls(barY + 145);
     }
 
     // 3. RETRO OS 95 THEME (Classic 90s Beveled Window + LCD Display)
