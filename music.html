@@ -1736,6 +1736,41 @@
       drawVinylTitleAndArtist(title, artist);
     }
 
+    let cachedGroovesCanvas = null;
+    let cachedGroovesRadius = null;
+    let cachedGroovesLabelRatio = null;
+
+    function getGroovesCanvas(vinylRadius, labelRatio) {
+      if (
+        cachedGroovesCanvas &&
+        cachedGroovesRadius === vinylRadius &&
+        cachedGroovesLabelRatio === labelRatio
+      ) {
+        return cachedGroovesCanvas;
+      }
+
+      const size = Math.ceil(vinylRadius * 2 + 10);
+      const offCanvas = document.createElement('canvas');
+      offCanvas.width = size;
+      offCanvas.height = size;
+      const offCtx = offCanvas.getContext('2d');
+
+      offCtx.translate(size / 2, size / 2);
+
+      for (let r = vinylRadius * labelRatio + 14; r < vinylRadius - 10; r += 5) {
+        offCtx.beginPath();
+        offCtx.arc(0, 0, r, 0, Math.PI * 2);
+        offCtx.strokeStyle = (Math.round(r) % 15 === 0) ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.03)';
+        offCtx.lineWidth = 1.2;
+        offCtx.stroke();
+      }
+
+      cachedGroovesCanvas = offCanvas;
+      cachedGroovesRadius = vinylRadius;
+      cachedGroovesLabelRatio = labelRatio;
+      return cachedGroovesCanvas;
+    }
+
     function drawVinylDisc(centerX, centerY, vinylRadius, angle, labelRatio) {
       ctx.save();
       ctx.translate(centerX, centerY);
@@ -1759,13 +1794,8 @@
       ctx.fillStyle = '#111215';
       ctx.fill();
 
-      for (let r = vinylRadius * labelRatio + 14; r < vinylRadius - 10; r += 5) {
-        ctx.beginPath();
-        ctx.arc(0, 0, r, 0, Math.PI * 2);
-        ctx.strokeStyle = (Math.round(r) % 15 === 0) ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.03)';
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
-      }
+      const groovesCanvas = getGroovesCanvas(vinylRadius, labelRatio);
+      ctx.drawImage(groovesCanvas, -groovesCanvas.width / 2, -groovesCanvas.height / 2);
 
       const labelRadius = vinylRadius * labelRatio;
       ctx.save();
