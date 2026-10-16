@@ -1,0 +1,9 @@
+{
+  "name": "insta-slide",
+  "version": "1.0.0",
+  "description": "Instagram slide generator",
+  "scripts": {
+    "test": "node --test"
+  },
+  "type": "module"
+}
